@@ -4,15 +4,16 @@ using System.Windows.Forms;
 using Minio;
 using Minio.DataModel.Args;
 using Stall_Rental_Management_System.Utils;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Stall_Rental_Management_System
 {
-    public partial class Form1 : Form
+    public partial class SelectUserTypeForm : KryptonForm
     {
         private readonly MinioClient m_client;
         private readonly SqlConnection conn;
 
-        public Form1 ()
+        public SelectUserTypeForm ()
         {
             InitializeComponent();
             m_client = MinioClientUtil.GetMinioClient();
