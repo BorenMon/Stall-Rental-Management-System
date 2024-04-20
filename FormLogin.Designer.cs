@@ -39,7 +39,7 @@
             this.Name = "FormLogin";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Text = "LoginForm";
             this.ResumeLayout(false);
 
         }
