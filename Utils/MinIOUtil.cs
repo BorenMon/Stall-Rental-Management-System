@@ -2,7 +2,7 @@
 
 namespace Stall_Rental_Management_System.Utils
 {
-    internal class MinioClientUtil
+    internal class MinIOUtil
     {
         private static MinioClient minioClient;
 

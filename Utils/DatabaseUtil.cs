@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace Stall_Rental_Management_System.Utils
 {
-    internal class SQLConnectionUtil
+    internal class DatabaseUtil
     {
         private static SqlConnection conn;
 

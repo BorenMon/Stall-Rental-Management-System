@@ -9,16 +9,16 @@ namespace Stall_Rental_Management_System
 {
     public partial class FormLogin : Form
     {
-        private readonly MinioClient m_client;
-        private readonly SqlConnection conn;
+        private readonly MinioClient minio;
+        private readonly SqlConnection dbConn;
 
         public FormLogin()
         {
             InitializeComponent();
-            m_client = MinioClientUtil.GetMinioClient();
-            conn = SQLConnectionUtil.GetConn();
+            minio = MinIOUtil.GetMinioClient();
+            dbConn = DatabaseUtil.GetConn();
             TestMinio();
-            TestSQLServer();
+            TestDatabase();
         }
 
         private void TestMinio()
@@ -28,7 +28,7 @@ namespace Stall_Rental_Management_System
             ListObjectsArgs args = new ListObjectsArgs()
                 .WithBucket(bucketName);
 
-            var observable = m_client.ListObjectsAsync(args);
+            var observable = minio.ListObjectsAsync(args);
 
             var subscription = observable.Subscribe(
                 item => Console.WriteLine($"Object: {item.Key}"),
@@ -37,18 +37,18 @@ namespace Stall_Rental_Management_System
             );
         }
 
-        private void TestSQLServer()
+        private void TestDatabase()
         {
-            conn.Open();
+            dbConn.Open();
             // Perform database operations
-            SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", conn);
+            SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", dbConn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 string tableName = reader["TABLE_NAME"].ToString();
                 Console.WriteLine(tableName);
             }
-            conn.Close();
+            dbConn.Close();
         }
     }
 }
