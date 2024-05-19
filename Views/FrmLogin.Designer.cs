@@ -1,6 +1,6 @@
 ﻿namespace Stall_Rental_Management_System
 {
-    partial class LoginForm
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.

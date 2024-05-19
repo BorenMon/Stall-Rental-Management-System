@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace Stall_Rental_Management_System
 {
-    public partial class LoginForm : Form
+    public partial class FrmLogin : Form
     {
         private readonly MinioClient minio;
         private readonly SqlConnection dbConn;
 
-        public LoginForm()
+        public FrmLogin()
         {
             InitializeComponent();
             minio = MinIOUtil.GetMinioClient();
