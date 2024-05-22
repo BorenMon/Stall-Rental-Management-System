@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stall_Rental_Management_System.Views;
+using System;
 using System.Windows.Forms;
 
 namespace Stall_Rental_Management_System
@@ -13,7 +14,7 @@ namespace Stall_Rental_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            Application.Run(new FrmStaff());
         }
     }
 }
