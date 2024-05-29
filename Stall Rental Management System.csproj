@@ -155,15 +155,16 @@
     </Compile>
     <Compile Include="Models\IStaffRepository.cs" />
     <Compile Include="Models\StaffModel.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
     <Compile Include="Utils\MinIOUtil.cs" />
+    <Compile Include="Views\Supermarket Contract Forms\FrmContract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Supermarket Contract Forms\FrmContract.Designer.cs">
+      <DependentUpon>FrmContract.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Supermarket Staff Forms\FrmStaff.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,7 +178,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Supermarket Contract Forms\FrmContract.resx">
+      <DependentUpon>FrmContract.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
@@ -199,6 +202,9 @@
   <ItemGroup>
     <Folder Include="Presenters\" />
     <Folder Include="Views\Vendor Forms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\previouos_icon-16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
