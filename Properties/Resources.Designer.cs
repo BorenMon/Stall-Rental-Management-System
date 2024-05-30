@@ -59,5 +59,15 @@ namespace Stall_Rental_Management_System.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap previouos_icon_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("previouos_icon-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

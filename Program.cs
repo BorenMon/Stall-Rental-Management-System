@@ -1,4 +1,5 @@
 ﻿using Stall_Rental_Management_System.Views;
+using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
 using System;
 using System.Windows.Forms;
 
@@ -14,7 +15,7 @@ namespace Stall_Rental_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmStaff());
+            Application.Run(new FrmContract());
         }
     }
 }
