@@ -41,5 +41,18 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Code",typeof(string));
+            dataTable.Rows.Add(1, "afd123");
+            dataGridView1.DataSource = dataTable;
+        }
     }
 }
