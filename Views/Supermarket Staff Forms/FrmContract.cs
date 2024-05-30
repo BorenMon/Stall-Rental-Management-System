@@ -22,13 +22,18 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = true; // Set to false if you don't want the minimize button
-            //this.Size = new System.Drawing.Size(1000, 800); // Set your desired form size
-            //this.MaximumSize = new System.Drawing.Size(800, 600);
-            //this.MinimumSize = new System.Drawing.Size(800, 600);
+                                     //this.Size = new System.Drawing.Size(1000, 800); // Set your desired form size
+                                     //this.MaximumSize = new System.Drawing.Size(800, 600);
+                                     //this.MinimumSize = new System.Drawing.Size(800, 600);
+            //todo table
+
         }
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dbSRMSDataSet1.SokphengTestContract' table. You can move, or remove it, as needed.
+            this.sokphengTestContractTableAdapter.Fill(this.dbSRMSDataSet1.SokphengTestContract);
+
 
         }
 
@@ -49,10 +54,27 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("Code",typeof(string));
-            dataTable.Rows.Add(1, "afd123");
-            dataGridView1.DataSource = dataTable;
+
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            string data = contractCodeText.Text + "/" + startDateContract.Text;
+      
+            if (contractCodeText.Text.Equals(""))
+            {
+                MessageBox.Show("Code is not empty","Error" ,MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void newButton_Click(object sender, EventArgs e)
+        {
+            contractCodeText.Text = "";
+            contractStallIDComboBox.Text = "";
+            contractStatusComboBox.Text = "";
+            contractVendorIDComboBox.Text = "";
+            startDateContract.Text = "";
+            endDateConstract.Text = "";
         }
     }
 }
