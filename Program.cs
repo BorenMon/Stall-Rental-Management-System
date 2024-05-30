@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Stall_Rental_Management_System.Views;
+using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
+using System;
 using System.Windows.Forms;
 
 namespace Stall_Rental_Management_System
@@ -16,7 +15,7 @@ namespace Stall_Rental_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+            Application.Run(new FrmContract());
         }
     }
 }
