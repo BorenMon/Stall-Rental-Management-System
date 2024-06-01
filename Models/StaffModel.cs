@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Net;
 
 namespace Stall_Rental_Management_System.Models
 {
@@ -17,6 +18,7 @@ namespace Stall_Rental_Management_System.Models
         private string gender;
         private string email;
         private string position;
+        private string address;
         private string phoneNumber;
         private string password;
 
@@ -102,6 +104,14 @@ namespace Stall_Rental_Management_System.Models
         {
             get { return position; }
             set { position = value; }
+        }
+
+        [DisplayName("Address")] // New Property
+        [StringLength(255, ErrorMessage = "Address must be at most 255 characters")]
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
         }
 
         [DisplayName("Phone Number")]

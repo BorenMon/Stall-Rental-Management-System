@@ -8,6 +8,6 @@ namespace Stall_Rental_Management_System.Models
         void Edit(StaffModel staffModel);
         void Delete(StaffModel staffModel);
         IEnumerable<StaffModel> GetAll();
-        IEnumerable<StaffModel> GetByValue(); // Search
+        IEnumerable<StaffModel> GetByValue(string value); // Search
     }
 }

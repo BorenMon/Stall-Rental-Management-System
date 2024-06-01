@@ -172,6 +172,7 @@
     <Compile Include="Models\IContractRepository.cs" />
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Presenter\StaffPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,9 +280,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Vendor Forms\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="images\previouos_icon-16x16.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-left.png" />
