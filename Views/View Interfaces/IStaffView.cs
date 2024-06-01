@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Views
+namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
     public interface IStaffView
     {
         // Properties - Fields
-        string StaffID { get; set;  }
+        string StaffId { get; set;  }
         string LastName { get; set; }
         string FirstName { get; set; }
         string Gender { get; set; }
