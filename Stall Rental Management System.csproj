@@ -283,5 +283,15 @@
   <ItemGroup>
     <None Include="images\previouos_icon-16x16.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-upload.png" />
+    <Content Include="Resources\stall-rental-management-system.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
