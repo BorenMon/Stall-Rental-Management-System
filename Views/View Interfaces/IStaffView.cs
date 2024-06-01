@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Views
+namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
     public interface IStaffView
     {

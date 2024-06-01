@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Stall_Rental_Management_System.Views.View_Interfaces;
+using System;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Views
+namespace Stall_Rental_Management_System.Views.Supermarket_Staff_Forms
 {
     public partial class FrmStaff : Form, IStaffView
     {
