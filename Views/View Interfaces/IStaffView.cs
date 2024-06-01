@@ -6,9 +6,13 @@ namespace Stall_Rental_Management_System.Views
     public interface IStaffView
     {
         // Properties - Fields
-        string StaffID { get; set;  }
-        string LastName { get; set; }
-        string FirstName { get; set; }
+        string StaffID { get; set; }
+        string ProfileImageURL { get; set; }
+        string LastNameEN { get; set; }
+        string FirstNameEN { get; set; }
+        string LastNameKH { get; set; }
+        string FirstNameKH { get; set; }
+        DateTime BirthDate { get; set; }
         string Gender { get; set; }
         string Email { get; set; }
         string Position { get; set; }

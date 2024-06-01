@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace Stall_Rental_Management_System.Models
@@ -8,8 +9,11 @@ namespace Stall_Rental_Management_System.Models
         // Fields
         private int staffID;
         private string profileImageURL;
-        private string lastName;
-        private string firstName;
+        private string lastNameEN;
+        private string firstNameEN;
+        private string lastNameKH;
+        private string firstNameKH;
+        private DateTime birthDate;
         private string gender;
         private string email;
         private string position;
@@ -23,31 +27,59 @@ namespace Stall_Rental_Management_System.Models
             set { staffID = value; }
         }
 
-        public string ProfileImageURL 
-        { 
-            get { return profileImageURL; } 
-            set { profileImageURL = value; } 
+        public string ProfileImageURL
+        {
+            get { return profileImageURL; }
+            set { profileImageURL = value; }
         }
 
-        [DisplayName("Last Name")]
-        [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(15, ErrorMessage = "Last Name must be at most 15 characters")]
-        public string LastName
+        [DisplayName("Last Name (EN)")]
+        [Required(ErrorMessage = "Last Name (EN) is required")]
+        [StringLength(100, ErrorMessage = "Last Name (EN) must be at most 100 characters")]
+        public string LastNameEN
         {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return lastNameEN; }
+            set { lastNameEN = value; }
         }
 
-        [DisplayName("First Name")]
-        [Required(ErrorMessage = "First Name is required")]
-        [StringLength(15, ErrorMessage = "First Name must be at most 15 characters")]
-        public string FirstName
+        [DisplayName("First Name (EN)")]
+        [Required(ErrorMessage = "First Name (EN) is required")]
+        [StringLength(100, ErrorMessage = "First Name (EN) must be at most 100 characters")]
+        public string FirstNameEN
         {
-            get { return firstName; }
-            set { firstName = value; }
+            get { return firstNameEN; }
+            set { firstNameEN = value; }
+        }
+
+        [DisplayName("Last Name (KH)")]
+        [Required(ErrorMessage = "Last Name (KH) is required")]
+        [StringLength(100, ErrorMessage = "Last Name (KH) must be at most 100 characters")]
+        public string LastNameKH
+        {
+            get { return lastNameKH; }
+            set { lastNameKH = value; }
+        }
+
+        [DisplayName("First Name (KH)")]
+        [Required(ErrorMessage = "First Name (KH) is required")]
+        [StringLength(100, ErrorMessage = "First Name (KH) must be at most 100 characters")]
+        public string FirstNameKH
+        {
+            get { return firstNameKH; }
+            set { firstNameKH = value; }
+        }
+
+        [DisplayName("Birth Date")]
+        [Required(ErrorMessage = "Birth Date is required")]
+        public DateTime BirthDate
+        {
+            get { return birthDate; }
+            set { birthDate = value; }
         }
 
         [DisplayName("Gender")]
+        [Required(ErrorMessage = "Gender is required")]
+        [StringLength(5, ErrorMessage = "Gender must be at most 5 characters")]
         public string Gender
         {
             get { return gender; }
@@ -55,7 +87,8 @@ namespace Stall_Rental_Management_System.Models
         }
 
         [DisplayName("Email")]
-        [StringLength(50, ErrorMessage = "Email must be at most 50 characters")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [StringLength(255, ErrorMessage = "Email must be at most 255 characters")]
         public string Email
         {
             get { return email; }
@@ -64,6 +97,7 @@ namespace Stall_Rental_Management_System.Models
 
         [DisplayName("Position")]
         [Required(ErrorMessage = "Position is required")]
+        [StringLength(100, ErrorMessage = "Position must be at most 100 characters")]
         public string Position
         {
             get { return position; }
@@ -72,7 +106,7 @@ namespace Stall_Rental_Management_System.Models
 
         [DisplayName("Phone Number")]
         [Required(ErrorMessage = "Phone Number is required")]
-        [StringLength(15, MinimumLength = 6, ErrorMessage = "Phone Number must be between 6 and 15 characters")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Phone Number must be between 6 and 20 characters")]
         public string PhoneNumber
         {
             get { return phoneNumber; }
@@ -81,7 +115,7 @@ namespace Stall_Rental_Management_System.Models
 
         [DisplayName("Password")]
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(25, ErrorMessage = "Phone Number must be between 6 and 15 characters")]
+        [StringLength(255, ErrorMessage = "Password must be at most 255 characters")]
         public string Password
         {
             get { return password; }
