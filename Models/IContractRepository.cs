@@ -11,6 +11,6 @@ namespace Stall_Rental_Management_System.Models
         void Add(ContractModel contractModel);
         void Update(ContractModel contractModel);
         IEnumerable<ContractModel> GetAll();
-        IEnumerable<ContractModel> GetByID(int id);
+        IEnumerable<ContractModel> GetByID(string id);
     }
 }

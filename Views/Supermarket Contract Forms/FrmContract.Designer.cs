@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contractCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
             this.downloadButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contractDataGridView = new System.Windows.Forms.DataGridView();
             this.tbContractBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dbSRMSDataSet2 = new Stall_Rental_Management_System.dbSRMSDataSet2();
             this.sokphengTestContractBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -63,7 +63,7 @@
             this.previousButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).BeginInit();
@@ -83,7 +83,6 @@
             this.contractCodeText.Name = "contractCodeText";
             this.contractCodeText.Size = new System.Drawing.Size(400, 45);
             this.contractCodeText.TabIndex = 2;
-            this.contractCodeText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
             // 
@@ -127,7 +126,6 @@
             this.startDateContract.Name = "startDateContract";
             this.startDateContract.Size = new System.Drawing.Size(400, 35);
             this.startDateContract.TabIndex = 7;
-            this.startDateContract.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // contractStallIDComboBox
             // 
@@ -230,7 +228,6 @@
             this.newButton.TabIndex = 17;
             this.newButton.Text = "New";
             this.newButton.UseVisualStyleBackColor = false;
-            this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
             // saveButton
             // 
@@ -243,7 +240,7 @@
             this.saveButton.TabIndex = 18;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click_1);
             // 
             // updateButton
             // 
@@ -269,29 +266,28 @@
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // contractDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(10);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 417);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1174, 353);
-            this.dataGridView1.TabIndex = 21;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            this.contractDataGridView.AllowUserToAddRows = false;
+            this.contractDataGridView.AllowUserToDeleteRows = false;
+            this.contractDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.contractDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.contractDataGridView.Location = new System.Drawing.Point(27, 417);
+            this.contractDataGridView.Name = "contractDataGridView";
+            this.contractDataGridView.ReadOnly = true;
+            this.contractDataGridView.RowHeadersWidth = 62;
+            this.contractDataGridView.RowTemplate.Height = 28;
+            this.contractDataGridView.Size = new System.Drawing.Size(1174, 353);
+            this.contractDataGridView.TabIndex = 21;
             // 
             // tbContractBindingSource
             // 
@@ -385,7 +381,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1228, 794);
             this.Controls.Add(this.logoutButton);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.contractDataGridView);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.saveButton);
@@ -410,7 +406,7 @@
             this.Name = "FrmContract";
             this.Text = "Stall Rental Management System";
             this.Load += new System.EventHandler(this.FrmContract_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).EndInit();
@@ -444,7 +440,7 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button downloadButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView contractDataGridView;
         private System.Windows.Forms.BindingSource dbSRMSDataSetBindingSource;
         private dbSRMSDataSet dbSRMSDataSet;
         private System.Windows.Forms.BindingSource dbSRMSDataSetBindingSource1;

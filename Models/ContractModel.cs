@@ -28,9 +28,9 @@ namespace Stall_Rental_Management_System.Models
         private int vendorId;
 
         // Relationships
-        private StallModel stall;
-        private StaffModel staff;
-        private VendorModel vendor;
+        //private StallModel stall;
+        //private StaffModel staff;
+        //private VendorModel vendor;
 
         // Properties
         [DisplayName("Contract ID")]
@@ -91,25 +91,26 @@ namespace Stall_Rental_Management_System.Models
             set { vendorId = value; }
         }
 
-        public StallModel Stall
-        {
-            get { return stall; }
-            set { stall = value; }
-        }
+        //public StallModel Stall
+        //{
+        //    get { return stall; }
+        //    set { stall = value; }
+        //}
 
-        public StaffModel Staff
-        {
-            get { return staff; }
-            set { staff = value; }
-        }
+        //public StaffModel Staff
+        //{
+        //    get { return staff; }
+        //    set { staff = value; }
+        //}
 
-        public VendorModel Vendor
-        {
-            get { return vendor; }
-            set { vendor = value; }
-        }
+        //public VendorModel Vendor
+        //{
+        //    get { return vendor; }
+        //    set { vendor = value; }
+        //}
 
         // Constructor
+        public ContractModel() { }
         public ContractModel(int contractID, string fileUrl, string code, string status, DateTime startDate, DateTime endDate, int stallId, int staffId, int vendorId, StallModel stall, StaffModel staff, VendorModel vendor)
         {
             this.contractID = contractID;
@@ -121,9 +122,9 @@ namespace Stall_Rental_Management_System.Models
             this.stallId = stallId;
             this.staffId = staffId;
             this.vendorId = vendorId;
-            this.stall = stall;
-            this.staff = staff;
-            this.vendor = vendor;
+            //this.stall = stall;
+            //this.staff = staff;
+            //this.vendor = vendor;
         }
 
     }
