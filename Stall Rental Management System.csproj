@@ -147,6 +147,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenter\ContractPresenter.cs" />
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dbSRMSDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,11 +163,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbSRMSDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dbSRMSDataSet21.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContractModel.cs" />
+    <Compile Include="Models\IContractRepository.cs" />
+    <Compile Include="Models\StallModel.cs" />
+    <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +202,7 @@
     <Compile Include="Views\Supermarket Staff Forms\FrmStaff.Designer.cs">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -201,6 +218,17 @@
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
     <None Include="dbSRMSDataSet.xsc">
       <DependentUpon>dbSRMSDataSet.xsd</DependentUpon>
     </None>
@@ -223,6 +251,17 @@
     <None Include="dbSRMSDataSet1.xss">
       <DependentUpon>dbSRMSDataSet1.xsd</DependentUpon>
     </None>
+    <None Include="dbSRMSDataSet21.xsc">
+      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
+    </None>
+    <None Include="dbSRMSDataSet21.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbSRMSDataSet21.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dbSRMSDataSet21.xss">
+      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -233,12 +272,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="pushToSokpheng.sh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presenters\" />
     <Folder Include="Views\Vendor Forms\" />
   </ItemGroup>
   <ItemGroup>
