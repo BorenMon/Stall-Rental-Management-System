@@ -31,8 +31,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dbSRMSDataSet1.SokphengTestContract' table. You can move, or remove it, as needed.
-            this.sokphengTestContractTableAdapter.Fill(this.dbSRMSDataSet1.SokphengTestContract);
+            // TODO: This line of code loads data into the 'dbSRMSDataSet2.tbContract' table. You can move, or remove it, as needed.
+            this.tbContractTableAdapter.Fill(this.dbSRMSDataSet2.tbContract);
 
 
         }
