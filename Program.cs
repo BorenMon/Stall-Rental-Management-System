@@ -18,7 +18,7 @@ namespace Stall_Rental_Management_System
             Application.SetCompatibleTextRenderingDefault(false);
             //
             var myView = new FrmContract();
-            //new ContractPresenter(myView, new ContractRepository());
+            new ContractPresenter(myView, new ContractRepository());
             Application.Run(myView);
         }
     }

@@ -66,35 +66,59 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                                      //this.MinimumSize = new System.Drawing.Size(800, 600);
                                      //todo table
             
-            new ContractPresenter(this, new ContractRepository());;
+            //new ContractPresenter(this, new ContractRepository());;
             // trigger search event
             searchButton.Click += delegate { SearchContract?.Invoke(this, EventArgs.Empty); };
             contractSearchTextBox.KeyDown += (e1, k) =>
             {
-                //MessageBox.Show("id: " +  contractSearchTextBox.Text);
                 if (k.KeyCode == Keys.Enter)
                 {
+                    k.SuppressKeyPress = true;
                     SearchContract?.Invoke(this, EventArgs.Empty);
                 }
-                
+                else if(k.KeyCode == Keys.Back) {
+                    new ContractPresenter(this, new ContractRepository());
+                }
+
             };
         }
-        private void AssociateEventArise()
-        {
 
-        }
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
 
             // TODO: This line of code loads data into the 'dbSRMSDataSet2.tbContract' table. You can move, or remove it, as needed.
             //this.tbContractTableAdapter.Fill(this.dbSRMSDataSet2.tbContract);
-           
         }
 
+        private void saveButton_Click_1(object sender, EventArgs e)
+        {
+            //MessageBox.Show(contractCodeText.Text + "|" + contractStallIDComboBox.Text 
+            //     + "|" + startDateContract.Text + "|" + contractStatusComboBox.Text);
+            SaveContract?.Invoke(this,EventArgs.Empty);
+            clearAllTextValue();
 
+        }
 
-        private void newButton_Click(object sender, EventArgs e)
+        private void contractDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = contractDataGridView.Rows[e.RowIndex];
+                string rowData = "";
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    rowData += cell.Value.ToString() + " ";
+                }
+                MessageBox.Show("Row data: " + rowData.Trim());
+            }
+        }
+
+        private void newButton_Click_1(object sender, EventArgs e)
+        {
+            clearAllTextValue();
+        }
+        private void clearAllTextValue()
         {
             contractCodeText.Text = "";
             contractStallIDComboBox.Text = "";
@@ -102,16 +126,6 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             contractVendorIDComboBox.Text = "";
             startDateContract.Text = "";
             endDateConstract.Text = "";
-        }
-
-        private void saveButton_Click_1(object sender, EventArgs e)
-        {
-            MessageBox.Show(contractSearchTextBox.Text);
-        }
-
-        private void contractSearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            
         }
     }
 }

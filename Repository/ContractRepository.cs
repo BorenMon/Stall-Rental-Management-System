@@ -19,12 +19,14 @@ namespace Stall_Rental_Management_System.Repository
             try
             {
                 sqlConnection = DatabaseUtil.GetConn();
-            }catch (Exception ex) { }
+            }catch (Exception ex) {
+                MessageBox.Show(ex.Message, "SQL Connection", MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         public void Add(ContractModel contractModel)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(contractModel.Code);
         }
 
         public IEnumerable<ContractModel> GetAll()
@@ -38,7 +40,7 @@ namespace Stall_Rental_Management_System.Repository
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Loading data...");
+                    //MessageBox.Show(ex.Message);
                 }
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "SELECT * FROM tbContract";
@@ -61,19 +63,13 @@ namespace Stall_Rental_Management_System.Repository
                     }
                 }
             }
-            
             return contractList;
-            
         }
 
         public IEnumerable<ContractModel> GetByID(string id)
         {
             //MessageBox.Show("Empty: " + string.IsNullOrWhiteSpace(id).ToString());
             //MessageBox.Show( "ID : " + id);
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return GetAll();
-            }
             var contractList = new List<ContractModel>();
             int contractID = int.TryParse(id, out _) ? Convert.ToInt32(id):0;
             //using (var connectionSQLSever = DatabaseUtil.GetConn())
@@ -82,6 +78,7 @@ namespace Stall_Rental_Management_System.Repository
                 //sqlConnection.Open();
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id";
+                
                 //
                 sqlCommand.Parameters.Add("@id",SqlDbType.Int).Value = contractID;
                 //

@@ -25,13 +25,22 @@ namespace Stall_Rental_Management_System
             //
             this.view.SetContractBindingSource(contractBindingSource);
             //
-            this.view.SearchContract += SearchContract;
+            this.view.SearchContract += SearchContractByID;
             this.view.AddNewContract += AddNewContract;
+            this.view.SaveContract += SaveContract;
             this.view.UpdateContract += UpadateContract;
             // load all contract data;
             LoadAllContractData();
 
         }
+
+        private void SaveContract(object sender, EventArgs e)
+        {
+            ContractModel contract = new ContractModel();
+            contract.Code = this.view.Code;
+            contractRepository.Add(contract);
+        }
+
         // methods
 
         private void LoadAllContractData()
@@ -49,10 +58,10 @@ namespace Stall_Rental_Management_System
 
         private void AddNewContract(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+ 
         }
 
-        private void SearchContract(object sender, EventArgs e)
+        private void SearchContractByID(object sender, EventArgs e)
         {
             contractList = contractRepository.GetByID(this.view.ContractId);
             contractBindingSource.DataSource = contractList;
