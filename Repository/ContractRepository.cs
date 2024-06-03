@@ -1,9 +1,11 @@
-﻿using Stall_Rental_Management_System.Models;
+﻿using Minio.DataModel.Replication;
+using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +28,44 @@ namespace Stall_Rental_Management_System.Repository
 
         public void Add(ContractModel contractModel)
         {
-            MessageBox.Show(contractModel.Code);
+            string sql = @"INSERT INTO tbContract
+                         (FileUrl,Code, Status, StartDate, EndDate, StallID, VendorID, StaffID)
+                          VALUES(
+                          @fileUrl, @contractCode, @status,
+                          @startDate, @endDate, @stallID,
+                          @vendorID, @staffID)";
+            using (var sqlCommand = new SqlCommand(sql, sqlConnection))
+            {
+                MessageBox.Show(contractModel.StartDate.Date.ToString());
+                MessageBox.Show(contractModel.VendorId.ToString());
+                sqlCommand.Parameters.AddWithValue("@fileUrl", contractModel.FileUrl);
+                sqlCommand.Parameters.AddWithValue("@contractCode", contractModel.Code);
+                sqlCommand.Parameters.AddWithValue("@status", contractModel.Status);
+                sqlCommand.Parameters.AddWithValue("@startDate", contractModel.StartDate.Date);
+                sqlCommand.Parameters.AddWithValue("@endDate", contractModel.EndDate.Date);
+                sqlCommand.Parameters.AddWithValue("@stallID", contractModel.StallId);
+                sqlCommand.Parameters.AddWithValue("@vendorID", contractModel.VendorId);
+                sqlCommand.Parameters.AddWithValue("@staffID", contractModel.StaffId);
+                //
+                try
+                {
+                    int rowAffected = sqlCommand.ExecuteNonQuery();
+
+                    if (rowAffected > 0)
+                    {
+                        MessageBox.Show("Contract has been created successfully");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot create new contract");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
         }
 
         public IEnumerable<ContractModel> GetAll()
@@ -64,6 +103,38 @@ namespace Stall_Rental_Management_System.Repository
                 }
             }
             return contractList;
+        }
+
+        public IEnumerable<int> GetAllStallID()
+        {
+            var allStallIDs = new List<int>();
+            using (var sqlCommand = new SqlCommand())
+            {
+                try
+                {
+                    sqlConnection.Open();
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "SELECT StallID FROM tbStall";
+                //
+                using (var reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        allStallIDs.Add((int)reader[0]);
+                    }
+                }
+            }
+            return allStallIDs;
+        }
+
+        public IEnumerable<int> GetAllVendorID()
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<ContractModel> GetByID(string id)

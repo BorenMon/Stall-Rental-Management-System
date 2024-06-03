@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 {
     public partial class FrmContract : Form, IContractView
     {
-        private string code;
+        private DateTime startDate;
+        private DateTime endDate;
 
         public string ContractId {
              get { return contractSearchTextBox.Text;}
@@ -33,11 +36,55 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         public string Status { 
             get => contractStatusComboBox.Text;
             set => contractStatusComboBox.Text = value; }
-        public DateTime StartDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime EndDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int StallId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int StaffId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int VendorId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime StartDate {
+            get
+            {
+                if (DateTime.TryParseExact(startDateContract.Text, "M/d/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    return parsedDate;
+                }
+                else
+                {
+                    throw new FormatException("Invalid start date format. Expected format is M/D/YYYY.");
+                }
+            }
+            set
+            {
+                // Update the internal field and UI control
+                startDate = value;
+                startDateContract.Text = value.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
+            }
+        }
+        public DateTime EndDate {
+            get
+            {
+                if (DateTime.TryParseExact(endDateConstract.Text, "M/d/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                {
+                    return parsedDate;
+                }
+                else
+                {
+                    throw new FormatException("Invalid end date format. Expected format is M/D/YYYY.");
+                }
+            }
+            set
+            {
+                // Update the internal field and UI control
+                endDate = value;
+                endDateConstract.Text = value.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
+            }
+        }
+        public int StallId {
+            get => int.Parse(contractStallIDComboBox.Text); 
+            set => contractStallIDComboBox.Text = value.ToString(); 
+        }
+        public int StaffId {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException(); }
+        public int VendorId {
+            get => int.Parse(contractVendorIDComboBox.Text);
+            set => contractVendorIDComboBox.Text=value.ToString();
+        }
 
 
         public event EventHandler SaveContract;
@@ -50,6 +97,13 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         {
             contractDataGridView.DataSource = bindingSource;
 
+        }
+        public void SetStallIdOnComboBox(IEnumerable<int> stallIDs)
+        {
+            foreach(int id in stallIDs)
+            {
+                MessageBox.Show(id.ToString());
+            }
         }
         public FrmContract()
         {
@@ -97,6 +151,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             //     + "|" + startDateContract.Text + "|" + contractStatusComboBox.Text);
             SaveContract?.Invoke(this,EventArgs.Empty);
             clearAllTextValue();
+            new ContractPresenter(this, new ContractRepository());
+
 
         }
 
@@ -127,5 +183,34 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             startDateContract.Text = "";
             endDateConstract.Text = "";
         }
+
+        private void contractUploadButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "PDF Files|*.pdf|Word Files|*.doc;*.docx|All Files|*.*"; // Filter to show only PDF and Word files
+            openFileDialog.Title = "Select a contract file";
+            //
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+
+                // Check if the selected file has a valid extension
+                string extension = Path.GetExtension(selectedFilePath);
+                if (extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase) ||
+                    extension.Equals(".doc", StringComparison.OrdinalIgnoreCase) ||
+                    extension.Equals(".docx", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Valid file selected, do something with it
+                    // For example, display the seleted file name in a TextBox
+                    contractUploadButton.Text = Path.GetFileName(selectedFilePath);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a PDF or Word file.", "Invalid File Type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
     }
 }

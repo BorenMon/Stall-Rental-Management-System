@@ -37,5 +37,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
 
         //methods
         void SetContractBindingSource(BindingSource bindingSource);
+        // set stall IDs
+        void SetStallIdOnComboBox(IEnumerable<int> stallIDs);
     }
 }
