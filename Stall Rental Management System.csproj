@@ -158,14 +158,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbSRMSDataSet.xsd</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Forms\invoice.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\invoice.Designer.cs">
-      <DependentUpon>invoice.cs</DependentUpon>
-    </Compile>
-=======
     <Compile Include="dbSRMSDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -180,7 +172,6 @@
     <Compile Include="Models\IContractRepository.cs" />
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
->>>>>>> 241d8d214c7a5fea3baf3fb586db0363aa7a6c17
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +190,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
     <Compile Include="Utils\MinIOUtil.cs" />
+    <Compile Include="Views\InvoiceForm\FrmInvoice1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\InvoiceForm\FrmInvoice1.Designer.cs">
+      <DependentUpon>FrmInvoice1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Supermarket Staff Forms\FrmContract.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,13 +213,13 @@
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\invoice.resx">
-      <DependentUpon>invoice.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\InvoiceForm\FrmInvoice1.resx">
+      <DependentUpon>FrmInvoice1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmContract.resx">
       <DependentUpon>FrmContract.cs</DependentUpon>

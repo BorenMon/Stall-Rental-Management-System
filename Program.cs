@@ -16,12 +16,10 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< HEAD
             Application.Run(new FormLogin());
             
-=======
             Application.Run(new FrmStaff());
->>>>>>> 241d8d214c7a5fea3baf3fb586db0363aa7a6c17
+            Application.Run(new Views.InvoiceForm.FrmInvoice1());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
