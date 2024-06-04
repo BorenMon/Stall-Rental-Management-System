@@ -18,8 +18,8 @@ namespace Stall_Rental_Management_System
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormLogin());
             
-=======
             Application.Run(new FrmStaff());
+            Application.Run(new Views.InvoiceForm.FrmInvoice1());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
