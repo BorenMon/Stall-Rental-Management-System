@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contractCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@
             this.logoutButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.contractUploadButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.staffIdComboBox = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).BeginInit();
@@ -81,6 +81,8 @@
             // 
             // contractCodeText
             // 
+            this.contractCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.contractCodeText.Enabled = false;
             this.contractCodeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.contractCodeText.Location = new System.Drawing.Point(162, 118);
             this.contractCodeText.Multiline = true;
@@ -124,6 +126,7 @@
             // startDateContract
             // 
             this.startDateContract.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.startDateContract.Enabled = false;
             this.startDateContract.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startDateContract.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.startDateContract.Location = new System.Drawing.Point(162, 279);
@@ -133,6 +136,7 @@
             // 
             // contractStallIDComboBox
             // 
+            this.contractStallIDComboBox.Enabled = false;
             this.contractStallIDComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractStallIDComboBox.FormattingEnabled = true;
             this.contractStallIDComboBox.Location = new System.Drawing.Point(162, 196);
@@ -153,6 +157,7 @@
             // 
             // contractStatusComboBox
             // 
+            this.contractStatusComboBox.Enabled = false;
             this.contractStatusComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractStatusComboBox.FormattingEnabled = true;
             this.contractStatusComboBox.Location = new System.Drawing.Point(800, 119);
@@ -162,6 +167,7 @@
             // 
             // contractVendorIDComboBox
             // 
+            this.contractVendorIDComboBox.Enabled = false;
             this.contractVendorIDComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractVendorIDComboBox.FormattingEnabled = true;
             this.contractVendorIDComboBox.Location = new System.Drawing.Point(800, 197);
@@ -182,6 +188,7 @@
             // 
             // endDateConstract
             // 
+            this.endDateConstract.Enabled = false;
             this.endDateConstract.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endDateConstract.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.endDateConstract.Location = new System.Drawing.Point(800, 275);
@@ -232,6 +239,7 @@
             this.newButton.TabIndex = 17;
             this.newButton.Text = "New";
             this.newButton.UseVisualStyleBackColor = false;
+            this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
             // saveButton
             // 
@@ -269,6 +277,7 @@
             this.downloadButton.TabIndex = 20;
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = false;
+            this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
             // 
             // contractDataGridView
             // 
@@ -277,15 +286,15 @@
             this.contractDataGridView.AllowUserToResizeColumns = false;
             this.contractDataGridView.AllowUserToResizeRows = false;
             this.contractDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.contractDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.contractDataGridView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.contractDataGridView.Location = new System.Drawing.Point(27, 513);
@@ -401,6 +410,7 @@
             // 
             this.contractUploadButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.contractUploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.contractUploadButton.Enabled = false;
             this.contractUploadButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractUploadButton.Location = new System.Drawing.Point(162, 350);
             this.contractUploadButton.Name = "contractUploadButton";
@@ -410,15 +420,16 @@
             this.contractUploadButton.UseVisualStyleBackColor = false;
             this.contractUploadButton.Click += new System.EventHandler(this.contractUploadButton_Click);
             // 
-            // comboBox1
+            // staffIdComboBox
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.Font = new System.Drawing.Font("Poppins Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(800, 348);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(400, 50);
-            this.comboBox1.TabIndex = 25;
+            this.staffIdComboBox.Enabled = false;
+            this.staffIdComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.staffIdComboBox.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.staffIdComboBox.FormattingEnabled = true;
+            this.staffIdComboBox.Location = new System.Drawing.Point(800, 348);
+            this.staffIdComboBox.Name = "staffIdComboBox";
+            this.staffIdComboBox.Size = new System.Drawing.Size(400, 47);
+            this.staffIdComboBox.TabIndex = 25;
             // 
             // label9
             // 
@@ -435,9 +446,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 893);
+            this.ClientSize = new System.Drawing.Size(1228, 869);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.staffIdComboBox);
             this.Controls.Add(this.contractUploadButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.logoutButton);
@@ -517,7 +528,7 @@
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button contractUploadButton;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox staffIdComboBox;
         private System.Windows.Forms.Label label9;
     }
 }

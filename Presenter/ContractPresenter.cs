@@ -15,7 +15,6 @@ namespace Stall_Rental_Management_System
         private IContractView view;
         private IContractRepository contractRepository;
         private BindingSource contractBindingSource;
-        private IEnumerable<int> stallIds;
         private IEnumerable<ContractModel> contractList;
 
         public ContractPresenter(IContractView view, IContractRepository contractRepository)
@@ -26,7 +25,7 @@ namespace Stall_Rental_Management_System
             //
             this.view.SetContractBindingSource(contractBindingSource);
             //
-            this.view.SetStallIdOnComboBox(stallIds);
+
             this.view.SearchContract += SearchContractByID;
             this.view.AddNewContract += AddNewContract;
             this.view.SaveContract += SaveContract;
@@ -34,26 +33,33 @@ namespace Stall_Rental_Management_System
             // load all contract data;
             LoadAllContractData();
             // get all stall ids
-            GetAllStallIDs();
+            this.view.SetStallIdOnComboBox(GetAllStallIDs());
+            // get all vendor ids
+            this.view.SetVendorIdOnComboBox(GetAllVendorIDs());
         }
 
-        private void GetAllStallIDs()
+        private IEnumerable<int> GetAllVendorIDs()
         {
-            stallIds = contractRepository.GetAllStallID();
+            return contractRepository.GetAllVendorID();
+        }
+
+        private IEnumerable<int> GetAllStallIDs()
+        {
+            return contractRepository.GetAllStallID();
 
         }
 
         private void SaveContract(object sender, EventArgs e)
         {
             ContractModel contract = new ContractModel();
-            contract.FileUrl = "google.com";
+            contract.FileUrl = this.view.FileUrl;
             contract.Code = this.view.Code;
             contract.Status = this.view.Status;
             contract.StartDate = this.view.StartDate;
             contract.EndDate = this.view.EndDate;
             contract.VendorId = this.view.VendorId;
             contract.StallId = this.view.StallId;
-            contract.StaffId = 1;
+            contract.StaffId = this.view.StaffId;
             contractRepository.Add(contract);
         }
 
