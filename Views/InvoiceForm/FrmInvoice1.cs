@@ -16,5 +16,15 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
         {
             InitializeComponent();
         }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
