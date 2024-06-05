@@ -178,6 +178,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repository\ContractRepository.cs" />
+    <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
