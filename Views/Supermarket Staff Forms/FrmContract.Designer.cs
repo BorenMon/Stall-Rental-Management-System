@@ -368,7 +368,6 @@
             this.previousButton.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.previousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.previousButton.Image = global::Stall_Rental_Management_System.Properties.Resources.previouos_icon_16x16;
             this.previousButton.Location = new System.Drawing.Point(26, 32);
             this.previousButton.Name = "previousButton";
             this.previousButton.Size = new System.Drawing.Size(40, 47);
