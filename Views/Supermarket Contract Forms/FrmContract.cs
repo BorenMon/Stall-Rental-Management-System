@@ -211,7 +211,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                 else if (k.KeyCode == Keys.Back)
                 {
                     // reload database
-                    ReloadDatabase();
+                    contractDataGridView.DataSource
+                    = new ContractPresenter(new ContractRepository()).LoadAllContractData();
                 }
 
             };
