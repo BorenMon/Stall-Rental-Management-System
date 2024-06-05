@@ -5,11 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stall_Rental_Management_System.Repository
 {
@@ -85,7 +88,8 @@ namespace Stall_Rental_Management_System.Repository
                 //
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = @"SELECT * FROM tbContract 
-                                         ORDER BY ContractID DESC";
+                                           WHERE Status = 'available'
+                                           ORDER BY ContractID DESC ";
                 //
                 using(var reader = sqlCommand.ExecuteReader())
                 {
@@ -193,7 +197,29 @@ namespace Stall_Rental_Management_System.Repository
 
         public void Update(ContractModel contractModel)
         {
-            throw new NotImplementedException();
+            openDatabaseConnection();
+            //
+            // Create a command object
+            using (SqlCommand cmd = new SqlCommand("UpdateContract", sqlConnection))
+            {
+                // Specify that the command is a stored procedure
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Add the parameters
+                cmd.Parameters.Add(new SqlParameter("@FileURL", contractModel.FileUrl));
+                cmd.Parameters.Add(new SqlParameter("@Code", contractModel.Code));
+                cmd.Parameters.Add(new SqlParameter("@Status", contractModel.Status));
+                cmd.Parameters.Add(new SqlParameter("@StartDate", contractModel.StartDate));
+                cmd.Parameters.Add(new SqlParameter("@EndDate", contractModel.EndDate));
+                cmd.Parameters.Add(new SqlParameter("@StallID", contractModel.StallId));
+                cmd.Parameters.Add(new SqlParameter("@VendorID", contractModel.VendorId));
+                cmd.Parameters.Add(new SqlParameter("@StaffID", contractModel.StaffId));
+                cmd.Parameters.Add(new SqlParameter("@ContractID", contractModel.Id));
+
+                // Execute the command
+                cmd.ExecuteNonQuery();
+            }
+            sqlConnection.Close();
         }
         //
         private void openDatabaseConnection()

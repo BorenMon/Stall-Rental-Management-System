@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contractCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -81,7 +81,6 @@
             // 
             // contractCodeText
             // 
-            this.contractCodeText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contractCodeText.Enabled = false;
             this.contractCodeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.contractCodeText.Location = new System.Drawing.Point(162, 118);
@@ -265,6 +264,7 @@
             this.updateButton.TabIndex = 19;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // downloadButton
             // 
@@ -285,16 +285,18 @@
             this.contractDataGridView.AllowUserToDeleteRows = false;
             this.contractDataGridView.AllowUserToResizeColumns = false;
             this.contractDataGridView.AllowUserToResizeRows = false;
-            this.contractDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(10);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.contractDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.contractDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.contractDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.contractDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.contractDataGridView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.contractDataGridView.Location = new System.Drawing.Point(27, 513);
@@ -446,7 +448,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 869);
+            this.ClientSize = new System.Drawing.Size(1228, 890);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.staffIdComboBox);
             this.Controls.Add(this.contractUploadButton);
