@@ -2,6 +2,12 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stall_Rental_Management_System.Views.InvoiceForm
@@ -15,7 +21,7 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
             InitializeComponent();
             btnUpdate.Click += new EventHandler(btnupdate_Click);
             btnDelete.Click += new EventHandler(btnDelete_Click);
-            textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
+          //  textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
         }
 
         private void FrmInvoice1_Load(object sender, EventArgs e)
