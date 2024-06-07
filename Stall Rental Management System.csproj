@@ -147,6 +147,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presenter\ContractPresenter.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -178,6 +184,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repository\ContractRepository.cs" />
+    <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>

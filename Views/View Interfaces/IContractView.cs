@@ -12,6 +12,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         // Properties for contract details
         string ContractId { get; set; }
         string FileUrl { get; set; }
+        string FileName { get; set; }
         string Code { get; set; }
         string Status { get; set; }
         DateTime StartDate { get; set; }
@@ -19,6 +20,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         int StallId { get; set; }
         int StaffId { get; set; }
         int VendorId { get; set; }
+        string SeletedFilePath { get; set; }
         //
         // Event to handle contract save button click
         event EventHandler SaveContract;
@@ -37,5 +39,9 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
 
         //methods
         void SetContractBindingSource(BindingSource bindingSource);
+        // set stall IDs
+        void SetStallIdOnComboBox(IEnumerable<int> stallIDs);
+        // set vendor IDs
+        void SetVendorIdOnComboBox(IEnumerable<int> vendorID);
     }
 }
