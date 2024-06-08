@@ -97,6 +97,7 @@ namespace Stall_Rental_Management_System
 
         private void SearchContractByID(object sender, EventArgs e)
         {
+            
             contractList = contractRepository.GetByID(this.view.ContractId);
             contractBindingSource.DataSource = contractList;
         }

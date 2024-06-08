@@ -40,8 +40,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 
         public string ContractId
         {
-            get { return contractID; }
-            set { contractID = value; }
+            get { return contractSearchTextBox.Text; }
+            set { contractSearchTextBox.Text = value; }
 
         }
         public string FileUrl
@@ -141,7 +141,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                 
             }
             contractDataGridView.DataSource = bindingSource;
-            
+            // set width for 
             for(int i = 0;i < 7;i++ )
             {
                 contractDataGridView.Columns[i].Width = 150;
@@ -201,21 +201,6 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             //new ContractPresenter(this, new ContractRepository());;
             // trigger search event
             searchButton.Click += delegate { SearchContract?.Invoke(this, EventArgs.Empty); };
-            contractSearchTextBox.KeyDown += (e1, k) =>
-            {
-                if (k.KeyCode == Keys.Enter)
-                {
-                    k.SuppressKeyPress = true;
-                    SearchContract?.Invoke(this, EventArgs.Empty);
-                }
-                else if (k.KeyCode == Keys.Back)
-                {
-                    // reload database
-                    contractDataGridView.DataSource
-                    = new ContractPresenter(new ContractRepository()).LoadAllContractData();
-                }
-
-            };
         }
 
 
