@@ -97,8 +97,12 @@ namespace Stall_Rental_Management_System
 
         private void SearchContractByID(object sender, EventArgs e)
         {
+           // MessageBox.Show(this.view.ContractId);
             contractList = contractRepository.GetByID(this.view.ContractId);
-            contractBindingSource.DataSource = contractList;
+            this.contractBindingSource = new BindingSource();
+            this.contractBindingSource.DataSource = contractList;
+            this.view.SetContractBindingSource(contractBindingSource);
+            //MessageBox.Show("Number of Search Found: " + contractList.Count().ToString());
         }
         // conotructor
         private ContractModel setContractModelValue()

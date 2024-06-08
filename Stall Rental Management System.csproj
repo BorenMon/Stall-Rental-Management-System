@@ -284,5 +284,8 @@
   <ItemGroup>
     <None Include="images\previouos_icon-16x16.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning %281%29.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

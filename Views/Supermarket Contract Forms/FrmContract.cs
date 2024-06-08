@@ -14,6 +14,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,7 +114,16 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         }
         public int VendorId
         {
-            get => int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
+            get {
+                try
+                {
+                    return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
+                }catch(NullReferenceException ex)
+                {
+
+                }
+                return 0;
+            }
             set => contractVendorIDComboBox.SelectedItem = value;
         }
         public string SeletedFilePath {
@@ -198,22 +208,28 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                                      //this.MinimumSize = new System.Drawing.Size(800, 600);
                                      //todo table
 
-            //new ContractPresenter(this, new ContractRepository());;
             // trigger search event
-            searchButton.Click += delegate { SearchContract?.Invoke(this, EventArgs.Empty); };
+
             contractSearchTextBox.KeyDown += (e1, k) =>
             {
+                
                 if (k.KeyCode == Keys.Enter)
                 {
-                    k.SuppressKeyPress = true;
+                    //k.SuppressKeyPress = true;
+                    contractID = contractSearchTextBox.Text;
                     SearchContract?.Invoke(this, EventArgs.Empty);
+                    //new ContractPresenter(this, new ContractRepository());
+                    contractSearchTextBox.Text = "";
+                    //
+                    checkIfDataNotFound();
                 }
                 else if (k.KeyCode == Keys.Back)
                 {
+                    contractSearchTextBox.Text = "";
                     // reload database
                     ReloadDatabase();
                 }
-
+               
             };
         }
 
@@ -232,6 +248,16 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             //stallID = int.Parse(contractStallIDComboBox.SelectedItem.ToString());
             //staffID = int.Parse(staffIdComboBox.SelectedItem.ToString());
             //vendorID = int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
+            if (
+                contractCodeText.Text == "" ||
+                contractStatusComboBox.SelectedItem == "" ||
+                contractStallIDComboBox.SelectedItem=="" ||
+                contractVendorIDComboBox.SelectedItem=="" ||
+                contractUploadButton.Text== "Upload Contract File (PDF, Doc)"
+                )
+            {
+                MessageBox.Show("! You missed any input field.","Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             SaveContract?.Invoke(this, EventArgs.Empty);
             clearAllTextValue();
             // reload database
@@ -285,6 +311,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             staffIdComboBox.Enabled = false;
             contractCodeText.Focus();
             clearAllTextValue();
+
         }
 
         private async void downloadButton_Click(object sender, EventArgs e)
@@ -353,10 +380,11 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         {
             UpdateContract?.Invoke(this, EventArgs.Empty);
             //staffIdComboBox.Enabled = false;
-            disableAllWindowsFormComponent();
             MessageBox.Show("Updated contract information successfully!", "Success",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearAllTextValue();
+            disableAllWindowsFormComponent();
+
             // reload database
             ReloadDatabase();
         }
@@ -376,6 +404,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         {
             contractCodeText.Enabled = false;
             contractUploadButton.Enabled = false;
+            updateButton.Enabled = false;
+            downloadButton.Enabled = false;
             contractStatusComboBox.Enabled = false;
             startDateContract.Enabled = false;
             endDateConstract.Enabled = false;
@@ -385,9 +415,9 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         }
         private void clearAllTextValue()
         {
+
             contractCodeText.Text = "";
             contractStallIDComboBox.Text = "";
-            contractStatusComboBox.Text = "";
             contractVendorIDComboBox.Text = "";
             startDateContract.Text = "";
             endDateConstract.Text = "";
@@ -427,6 +457,23 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         private void ReloadDatabase() {
             contractDataGridView.DataSource
             = new ContractPresenter(new ContractRepository()).LoadAllContractData();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            contractID = contractSearchTextBox.Text;
+            SearchContract?.Invoke(this, EventArgs.Empty);
+            contractSearchTextBox.Text = "";
+            checkIfDataNotFound();
+        }
+        private void checkIfDataNotFound()
+        {
+            BindingSource b = (BindingSource)contractDataGridView.DataSource;
+            if (b.Count == 0)
+            {
+                MessageBox.Show("No Data was found!", "Not Foound", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ReloadDatabase();
+            }
         }
     }
 }
