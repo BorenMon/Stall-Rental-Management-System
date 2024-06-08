@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contractCodeText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,13 +60,13 @@
             this.dataSet1 = new Stall_Rental_Management_System.DataSet1();
             this.dataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbContractTableAdapter = new Stall_Rental_Management_System.dbSRMSDataSet2TableAdapters.tbContractTableAdapter();
-            this.previousButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.contractUploadButton = new System.Windows.Forms.Button();
             this.staffIdComboBox = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.previousButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet2)).BeginInit();
@@ -86,14 +86,14 @@
             this.contractCodeText.Location = new System.Drawing.Point(162, 118);
             this.contractCodeText.Multiline = true;
             this.contractCodeText.Name = "contractCodeText";
-            this.contractCodeText.Size = new System.Drawing.Size(400, 45);
+            this.contractCodeText.Size = new System.Drawing.Size(400, 46);
             this.contractCodeText.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 124);
+            this.label2.Location = new System.Drawing.Point(21, 125);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 39);
             this.label2.TabIndex = 3;
@@ -128,7 +128,7 @@
             this.startDateContract.Enabled = false;
             this.startDateContract.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startDateContract.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.startDateContract.Location = new System.Drawing.Point(162, 279);
+            this.startDateContract.Location = new System.Drawing.Point(162, 278);
             this.startDateContract.Name = "startDateContract";
             this.startDateContract.Size = new System.Drawing.Size(400, 40);
             this.startDateContract.TabIndex = 7;
@@ -138,7 +138,7 @@
             this.contractStallIDComboBox.Enabled = false;
             this.contractStallIDComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractStallIDComboBox.FormattingEnabled = true;
-            this.contractStallIDComboBox.Location = new System.Drawing.Point(162, 196);
+            this.contractStallIDComboBox.Location = new System.Drawing.Point(162, 195);
             this.contractStallIDComboBox.Name = "contractStallIDComboBox";
             this.contractStallIDComboBox.Size = new System.Drawing.Size(400, 47);
             this.contractStallIDComboBox.TabIndex = 8;
@@ -146,8 +146,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Poppins", 11F);
-            this.label5.Location = new System.Drawing.Point(641, 122);
+            this.label5.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(640, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 39);
             this.label5.TabIndex = 9;
@@ -159,7 +159,7 @@
             this.contractStatusComboBox.Enabled = false;
             this.contractStatusComboBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contractStatusComboBox.FormattingEnabled = true;
-            this.contractStatusComboBox.Location = new System.Drawing.Point(800, 119);
+            this.contractStatusComboBox.Location = new System.Drawing.Point(800, 118);
             this.contractStatusComboBox.Name = "contractStatusComboBox";
             this.contractStatusComboBox.Size = new System.Drawing.Size(400, 47);
             this.contractStatusComboBox.TabIndex = 10;
@@ -178,7 +178,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(641, 200);
+            this.label6.Location = new System.Drawing.Point(640, 200);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 39);
             this.label6.TabIndex = 12;
@@ -199,7 +199,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(641, 276);
+            this.label7.Location = new System.Drawing.Point(640, 275);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(129, 42);
             this.label7.TabIndex = 13;
@@ -209,10 +209,10 @@
             // contractSearchTextBox
             // 
             this.contractSearchTextBox.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contractSearchTextBox.Location = new System.Drawing.Point(162, 433);
+            this.contractSearchTextBox.Location = new System.Drawing.Point(162, 432);
             this.contractSearchTextBox.Multiline = true;
             this.contractSearchTextBox.Name = "contractSearchTextBox";
-            this.contractSearchTextBox.Size = new System.Drawing.Size(400, 45);
+            this.contractSearchTextBox.Size = new System.Drawing.Size(400, 46);
             this.contractSearchTextBox.TabIndex = 15;
             // 
             // searchButton
@@ -222,19 +222,20 @@
             this.searchButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchButton.Location = new System.Drawing.Point(26, 432);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(128, 50);
+            this.searchButton.Size = new System.Drawing.Size(128, 49);
             this.searchButton.TabIndex = 16;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // newButton
             // 
             this.newButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.newButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.newButton.Font = new System.Drawing.Font("Poppins", 11F);
+            this.newButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newButton.Location = new System.Drawing.Point(646, 432);
             this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(116, 50);
+            this.newButton.Size = new System.Drawing.Size(116, 49);
             this.newButton.TabIndex = 17;
             this.newButton.Text = "New";
             this.newButton.UseVisualStyleBackColor = false;
@@ -247,7 +248,7 @@
             this.saveButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveButton.Location = new System.Drawing.Point(786, 432);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(100, 50);
+            this.saveButton.Size = new System.Drawing.Size(100, 49);
             this.saveButton.TabIndex = 18;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = false;
@@ -260,7 +261,7 @@
             this.updateButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.updateButton.Location = new System.Drawing.Point(908, 432);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(120, 50);
+            this.updateButton.Size = new System.Drawing.Size(120, 49);
             this.updateButton.TabIndex = 19;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = false;
@@ -271,9 +272,9 @@
             this.downloadButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.downloadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.downloadButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downloadButton.Location = new System.Drawing.Point(1049, 431);
+            this.downloadButton.Location = new System.Drawing.Point(1048, 431);
             this.downloadButton.Name = "downloadButton";
-            this.downloadButton.Size = new System.Drawing.Size(151, 50);
+            this.downloadButton.Size = new System.Drawing.Size(152, 49);
             this.downloadButton.TabIndex = 20;
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = false;
@@ -288,25 +289,25 @@
             this.contractDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.contractDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.contractDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(10);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contractDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.contractDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.contractDataGridView.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.contractDataGridView.Location = new System.Drawing.Point(27, 513);
+            this.contractDataGridView.Location = new System.Drawing.Point(27, 512);
             this.contractDataGridView.Name = "contractDataGridView";
             this.contractDataGridView.ReadOnly = true;
             this.contractDataGridView.RowHeadersWidth = 62;
             this.contractDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.contractDataGridView.RowTemplate.Height = 28;
             this.contractDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.contractDataGridView.Size = new System.Drawing.Size(1174, 353);
+            this.contractDataGridView.Size = new System.Drawing.Size(1174, 352);
             this.contractDataGridView.TabIndex = 21;
             this.contractDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.contractDataGridView_CellClick);
             // 
@@ -363,25 +364,13 @@
             // 
             this.tbContractTableAdapter.ClearBeforeFill = true;
             // 
-            // previousButton
-            // 
-            this.previousButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.previousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.previousButton.Image = global::Stall_Rental_Management_System.Properties.Resources.previouos_icon_16x16;
-            this.previousButton.Location = new System.Drawing.Point(26, 32);
-            this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(40, 47);
-            this.previousButton.TabIndex = 0;
-            this.previousButton.UseVisualStyleBackColor = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Poppins Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(155, 30);
+            this.label1.Font = new System.Drawing.Font("Poppins SemiBold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(154, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(407, 56);
+            this.label1.Size = new System.Drawing.Size(399, 56);
             this.label1.TabIndex = 1;
             this.label1.Text = "Contract Management";
             // 
@@ -390,9 +379,9 @@
             this.logoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.logoutButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logoutButton.ForeColor = System.Drawing.Color.Red;
-            this.logoutButton.Location = new System.Drawing.Point(1051, 29);
+            this.logoutButton.Location = new System.Drawing.Point(1052, 29);
             this.logoutButton.Name = "logoutButton";
-            this.logoutButton.Size = new System.Drawing.Size(150, 50);
+            this.logoutButton.Size = new System.Drawing.Size(150, 49);
             this.logoutButton.TabIndex = 22;
             this.logoutButton.Text = "Logout";
             this.logoutButton.UseVisualStyleBackColor = true;
@@ -401,7 +390,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(21, 353);
+            this.label8.Location = new System.Drawing.Point(21, 352);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(63, 39);
             this.label8.TabIndex = 23;
@@ -414,11 +403,11 @@
             this.contractUploadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.contractUploadButton.Enabled = false;
             this.contractUploadButton.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contractUploadButton.Location = new System.Drawing.Point(162, 350);
+            this.contractUploadButton.Location = new System.Drawing.Point(162, 349);
             this.contractUploadButton.Name = "contractUploadButton";
-            this.contractUploadButton.Size = new System.Drawing.Size(307, 50);
+            this.contractUploadButton.Size = new System.Drawing.Size(337, 49);
             this.contractUploadButton.TabIndex = 24;
-            this.contractUploadButton.Text = "Upload Contract File";
+            this.contractUploadButton.Text = "Upload Contract (PDF, Doc)";
             this.contractUploadButton.UseVisualStyleBackColor = false;
             this.contractUploadButton.Click += new System.EventHandler(this.contractUploadButton_Click);
             // 
@@ -436,19 +425,31 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Poppins", 11F);
-            this.label9.Location = new System.Drawing.Point(641, 356);
+            this.label9.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(640, 355);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 39);
             this.label9.TabIndex = 26;
             this.label9.Text = "Staff ID:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // previousButton
+            // 
+            this.previousButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.previousButton.Image = global::Stall_Rental_Management_System.Properties.Resources.previouos_icon_16x16;
+            this.previousButton.Location = new System.Drawing.Point(26, 32);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(40, 48);
+            this.previousButton.TabIndex = 0;
+            this.previousButton.UseVisualStyleBackColor = false;
+            // 
             // FrmContract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 890);
+            this.ClientSize = new System.Drawing.Size(1228, 889);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.staffIdComboBox);
             this.Controls.Add(this.contractUploadButton);

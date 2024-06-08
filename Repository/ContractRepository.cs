@@ -168,7 +168,7 @@ namespace Stall_Rental_Management_System.Repository
             {
                 sqlConnection.Open();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id  
+                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id
                                            AND Status = 'available'";
                 
                 //
@@ -228,8 +228,7 @@ namespace Stall_Rental_Management_System.Repository
             try
             {
                 sqlConnection.Open();
-            }
-            catch (Exception ex)
+            }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
                     "Error", MessageBoxButtons.YesNo,
