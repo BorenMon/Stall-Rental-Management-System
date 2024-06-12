@@ -301,6 +301,7 @@
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.Size = new System.Drawing.Size(257, 29);
             this.txtTotalAmount.TabIndex = 0;
+            this.txtTotalAmount.TextChanged += new System.EventHandler(this.txtTotalAmount_TextChanged);
             // 
             // txtWaterCost
             // 

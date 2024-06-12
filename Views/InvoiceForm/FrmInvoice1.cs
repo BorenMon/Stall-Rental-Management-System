@@ -2,13 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stall_Rental_Management_System.Views.InvoiceForm
 {
@@ -21,7 +14,7 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
             InitializeComponent();
             btnUpdate.Click += new EventHandler(btnupdate_Click);
             btnDelete.Click += new EventHandler(btnDelete_Click);
-          //  textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
+            textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
         }
 
         private void FrmInvoice1_Load(object sender, EventArgs e)
@@ -107,14 +100,14 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
                                "VALUES (@FileURL, @InvoiceNO, @IssuedDate, @RentFee, @ElectricityCost, @WaterCost, @TotalAmount, @Status, @ContractID, @StaffID)";
                 SqlCommand cmd = new SqlCommand(query, con);
 
-                // Assuming all your text boxes have valid input
+             
                 cmd.Parameters.AddWithValue("@FileURL", txtFileURL.Text);
                 cmd.Parameters.AddWithValue("@InvoiceNO", txtInvoiceNO.Text);
-                cmd.Parameters.AddWithValue("@IssuedDate", DateTime.Parse(txtIssuedDate.Text)); // Ensure this is a valid date
-                cmd.Parameters.AddWithValue("@RentFee", decimal.Parse(txtRentFee.Text)); // Ensure this is a valid decimal
-                cmd.Parameters.AddWithValue("@ElectricityCost", decimal.Parse(txtElectricityCost.Text)); // Ensure this is a valid decimal
-                cmd.Parameters.AddWithValue("@WaterCost", decimal.Parse(txtWaterCost.Text)); // Ensure this is a valid decimal
-                cmd.Parameters.AddWithValue("@TotalAmount", decimal.Parse(txtTotalAmount.Text)); // Ensure this is a valid decimal
+                cmd.Parameters.AddWithValue("@IssuedDate", DateTime.Parse(txtIssuedDate.Text)); 
+                cmd.Parameters.AddWithValue("@RentFee", decimal.Parse(txtRentFee.Text));
+                cmd.Parameters.AddWithValue("@ElectricityCost", decimal.Parse(txtElectricityCost.Text)); 
+                cmd.Parameters.AddWithValue("@WaterCost", decimal.Parse(txtWaterCost.Text)); 
+                cmd.Parameters.AddWithValue("@TotalAmount", decimal.Parse(txtTotalAmount.Text)); 
                 cmd.Parameters.AddWithValue("@Status", txtStatus.Text);
                 cmd.Parameters.AddWithValue("@ContractID", ComboBoxContractID.Text);
                 cmd.Parameters.AddWithValue("@StaffID", ComboBoxStaffID.Text);
@@ -173,12 +166,21 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
 
         private void ComboBoxContractID_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ComboBoxContractID.SelectedItem != null)
+            {
+                string selectedContractID = ComboBoxContractID.SelectedItem.ToString();
+                LoadContractDetails(selectedContractID);
+            }
+        }
 
+        private void LoadContractDetails(string selectedContractID)
+        {
+            throw new NotImplementedException();
         }
 
         private void ComboBoxStaffID_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Handle ComboBoxStaffID selected index changed event if needed
         }
 
         private void btnupdate_Click(object sender, EventArgs e)
@@ -288,6 +290,11 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
                     con.Close();
                 }
             }
+        }
+
+        private void txtTotalAmount_TextChanged(object sender, EventArgs e)
+        {
+            // Handle txtTotalAmount text changed event if needed
         }
     }
 }
