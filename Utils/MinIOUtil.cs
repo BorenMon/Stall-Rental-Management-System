@@ -1,5 +1,4 @@
 ﻿using Minio;
-
 namespace Stall_Rental_Management_System.Utils
 {
     internal class MinIOUtil
@@ -17,6 +16,7 @@ namespace Stall_Rental_Management_System.Utils
 
         private static void InitializeMinioClient()
         {
+ 
             minioClient = (MinioClient) new MinioClient()
                 .WithEndpoint("35.240.136.224:9000")
                 .WithCredentials("VixCzznb1jBsFXZ8Uv3N", "VZhsPT0LfRuAv2bz5nLvYdyOp7vSHa30tRhiDEvW")

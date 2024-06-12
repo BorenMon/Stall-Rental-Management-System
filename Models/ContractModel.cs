@@ -17,10 +17,6 @@ namespace Stall_Rental_Management_System.Models
         private string status;
         private DateTime startDate;
         private DateTime endDate;
-        // Relationship fields
-        private int stallID;
-        private int staffID;
-        private int vendorID;
         //
         // Relationship fields
         private int stallId;
@@ -111,7 +107,9 @@ namespace Stall_Rental_Management_System.Models
 
         // Constructor
         public ContractModel() { }
-        public ContractModel(int contractID, string fileUrl, string code, string status, DateTime startDate, DateTime endDate, int stallId, int staffId, int vendorId, StallModel stall, StaffModel staff, VendorModel vendor)
+        public ContractModel(int contractID, string fileUrl,
+            string code, string status, DateTime startDate,
+            DateTime endDate, int stallId, int staffId, int vendorId)
         {
             this.contractID = contractID;
             this.fileUrl = fileUrl;
@@ -122,9 +120,6 @@ namespace Stall_Rental_Management_System.Models
             this.stallId = stallId;
             this.staffId = staffId;
             this.vendorId = vendorId;
-            //this.stall = stall;
-            //this.staff = staff;
-            //this.vendor = vendor;
         }
 
     }
