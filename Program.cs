@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Repository;
+using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
 using Stall_Rental_Management_System.Views.Supermarket_Staff_Forms;
+using Stall_Rental_Management_System.Views.InvoiceForm;
 
 namespace Stall_Rental_Management_System
 {
@@ -16,7 +19,20 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+             Application.Run(new FormLogin());
+
             Application.Run(new FrmStaff());
+            Application.Run(new FrmInvoice1());
+            //
+            var myView = new FrmContract();
+            new ContractPresenter(myView, new ContractRepository());
+            Application.Run(myView);
+
+            Application.Run(new FormLogin());
+            
+            Application.Run(new FrmStaff());
+            Application.Run(new Views.InvoiceForm.FrmInvoice1());
+
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
