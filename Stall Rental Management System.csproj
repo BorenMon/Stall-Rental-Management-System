@@ -148,21 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Presenter\ContractPresenter.cs" />
-    <Compile Include="dbSRMSDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbSRMSDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="dbSRMSDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbSRMSDataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="dbSRMSDataSet21.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\IContractRepository.cs" />
     <Compile Include="Models\StallModel.cs" />
@@ -214,39 +199,6 @@
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="dbSRMSDataSet.xsc">
-      <DependentUpon>dbSRMSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbSRMSDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbSRMSDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dbSRMSDataSet.xss">
-      <DependentUpon>dbSRMSDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="dbSRMSDataSet1.xsc">
-      <DependentUpon>dbSRMSDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="dbSRMSDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbSRMSDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dbSRMSDataSet1.xss">
-      <DependentUpon>dbSRMSDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="dbSRMSDataSet21.xsc">
-      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
-    </None>
-    <None Include="dbSRMSDataSet21.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dbSRMSDataSet21.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dbSRMSDataSet21.xss">
-      <DependentUpon>dbSRMSDataSet21.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

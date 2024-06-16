@@ -115,7 +115,14 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         public int VendorId
         {
             get {
-                 return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
+                try
+                {
+                    return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
+                }
+                catch(NullReferenceException ex) {
+                    MessageBox.Show("Missing Vendor ID.");
+                }
+                return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
             }
             set => contractVendorIDComboBox.SelectedItem = value;
         }
