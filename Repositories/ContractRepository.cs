@@ -103,6 +103,7 @@ namespace Stall_Rental_Management_System.Repositories
                 }
             }
             sqlConnection.Close();
+            
             return contractList;
         }
 

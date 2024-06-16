@@ -50,16 +50,11 @@
             this.downloadButton = new System.Windows.Forms.Button();
             this.contractDataGridView = new System.Windows.Forms.DataGridView();
             this.tbContractBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dbSRMSDataSet2 = new Stall_Rental_Management_System.dbSRMSDataSet2();
             this.sokphengTestContractBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dbSRMSDataSet1 = new Stall_Rental_Management_System.dbSRMSDataSet1();
-            this.dbSRMSDataSet = new Stall_Rental_Management_System.dbSRMSDataSet();
             this.dbSRMSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dbSRMSDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.sokphengTestContractTableAdapter = new Stall_Rental_Management_System.dbSRMSDataSet1TableAdapters.SokphengTestContractTableAdapter();
             this.dataSet1 = new Stall_Rental_Management_System.DataSet1();
             this.dataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbContractTableAdapter = new Stall_Rental_Management_System.dbSRMSDataSet2TableAdapters.tbContractTableAdapter();
             this.previousButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
@@ -69,10 +64,7 @@
             this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -313,41 +305,10 @@
             // tbContractBindingSource
             // 
             this.tbContractBindingSource.DataMember = "tbContract";
-            this.tbContractBindingSource.DataSource = this.dbSRMSDataSet2;
-            // 
-            // dbSRMSDataSet2
-            // 
-            this.dbSRMSDataSet2.DataSetName = "dbSRMSDataSet2";
-            this.dbSRMSDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // sokphengTestContractBindingSource
             // 
             this.sokphengTestContractBindingSource.DataMember = "SokphengTestContract";
-            this.sokphengTestContractBindingSource.DataSource = this.dbSRMSDataSet1;
-            // 
-            // dbSRMSDataSet1
-            // 
-            this.dbSRMSDataSet1.DataSetName = "dbSRMSDataSet1";
-            this.dbSRMSDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dbSRMSDataSet
-            // 
-            this.dbSRMSDataSet.DataSetName = "dbSRMSDataSet";
-            this.dbSRMSDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dbSRMSDataSetBindingSource
-            // 
-            this.dbSRMSDataSetBindingSource.DataSource = this.dbSRMSDataSet;
-            this.dbSRMSDataSetBindingSource.Position = 0;
-            // 
-            // dbSRMSDataSetBindingSource1
-            // 
-            this.dbSRMSDataSetBindingSource1.DataSource = this.dbSRMSDataSet;
-            this.dbSRMSDataSetBindingSource1.Position = 0;
-            // 
-            // sokphengTestContractTableAdapter
-            // 
-            this.sokphengTestContractTableAdapter.ClearBeforeFill = true;
             // 
             // dataSet1
             // 
@@ -358,10 +319,6 @@
             // 
             this.dataSet1BindingSource.DataSource = this.dataSet1;
             this.dataSet1BindingSource.Position = 0;
-            // 
-            // tbContractTableAdapter
-            // 
-            this.tbContractTableAdapter.ClearBeforeFill = true;
             // 
             // previousButton
             // 
@@ -480,10 +437,7 @@
             this.Load += new System.EventHandler(this.FrmContract_Load);
             ((System.ComponentModel.ISupportInitialize)(this.contractDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbContractBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
@@ -514,16 +468,16 @@
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.DataGridView contractDataGridView;
         private System.Windows.Forms.BindingSource dbSRMSDataSetBindingSource;
-        private dbSRMSDataSet dbSRMSDataSet;
+    
         private System.Windows.Forms.BindingSource dbSRMSDataSetBindingSource1;
-        private dbSRMSDataSet1 dbSRMSDataSet1;
+    
         private System.Windows.Forms.BindingSource sokphengTestContractBindingSource;
-        private dbSRMSDataSet1TableAdapters.SokphengTestContractTableAdapter sokphengTestContractTableAdapter;
+
         private System.Windows.Forms.BindingSource dataSet1BindingSource;
         private DataSet1 dataSet1;
-        private dbSRMSDataSet2 dbSRMSDataSet2;
+   
         private System.Windows.Forms.BindingSource tbContractBindingSource;
-        private dbSRMSDataSet2TableAdapters.tbContractTableAdapter tbContractTableAdapter;
+ 
         private System.Windows.Forms.Button previousButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button logoutButton;
