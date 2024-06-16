@@ -18,7 +18,7 @@ namespace Stall_Rental_Management_System.Utils
         {
  
             minioClient = (MinioClient) new MinioClient()
-                .WithEndpoint("35.240.136.224:9000")
+                .WithEndpoint("34.87.58.157:9000")
                 .WithCredentials("VixCzznb1jBsFXZ8Uv3N", "VZhsPT0LfRuAv2bz5nLvYdyOp7vSHa30tRhiDEvW")
                 .Build();
         }

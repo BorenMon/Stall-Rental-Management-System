@@ -41,8 +41,8 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 
         public string ContractId
         {
-            get { return contractSearchTextBox.Text; }
-            set { contractSearchTextBox.Text = value; }
+            get { return contractID; }
+            set { contractID = value; }
 
         }
         public string FileUrl
@@ -313,6 +313,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
             // Get the user's Downloads folder path
             string downloadsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
             string objectName = MinIOObjectNameUtil.GetOnlyObjectName(FileUrl);
+            MessageBox.Show(objectName);
             string bucketName = "srms";
             try
             {
@@ -373,6 +374,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         private void updateButton_Click(object sender, EventArgs e)
         {
             UpdateContract?.Invoke(this, EventArgs.Empty);
+
             //staffIdComboBox.Enabled = false;
             MessageBox.Show("Updated contract information successfully!", "Success",
             MessageBoxButtons.OK, MessageBoxIcon.Information);

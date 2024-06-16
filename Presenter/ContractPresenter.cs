@@ -77,6 +77,7 @@ namespace Stall_Rental_Management_System
         private async void UpadateContract(object sender, EventArgs e)
         {
             var contract = setContractModelValue();
+
             contract.Id = int.Parse(this.view.ContractId.ToString());
             if (this.view.SeletedFilePath != null)
             {
