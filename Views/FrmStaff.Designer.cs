@@ -35,6 +35,7 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControlStaff = new System.Windows.Forms.TabControl();
             this.tabPageStaffList = new System.Windows.Forms.TabPage();
+            this.dataGridViewStaff = new System.Windows.Forms.DataGridView();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPageStaffDetail = new System.Windows.Forms.TabPage();
+            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
             this.dateTimeBirthDate = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxFirstNameEn = new System.Windows.Forms.TextBox();
@@ -69,16 +71,12 @@
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.textBoxStaffId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
-            this.dataSet11 = new Stall_Rental_Management_System.DataSet1();
-            this.dataGridViewStaff = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.tabControlStaff.SuspendLayout();
             this.tabPageStaffList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).BeginInit();
             this.tabPageStaffDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -88,7 +86,7 @@
             this.label1.Location = new System.Drawing.Point(65, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(282, 49);
+            this.label1.Size = new System.Drawing.Size(282, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "Staff Management";
             // 
@@ -109,7 +107,6 @@
             // 
             this.buttonBack.BackColor = System.Drawing.Color.Transparent;
             this.buttonBack.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBack.Image = global::Stall_Rental_Management_System.Properties.Resources.arrow_left;
             this.buttonBack.Location = new System.Drawing.Point(20, 20);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(4);
             this.buttonBack.Name = "buttonBack";
@@ -151,15 +148,25 @@
             this.tabPageStaffList.Controls.Add(this.buttonAddNew);
             this.tabPageStaffList.Controls.Add(this.textBoxSearch);
             this.tabPageStaffList.Controls.Add(this.label2);
-            this.tabPageStaffList.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPageStaffList.Location = new System.Drawing.Point(4, 50);
+            this.tabPageStaffList.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPageStaffList.Location = new System.Drawing.Point(4, 49);
             this.tabPageStaffList.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageStaffList.Name = "tabPageStaffList";
             this.tabPageStaffList.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageStaffList.Size = new System.Drawing.Size(1218, 1043);
+            this.tabPageStaffList.Size = new System.Drawing.Size(1218, 1044);
             this.tabPageStaffList.TabIndex = 0;
             this.tabPageStaffList.Text = "Staff List";
             this.tabPageStaffList.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewStaff
+            // 
+            this.dataGridViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStaff.Location = new System.Drawing.Point(23, 92);
+            this.dataGridViewStaff.Name = "dataGridViewStaff";
+            this.dataGridViewStaff.RowHeadersWidth = 72;
+            this.dataGridViewStaff.RowTemplate.Height = 31;
+            this.dataGridViewStaff.Size = new System.Drawing.Size(1000, 928);
+            this.dataGridViewStaff.TabIndex = 8;
             // 
             // buttonDelete
             // 
@@ -257,14 +264,24 @@
             this.tabPageStaffDetail.Controls.Add(this.textBoxStaffId);
             this.tabPageStaffDetail.Controls.Add(this.label3);
             this.tabPageStaffDetail.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPageStaffDetail.Location = new System.Drawing.Point(4, 50);
+            this.tabPageStaffDetail.Location = new System.Drawing.Point(4, 49);
             this.tabPageStaffDetail.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageStaffDetail.Name = "tabPageStaffDetail";
             this.tabPageStaffDetail.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageStaffDetail.Size = new System.Drawing.Size(1218, 1043);
+            this.tabPageStaffDetail.Size = new System.Drawing.Size(1218, 1044);
             this.tabPageStaffDetail.TabIndex = 1;
             this.tabPageStaffDetail.Text = "Staff Detail";
             this.tabPageStaffDetail.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxPosition
+            // 
+            this.comboBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPosition.FormattingEnabled = true;
+            this.comboBoxPosition.Location = new System.Drawing.Point(253, 620);
+            this.comboBoxPosition.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxPosition.Name = "comboBoxPosition";
+            this.comboBoxPosition.Size = new System.Drawing.Size(612, 48);
+            this.comboBoxPosition.TabIndex = 33;
             // 
             // dateTimeBirthDate
             // 
@@ -446,7 +463,7 @@
             this.comboBoxGender.Location = new System.Drawing.Point(253, 475);
             this.comboBoxGender.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxGender.Name = "comboBoxGender";
-            this.comboBoxGender.Size = new System.Drawing.Size(612, 49);
+            this.comboBoxGender.Size = new System.Drawing.Size(612, 48);
             this.comboBoxGender.TabIndex = 13;
             // 
             // label6
@@ -503,7 +520,6 @@
             // buttonUploadProfile
             // 
             this.buttonUploadProfile.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUploadProfile.Image = global::Stall_Rental_Management_System.Properties.Resources.document_upload;
             this.buttonUploadProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonUploadProfile.Location = new System.Drawing.Point(970, 341);
             this.buttonUploadProfile.Margin = new System.Windows.Forms.Padding(4);
@@ -544,31 +560,6 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Staff ID";
             // 
-            // comboBoxPosition
-            // 
-            this.comboBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxPosition.FormattingEnabled = true;
-            this.comboBoxPosition.Location = new System.Drawing.Point(253, 620);
-            this.comboBoxPosition.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBoxPosition.Name = "comboBoxPosition";
-            this.comboBoxPosition.Size = new System.Drawing.Size(612, 49);
-            this.comboBoxPosition.TabIndex = 33;
-            // 
-            // dataSet11
-            // 
-            this.dataSet11.DataSetName = "DataSet1";
-            this.dataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dataGridViewStaff
-            // 
-            this.dataGridViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStaff.Location = new System.Drawing.Point(23, 92);
-            this.dataGridViewStaff.Name = "dataGridViewStaff";
-            this.dataGridViewStaff.RowHeadersWidth = 72;
-            this.dataGridViewStaff.RowTemplate.Height = 31;
-            this.dataGridViewStaff.Size = new System.Drawing.Size(1000, 928);
-            this.dataGridViewStaff.TabIndex = 8;
-            // 
             // FrmStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
@@ -588,13 +579,11 @@
             this.tabControlStaff.ResumeLayout(false);
             this.tabPageStaffList.ResumeLayout(false);
             this.tabPageStaffList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).EndInit();
             this.tabPageStaffDetail.ResumeLayout(false);
             this.tabPageStaffDetail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -641,6 +630,5 @@
         private System.Windows.Forms.DateTimePicker dateTimeBirthDate;
         private System.Windows.Forms.ComboBox comboBoxPosition;
         private System.Windows.Forms.DataGridView dataGridViewStaff;
-        private DataSet1 dataSet11;
     }
 }
