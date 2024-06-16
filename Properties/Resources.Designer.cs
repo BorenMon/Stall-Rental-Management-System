@@ -63,9 +63,29 @@ namespace Stall_Rental_Management_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap previouos_icon_16x16 {
+        internal static System.Drawing.Bitmap arrow_left {
             get {
-                object obj = ResourceManager.GetObject("previouos_icon-16x16", resourceCulture);
+                object obj = ResourceManager.GetObject("arrow-left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap document_upload {
+            get {
+                object obj = ResourceManager.GetObject("document-upload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search_normal {
+            get {
+                object obj = ResourceManager.GetObject("search-normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
