@@ -1,4 +1,4 @@
-﻿namespace Stall_Rental_Management_System.Views.Supermarket_Staff_Forms
+﻿namespace Stall_Rental_Management_System.Views
 {
     partial class FrmStaff
     {
@@ -31,16 +31,23 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStaff));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonBack = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControlStaff = new System.Windows.Forms.TabControl();
+            this.tabPageStaffList = new System.Windows.Forms.TabPage();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonAddNew = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.listBoxStaff = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageStaffDetail = new System.Windows.Forms.TabPage();
+            this.dateTimeBirthDate = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxFirstNameEn = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxLastNameEn = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.richTextBoxAddress = new System.Windows.Forms.RichTextBox();
@@ -49,7 +56,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxPhoneNumber = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBoxPosition = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,23 +65,20 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxLastNameKh = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxStaffId = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxFirstNameEn = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBoxLastNameEn = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonUploadProfile = new System.Windows.Forms.Button();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
-            this.buttonBack = new System.Windows.Forms.Button();
+            this.textBoxStaffId = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
+            this.dataSet11 = new Stall_Rental_Management_System.DataSet1();
+            this.dataGridViewStaff = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabControlStaff.SuspendLayout();
+            this.tabPageStaffList.SuspendLayout();
+            this.tabPageStaffDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,6 +105,18 @@
             this.panel1.Size = new System.Drawing.Size(1226, 89);
             this.panel1.TabIndex = 1;
             // 
+            // buttonBack
+            // 
+            this.buttonBack.BackColor = System.Drawing.Color.Transparent;
+            this.buttonBack.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Image = global::Stall_Rental_Management_System.Properties.Resources.arrow_left;
+            this.buttonBack.Location = new System.Drawing.Point(20, 20);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(38, 44);
+            this.buttonBack.TabIndex = 2;
+            this.buttonBack.UseVisualStyleBackColor = false;
+            // 
             // buttonLogout
             // 
             this.buttonLogout.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -113,38 +128,38 @@
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tabControlStaff
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 89);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(21, 3);
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1226, 1097);
-            this.tabControl1.TabIndex = 2;
+            this.tabControlStaff.Controls.Add(this.tabPageStaffList);
+            this.tabControlStaff.Controls.Add(this.tabPageStaffDetail);
+            this.tabControlStaff.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlStaff.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControlStaff.Location = new System.Drawing.Point(0, 89);
+            this.tabControlStaff.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlStaff.Name = "tabControlStaff";
+            this.tabControlStaff.Padding = new System.Drawing.Point(21, 3);
+            this.tabControlStaff.SelectedIndex = 0;
+            this.tabControlStaff.Size = new System.Drawing.Size(1226, 1097);
+            this.tabControlStaff.TabIndex = 2;
             // 
-            // tabPage1
+            // tabPageStaffList
             // 
-            this.tabPage1.Controls.Add(this.buttonDelete);
-            this.tabPage1.Controls.Add(this.buttonEdit);
-            this.tabPage1.Controls.Add(this.buttonSearch);
-            this.tabPage1.Controls.Add(this.buttonAddNew);
-            this.tabPage1.Controls.Add(this.textBoxSearch);
-            this.tabPage1.Controls.Add(this.listBoxStaff);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 50);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1218, 1043);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Staff List";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageStaffList.Controls.Add(this.dataGridViewStaff);
+            this.tabPageStaffList.Controls.Add(this.buttonDelete);
+            this.tabPageStaffList.Controls.Add(this.buttonEdit);
+            this.tabPageStaffList.Controls.Add(this.buttonSearch);
+            this.tabPageStaffList.Controls.Add(this.buttonAddNew);
+            this.tabPageStaffList.Controls.Add(this.textBoxSearch);
+            this.tabPageStaffList.Controls.Add(this.label2);
+            this.tabPageStaffList.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPageStaffList.Location = new System.Drawing.Point(4, 50);
+            this.tabPageStaffList.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageStaffList.Name = "tabPageStaffList";
+            this.tabPageStaffList.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageStaffList.Size = new System.Drawing.Size(1218, 1043);
+            this.tabPageStaffList.TabIndex = 0;
+            this.tabPageStaffList.Text = "Staff List";
+            this.tabPageStaffList.UseVisualStyleBackColor = true;
             // 
             // buttonDelete
             // 
@@ -168,6 +183,18 @@
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.BackColor = System.Drawing.Color.Transparent;
+            this.buttonSearch.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
+            this.buttonSearch.Location = new System.Drawing.Point(603, 28);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(57, 45);
+            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.UseVisualStyleBackColor = false;
+            // 
             // buttonAddNew
             // 
             this.buttonAddNew.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -188,17 +215,6 @@
             this.textBoxSearch.Size = new System.Drawing.Size(400, 42);
             this.textBoxSearch.TabIndex = 5;
             // 
-            // listBoxStaff
-            // 
-            this.listBoxStaff.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxStaff.FormattingEnabled = true;
-            this.listBoxStaff.ItemHeight = 49;
-            this.listBoxStaff.Location = new System.Drawing.Point(16, 92);
-            this.listBoxStaff.Margin = new System.Windows.Forms.Padding(4);
-            this.listBoxStaff.Name = "listBoxStaff";
-            this.listBoxStaff.Size = new System.Drawing.Size(1012, 935);
-            this.listBoxStaff.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -210,45 +226,104 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Search Staff";
             // 
-            // tabPage2
+            // tabPageStaffDetail
             // 
-            this.tabPage2.Controls.Add(this.dateTimePicker1);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.textBoxFirstNameEn);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.textBoxLastNameEn);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.buttonCancel);
-            this.tabPage2.Controls.Add(this.buttonSave);
-            this.tabPage2.Controls.Add(this.richTextBoxAddress);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.textBoxPassword);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.textBoxPhoneNumber);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.textBoxPosition);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.textBoxEmail);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.comboBoxGender);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.textBoxFirstNameKh);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.textBoxLastNameKh);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.buttonUploadProfile);
-            this.tabPage2.Controls.Add(this.pictureBoxProfile);
-            this.tabPage2.Controls.Add(this.textBoxStaffId);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 50);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1218, 1043);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Staff Detail";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageStaffDetail.Controls.Add(this.comboBoxPosition);
+            this.tabPageStaffDetail.Controls.Add(this.dateTimeBirthDate);
+            this.tabPageStaffDetail.Controls.Add(this.label14);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxFirstNameEn);
+            this.tabPageStaffDetail.Controls.Add(this.label12);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxLastNameEn);
+            this.tabPageStaffDetail.Controls.Add(this.label13);
+            this.tabPageStaffDetail.Controls.Add(this.buttonCancel);
+            this.tabPageStaffDetail.Controls.Add(this.buttonSave);
+            this.tabPageStaffDetail.Controls.Add(this.richTextBoxAddress);
+            this.tabPageStaffDetail.Controls.Add(this.label11);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxPassword);
+            this.tabPageStaffDetail.Controls.Add(this.label10);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxPhoneNumber);
+            this.tabPageStaffDetail.Controls.Add(this.label9);
+            this.tabPageStaffDetail.Controls.Add(this.label8);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxEmail);
+            this.tabPageStaffDetail.Controls.Add(this.label7);
+            this.tabPageStaffDetail.Controls.Add(this.comboBoxGender);
+            this.tabPageStaffDetail.Controls.Add(this.label6);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxFirstNameKh);
+            this.tabPageStaffDetail.Controls.Add(this.label5);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxLastNameKh);
+            this.tabPageStaffDetail.Controls.Add(this.label4);
+            this.tabPageStaffDetail.Controls.Add(this.buttonUploadProfile);
+            this.tabPageStaffDetail.Controls.Add(this.pictureBoxProfile);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxStaffId);
+            this.tabPageStaffDetail.Controls.Add(this.label3);
+            this.tabPageStaffDetail.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPageStaffDetail.Location = new System.Drawing.Point(4, 50);
+            this.tabPageStaffDetail.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageStaffDetail.Name = "tabPageStaffDetail";
+            this.tabPageStaffDetail.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPageStaffDetail.Size = new System.Drawing.Size(1218, 1043);
+            this.tabPageStaffDetail.TabIndex = 1;
+            this.tabPageStaffDetail.Text = "Staff Detail";
+            this.tabPageStaffDetail.UseVisualStyleBackColor = true;
+            // 
+            // dateTimeBirthDate
+            // 
+            this.dateTimeBirthDate.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimeBirthDate.Location = new System.Drawing.Point(253, 398);
+            this.dateTimeBirthDate.Name = "dateTimeBirthDate";
+            this.dateTimeBirthDate.Size = new System.Drawing.Size(613, 42);
+            this.dateTimeBirthDate.TabIndex = 32;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(14, 399);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(135, 42);
+            this.label14.TabIndex = 30;
+            this.label14.Text = "Birth Date";
+            // 
+            // textBoxFirstNameEn
+            // 
+            this.textBoxFirstNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFirstNameEn.Location = new System.Drawing.Point(254, 315);
+            this.textBoxFirstNameEn.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxFirstNameEn.Name = "textBoxFirstNameEn";
+            this.textBoxFirstNameEn.Size = new System.Drawing.Size(612, 42);
+            this.textBoxFirstNameEn.TabIndex = 29;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(14, 317);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(181, 42);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "First Name EN";
+            // 
+            // textBoxLastNameEn
+            // 
+            this.textBoxLastNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLastNameEn.Location = new System.Drawing.Point(254, 241);
+            this.textBoxLastNameEn.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxLastNameEn.Name = "textBoxLastNameEn";
+            this.textBoxLastNameEn.Size = new System.Drawing.Size(612, 42);
+            this.textBoxLastNameEn.TabIndex = 27;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(14, 245);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(180, 42);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Last Name EN";
             // 
             // buttonCancel
             // 
@@ -332,15 +407,6 @@
             this.label9.Size = new System.Drawing.Size(195, 42);
             this.label9.TabIndex = 18;
             this.label9.Text = "Phone Number";
-            // 
-            // textBoxPosition
-            // 
-            this.textBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPosition.Location = new System.Drawing.Point(253, 619);
-            this.textBoxPosition.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxPosition.Name = "textBoxPosition";
-            this.textBoxPosition.Size = new System.Drawing.Size(612, 42);
-            this.textBoxPosition.TabIndex = 17;
             // 
             // label8
             // 
@@ -434,97 +500,6 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Last Name KH";
             // 
-            // textBoxStaffId
-            // 
-            this.textBoxStaffId.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStaffId.Location = new System.Drawing.Point(253, 22);
-            this.textBoxStaffId.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxStaffId.Name = "textBoxStaffId";
-            this.textBoxStaffId.Size = new System.Drawing.Size(612, 42);
-            this.textBoxStaffId.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 26);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 42);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Staff ID";
-            // 
-            // textBoxFirstNameEn
-            // 
-            this.textBoxFirstNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFirstNameEn.Location = new System.Drawing.Point(254, 315);
-            this.textBoxFirstNameEn.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxFirstNameEn.Name = "textBoxFirstNameEn";
-            this.textBoxFirstNameEn.Size = new System.Drawing.Size(612, 42);
-            this.textBoxFirstNameEn.TabIndex = 29;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(14, 317);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(181, 42);
-            this.label12.TabIndex = 28;
-            this.label12.Text = "First Name EN";
-            // 
-            // textBoxLastNameEn
-            // 
-            this.textBoxLastNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxLastNameEn.Location = new System.Drawing.Point(254, 241);
-            this.textBoxLastNameEn.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxLastNameEn.Name = "textBoxLastNameEn";
-            this.textBoxLastNameEn.Size = new System.Drawing.Size(612, 42);
-            this.textBoxLastNameEn.TabIndex = 27;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(14, 245);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(180, 42);
-            this.label13.TabIndex = 26;
-            this.label13.Text = "Last Name EN";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(14, 399);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(135, 42);
-            this.label14.TabIndex = 30;
-            this.label14.Text = "Birth Date";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(253, 398);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(613, 42);
-            this.dateTimePicker1.TabIndex = 32;
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.BackColor = System.Drawing.Color.Transparent;
-            this.buttonSearch.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
-            this.buttonSearch.Location = new System.Drawing.Point(603, 28);
-            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(57, 45);
-            this.buttonSearch.TabIndex = 3;
-            this.buttonSearch.UseVisualStyleBackColor = false;
-            // 
             // buttonUploadProfile
             // 
             this.buttonUploadProfile.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -549,24 +524,57 @@
             this.pictureBoxProfile.TabIndex = 7;
             this.pictureBoxProfile.TabStop = false;
             // 
-            // buttonBack
+            // textBoxStaffId
             // 
-            this.buttonBack.BackColor = System.Drawing.Color.Transparent;
-            this.buttonBack.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBack.Image = global::Stall_Rental_Management_System.Properties.Resources.arrow_left;
-            this.buttonBack.Location = new System.Drawing.Point(20, 20);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(38, 44);
-            this.buttonBack.TabIndex = 2;
-            this.buttonBack.UseVisualStyleBackColor = false;
+            this.textBoxStaffId.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxStaffId.Location = new System.Drawing.Point(253, 22);
+            this.textBoxStaffId.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxStaffId.Name = "textBoxStaffId";
+            this.textBoxStaffId.Size = new System.Drawing.Size(612, 42);
+            this.textBoxStaffId.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 26);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 42);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Staff ID";
+            // 
+            // comboBoxPosition
+            // 
+            this.comboBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPosition.FormattingEnabled = true;
+            this.comboBoxPosition.Location = new System.Drawing.Point(253, 620);
+            this.comboBoxPosition.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxPosition.Name = "comboBoxPosition";
+            this.comboBoxPosition.Size = new System.Drawing.Size(612, 49);
+            this.comboBoxPosition.TabIndex = 33;
+            // 
+            // dataSet11
+            // 
+            this.dataSet11.DataSetName = "DataSet1";
+            this.dataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataGridViewStaff
+            // 
+            this.dataGridViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStaff.Location = new System.Drawing.Point(23, 92);
+            this.dataGridViewStaff.Name = "dataGridViewStaff";
+            this.dataGridViewStaff.RowHeadersWidth = 72;
+            this.dataGridViewStaff.RowTemplate.Height = 31;
+            this.dataGridViewStaff.Size = new System.Drawing.Size(1000, 928);
+            this.dataGridViewStaff.TabIndex = 8;
             // 
             // FrmStaff
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1226, 1186);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlStaff);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -577,12 +585,14 @@
             this.Text = "Stall Rental Management System";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabControlStaff.ResumeLayout(false);
+            this.tabPageStaffList.ResumeLayout(false);
+            this.tabPageStaffList.PerformLayout();
+            this.tabPageStaffDetail.ResumeLayout(false);
+            this.tabPageStaffDetail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSet11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -591,13 +601,12 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tabControlStaff;
+        private System.Windows.Forms.TabPage tabPageStaffList;
+        private System.Windows.Forms.TabPage tabPageStaffDetail;
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBoxStaff;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonAddNew;
         private System.Windows.Forms.TextBox textBoxSearch;
@@ -612,7 +621,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxPhoneNumber;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxPosition;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label label7;
@@ -630,6 +638,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxLastNameEn;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimeBirthDate;
+        private System.Windows.Forms.ComboBox comboBoxPosition;
+        private System.Windows.Forms.DataGridView dataGridViewStaff;
+        private DataSet1 dataSet11;
     }
 }

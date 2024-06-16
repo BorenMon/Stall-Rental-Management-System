@@ -16,6 +16,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         string Gender { get; set; }
         string Email { get; set; }
         string Position { get; set; }
+        string Address { get; set; }
         string PhoneNumber { get; set; }
         string Password { get; set; }
 

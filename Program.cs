@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Repository;
-using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
-using Stall_Rental_Management_System.Views.Supermarket_Staff_Forms;
-using Stall_Rental_Management_System.Views.InvoiceForm;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Views;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System
 {
@@ -13,26 +15,19 @@ namespace Stall_Rental_Management_System
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new FormLogin());
-
-            Application.Run(new FrmStaff());
-            Application.Run(new FrmInvoice1());
-            //
-            var myView = new FrmContract();
-            new ContractPresenter(myView, new ContractRepository());
-            Application.Run(myView);
-
-            Application.Run(new FormLogin());
             
-            Application.Run(new FrmStaff());
-            Application.Run(new Views.InvoiceForm.FrmInvoice1());
-
+            var connectionString = ConfigurationManager.ConnectionStrings["SRMS"].ConnectionString;
+            
+            IStaffView view = new FrmStaff();
+            IStaffRepository repository = new StaffRepository(connectionString);
+            new StaffPresenter(view, repository);
+            Application.Run((Form)view);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
