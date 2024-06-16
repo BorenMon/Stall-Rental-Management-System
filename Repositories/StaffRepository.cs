@@ -18,17 +18,42 @@ namespace Stall_Rental_Management_System.Repositories
         // Methods
         public void Add(StaffModel staffModel)
         {
-            
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "Insert into tbStaff values (@last_name_kh)";
+                command.Parameters.Add("@last_name_kh", SqlDbType.VarChar).Value = staffModel.LastNameKh;
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Edit(StaffModel staffModel)
         {
-            
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "update tbStaff set LastNameKH = @last_name_kh where StaffID = @staff_id";
+                command.Parameters.Add("@last_name_kh", SqlDbType.VarChar).Value = staffModel.LastNameKh;
+                command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Delete(StaffModel staffModel)
         {
-            
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "delete from tbStaff where StaffID = @staff_id";
+                command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
+                command.ExecuteNonQuery();
+            }
         }
 
         public IEnumerable<StaffModel> GetAll()

@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Presenters;
-using Stall_Rental_Management_System.Repositories;
-using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Views;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
@@ -22,12 +22,22 @@ namespace Stall_Rental_Management_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            var connectionString = ConfigurationManager.ConnectionStrings["SRMS"].ConnectionString;
-            
-            IStaffView view = new FrmStaff();
-            IStaffRepository repository = new StaffRepository(connectionString);
-            new StaffPresenter(view, repository);
-            Application.Run((Form)view);
+            var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+
+            // Initialize services
+            IAuthenticationService authenticationService = new AuthenticationService();
+            IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
+
+            // Initialize views
+            ILoginView loginView = new FrmLogin();
+            IMainView mainView = new FrmMain();
+
+            // Initialize presenters
+            LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
+            MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
+
+            // Show the main form
+            Application.Run((Form)mainView);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

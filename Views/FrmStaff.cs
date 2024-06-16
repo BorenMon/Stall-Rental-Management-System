@@ -8,7 +8,7 @@ namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmStaff : Form, IStaffView
     {
-        public FrmStaff()
+        private FrmStaff()
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
@@ -17,6 +17,7 @@ namespace Stall_Rental_Management_System.Views
 
         private void AssociateAndRaiseViewEvents()
         {
+            // Search
             buttonSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
             textBoxSearch.KeyDown += (s, e) =>
             {
@@ -26,7 +27,56 @@ namespace Stall_Rental_Management_System.Views
                 }
             };
 
-            // Others
+            // Add new
+            buttonAddNew.Click += delegate
+            {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+                tabControlStaff.TabPages.Remove(tabPageStaffList);
+                tabControlStaff.TabPages.Add(tabPageStaffDetail);
+                tabPageStaffDetail.Text = @"Add new staff";
+            };
+            
+            // Edit
+            buttonEdit.Click += delegate
+            {
+                EditEvent?.Invoke(this, EventArgs.Empty);
+                tabControlStaff.TabPages.Remove(tabPageStaffList);
+                tabControlStaff.TabPages.Add(tabPageStaffDetail);
+                tabPageStaffDetail.Text = @"Edit staff";
+            };
+            
+            // Save
+            buttonSave.Click += delegate
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (!IsSuccessful) return;
+                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+                tabControlStaff.TabPages.Add(tabPageStaffList);
+                MessageBox.Show(Message);
+            };
+            
+            // Save
+            buttonCancel.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+                tabControlStaff.TabPages.Add(tabPageStaffList);
+            };
+            
+            // Delete
+            buttonDelete.Click += delegate
+            {
+                var result = MessageBox.Show(
+                    @"Are you sure you want to delete the selected staff?", 
+                    @"Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                    );
+
+                if (result != DialogResult.Yes) return;
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
         }
 
         // Properties
@@ -128,6 +178,23 @@ namespace Stall_Rental_Management_System.Views
             };
 
             DataGridViewHelper.SetDataGridViewColumns(dataGridViewStaff, staffList, columns);
+        }
+        
+        // Singleton pattern (Open a single form instance)
+        private static FrmStaff _instance;
+
+        public static FrmStaff GetInstance()
+        {
+            if (_instance == null || _instance.IsDisposed)
+                _instance = new FrmStaff();
+            else
+            {
+                if (_instance.WindowState == FormWindowState.Minimized)
+                    _instance.WindowState = FormWindowState.Normal;
+                _instance.BringToFront();
+            }
+
+            return _instance;
         }
     }
 }
