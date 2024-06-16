@@ -1,4 +1,4 @@
-﻿namespace Stall_Rental_Management_System.Views.Supermarket_Staff_Forms
+﻿namespace Stall_Rental_Management_System.Views
 {
     partial class FrmStaff
     {

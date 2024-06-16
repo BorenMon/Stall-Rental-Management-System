@@ -12,11 +12,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stall_Rental_Management_System.Views.InvoiceForm
 {
-    public partial class FrmInvoice1 : Form
+    public partial class FrmInvoice : Form
     {
         SqlConnection con = new SqlConnection("Server=35.240.136.224,1433;Database=dbSRMS;User Id=sa;Password=ISADGroup3@RUPP;");
 
-        public FrmInvoice1()
+        public FrmInvoice()
         {
             InitializeComponent();
             btnUpdate.Click += new EventHandler(btnupdate_Click);

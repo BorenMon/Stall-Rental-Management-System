@@ -1,7 +1,6 @@
 ﻿using Minio;
 using Minio.DataModel.Args;
 using Stall_Rental_Management_System.Models;
-using Stall_Rental_Management_System.Repository;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
@@ -18,6 +17,8 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories;
 
 namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
 {

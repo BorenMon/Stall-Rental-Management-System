@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Stall_Rental_Management_System.Models;
 
-namespace Stall_Rental_Management_System.Models
+namespace Stall_Rental_Management_System.Repositories.Repository_Interfaces
 {
     internal interface IContractRepository
     {

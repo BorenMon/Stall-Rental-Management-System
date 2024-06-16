@@ -1,6 +1,6 @@
 ﻿namespace Stall_Rental_Management_System.Views.InvoiceForm
 {
-    partial class FrmInvoice1
+    partial class FrmInvoice
     {
         /// <summary>
         /// Required designer variable.
@@ -514,7 +514,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "FrmInvoice1";
+            this.Name = "FrmInvoice";
             this.Text = "FrmInvoice1";
             this.Load += new System.EventHandler(this.FrmInvoice1_Load);
             this.panel1.ResumeLayout(false);
