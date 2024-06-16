@@ -208,7 +208,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                                      //this.MaximumSize = new System.Drawing.Size(800, 600);
                                      //this.MinimumSize = new System.Drawing.Size(800, 600);
                                      //todo table
-            ReloadDatabase();
+            new ContractPresenter(this, new ContractRepository());
 
 
             // trigger search event

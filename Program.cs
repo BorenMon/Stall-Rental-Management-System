@@ -37,7 +37,7 @@ namespace Stall_Rental_Management_System
             MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
 
             // Show the main form
-            Application.Run((Form)mainView);
+            Application.Run((Form) mainView);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
