@@ -203,6 +203,12 @@
     <Compile Include="Views\InvoiceForm\FrmInvoice1.Designer.cs">
       <DependentUpon>FrmInvoice1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\InvoiceForm\Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\InvoiceForm\Print.Designer.cs">
+      <DependentUpon>Print.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Supermarket Staff Forms\FrmContract.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\InvoiceForm\FrmInvoice1.resx">
       <DependentUpon>FrmInvoice1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\InvoiceForm\Print.resx">
+      <DependentUpon>Print.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmContract.resx">
       <DependentUpon>FrmContract.cs</DependentUpon>

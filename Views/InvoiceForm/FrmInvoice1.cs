@@ -2,19 +2,20 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stall_Rental_Management_System.Views.InvoiceForm
 {
     public partial class FrmInvoice1 : Form
     {
-        SqlConnection con = new SqlConnection("Server=35.240.136.224,1433;Database=dbSRMS;User Id=sa;Password=ISADGroup3@RUPP;");
+        SqlConnection con = new SqlConnection("Server=34.87.58.157,1433;Database=dbSRMS;User Id=sa;Password=ISADGroup3@RUPP;");
 
         public FrmInvoice1()
         {
             InitializeComponent();
             btnUpdate.Click += new EventHandler(btnupdate_Click);
             btnDelete.Click += new EventHandler(btnDelete_Click);
-            textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
+           // textBox12.TextChanged += new EventHandler(textBox12_TextChanged);
         }
 
         private void FrmInvoice1_Load(object sender, EventArgs e)
@@ -140,7 +141,7 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            // Handle textBox1 text changed event
+            txtInvoiceID.ReadOnly = true;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -294,7 +295,81 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
 
         private void txtTotalAmount_TextChanged(object sender, EventArgs e)
         {
-            // Handle txtTotalAmount text changed event if needed
+            try
+            {
+                decimal rentFee, electricityCost, waterCost;
+                if (decimal.TryParse(txtRentFee.Text, out rentFee) &&
+                    decimal.TryParse(txtElectricityCost.Text, out electricityCost) &&
+                    decimal.TryParse(txtWaterCost.Text, out waterCost))
+                {
+                    decimal totalAmount = rentFee + electricityCost + waterCost;
+                    txtTotalAmount.Text = totalAmount.ToString("F2");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            txtFileURL.Text = "";
+            txtInvoiceID.Text = "";
+            txtElectricityCost.Text = "";
+            txtInvoiceNO.Text = "";
+            txtIssuedDate.Text = "";
+            txtRentFee.Text = "";
+            txtTotalAmount.Text = "";
+            txtStatus.Text = "";
+            ComboBoxContractID.Text = "";
+            ComboBoxStaffID.Text="";
+            txtWaterCost.Text = "";
+            
+        }
+
+        private void txtInvoiceID_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtInvoiceID_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFileURL_TextChanged(object sender, EventArgs e)
+        {
+           
+        
+    }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\"; // Set the initial directory to C:\
+                openFileDialog.Filter = "All files (*.*)|*.*"; // Set the filter to show all files
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of the selected file
+                    txtFileURL.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
