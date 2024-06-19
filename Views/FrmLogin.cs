@@ -1,54 +1,22 @@
-﻿using Minio.DataModel.Args;
-using Minio;
-using Stall_Rental_Management_System.Utils;
-using System;
-using System.Data.SqlClient;
+﻿using System;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 
-namespace Stall_Rental_Management_System
+namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmLogin : Form
+    public partial class FrmLogin : Form, ILoginView
     {
-        private readonly MinioClient minio;
-        private readonly SqlConnection dbConn;
-
         public FrmLogin()
         {
             InitializeComponent();
-            minio = MinIOUtil.GetMinioClient();
-            dbConn = DatabaseUtil.GetConn();
-            TestMinio();
-            TestDatabase();
         }
 
-        private void TestMinio()
+        public string PhoneNumber { get; }
+        public string Password { get; }
+        public event EventHandler Login;
+        public void ShowMessage(string message)
         {
-            var bucketName = "srms";
-
-            ListObjectsArgs args = new ListObjectsArgs()
-                .WithBucket(bucketName);
-
-            var observable = minio.ListObjectsAsync(args);
-
-            var subscription = observable.Subscribe(
-                item => Console.WriteLine($"Object: {item.Key}"),
-                ex => Console.WriteLine($"OnError: {ex}"),
-                () => Console.WriteLine($"Listed all objects in bucket {bucketName}\n")
-            );
-        }
-
-        private void TestDatabase()
-        {
-            dbConn.Open();
-            // Perform database operations
-            SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", dbConn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                string tableName = reader["TABLE_NAME"].ToString();
-                Console.WriteLine(tableName);
-            }
-            dbConn.Close();
+            MessageBox.Show(message);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Repository;
-using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
-using Stall_Rental_Management_System.Views.Supermarket_Staff_Forms;
-using Stall_Rental_Management_System.Views.InvoiceForm;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Services.Service_Interfaces;
+using Stall_Rental_Management_System.Views;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System
 {
@@ -13,26 +15,29 @@ namespace Stall_Rental_Management_System
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new FormLogin());
-
-            Application.Run(new FrmStaff());
-            Application.Run(new FrmInvoice1());
-            //
-            var myView = new FrmContract();
-            new ContractPresenter(myView, new ContractRepository());
-            Application.Run(myView);
-
-            Application.Run(new FormLogin());
             
-            Application.Run(new FrmStaff());
-            Application.Run(new Views.InvoiceForm.FrmInvoice1());
+            var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
+            // Initialize services
+            IAuthenticationService authenticationService = new AuthenticationService();
+            IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
+
+            // Initialize views
+            ILoginView loginView = new FrmLogin();
+            IMainView mainView = new FrmMain();
+
+            // Initialize presenters
+            LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
+            MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
+
+            // Show the main form
+            Application.Run((Form) mainView);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

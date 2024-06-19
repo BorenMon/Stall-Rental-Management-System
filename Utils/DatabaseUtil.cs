@@ -3,23 +3,23 @@ using System.Configuration;
 
 namespace Stall_Rental_Management_System.Utils
 {
-    internal class DatabaseUtil
+    public static class DatabaseUtil
     {
-        private static SqlConnection conn;
+        private static SqlConnection _conn;
 
         public static SqlConnection GetConn()
         {
-            if (conn == null)
+            if (_conn == null)
             {
                 InitializeConn();
             }
-            return conn;
+            return _conn;
         }
 
         private static void InitializeConn()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["SRMS"].ConnectionString;
-            conn = new SqlConnection(connectionString);
+            var connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            _conn = new SqlConnection(connectionString);
         }
     }
 }
