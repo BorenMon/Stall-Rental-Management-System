@@ -57,10 +57,30 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Minio, Version=6.0.2.0, Culture=neutral, PublicKeyToken=a7f2f2a2cd6a6a20, processorArchitecture=MSIL">
       <HintPath>packages\Minio.6.0.2\lib\netstandard2.0\Minio.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -165,6 +185,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Repository\ContractRepository.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+=======
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
@@ -176,6 +200,7 @@
     <Compile Include="Services\Service Interfaces\IAuthorizationService.cs" />
     <Compile Include="Utils\ConsoleHelper.cs" />
     <Compile Include="Utils\DesignUtils\DataGridViewHelper.cs" />
+>>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Models\StaffModel.cs" />
     <Compile Include="Program.cs" />
@@ -194,7 +219,25 @@
     <Compile Include="Views\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Views\InvoiceForm\Invoice.cs">
+      <DependentUpon>Invoice.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoiceForm\Invoice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invoice.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoiceForm\Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\InvoiceForm\Print.Designer.cs">
+      <DependentUpon>Print.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Supermarket Staff Forms\FrmContract.cs">
+=======
     <Compile Include="Views\FrmContract.cs">
+>>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FrmContract.Designer.cs">
@@ -224,7 +267,15 @@
     <EmbeddedResource Include="Views\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+    <EmbeddedResource Include="Views\InvoiceForm\Print.resx">
+      <DependentUpon>Print.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\InvoiceForm\Report1.rdlc" />
+    <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmContract.resx">
+=======
     <EmbeddedResource Include="Views\FrmContract.resx">
+>>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
       <DependentUpon>FrmContract.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmInvoice.resx">
@@ -255,6 +306,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="pushToSokpheng.sh" />
+    <None Include="Views\InvoiceForm\Invoice.xsc">
+      <DependentUpon>Invoice.xsd</DependentUpon>
+    </None>
+    <None Include="Views\InvoiceForm\Invoice.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Invoice.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Views\InvoiceForm\Invoice.xss">
+      <DependentUpon>Invoice.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -266,6 +328,19 @@
     <None Include="Resources\search-normal.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\document-upload.png" />
     <Content Include="Resources\stall-rental-management-system.ico" />
   </ItemGroup>

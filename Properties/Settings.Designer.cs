@@ -12,7 +12,7 @@ namespace Stall_Rental_Management_System.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -31,6 +31,17 @@ namespace Stall_Rental_Management_System.Properties {
         public string dbSRMSConnectionString {
             get {
                 return ((string)(this["dbSRMSConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=34.87.58.157,1433;Initial Catalog=dbSRMS;Persist Security Info=True;U" +
+            "ser ID=sa;Password=ISADGroup3@RUPP;TrustServerCertificate=True")]
+        public string dbSRMSConnectionString1 {
+            get {
+                return ((string)(this["dbSRMSConnectionString1"]));
             }
         }
     }
