@@ -364,7 +364,10 @@ namespace Stall_Rental_Management_System.Views.InvoiceForm
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            Print printForm = new Print();
 
+            // Show the PrintForm
+            printForm.Show();
         }
 
         private void printPreviewDialog1_Load(object sender, EventArgs e)
