@@ -75,6 +75,7 @@ namespace Stall_Rental_Management_System.Presenters
         private async void UpadateContract(object sender, EventArgs e)
         {
             var contract = setContractModelValue();
+
             contract.Id = int.Parse(this.view.ContractId.ToString());
             if (this.view.SeletedFilePath != null)
             {
@@ -95,8 +96,12 @@ namespace Stall_Rental_Management_System.Presenters
 
         private void SearchContractByID(object sender, EventArgs e)
         {
+
             contractList = contractRepository.GetByID(this.view.ContractId);
-            contractBindingSource.DataSource = contractList;
+            this.contractBindingSource = new BindingSource();
+            this.contractBindingSource.DataSource = contractList;
+            this.view.SetContractBindingSource(contractBindingSource);
+            //MessageBox.Show("Number of Search Found: " + contractList.Count().ToString());
         }
         // conotructor
         private ContractModel setContractModelValue()

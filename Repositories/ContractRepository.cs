@@ -103,6 +103,7 @@ namespace Stall_Rental_Management_System.Repositories
                 }
             }
             sqlConnection.Close();
+            
             return contractList;
         }
 
@@ -161,7 +162,8 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 sqlConnection.Open();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id";
+                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id
+                                           AND Status = 'available'";
                 
                 //
                 sqlCommand.Parameters.Add("@id",SqlDbType.Int).Value = contractID;
@@ -220,8 +222,7 @@ namespace Stall_Rental_Management_System.Repositories
             try
             {
                 sqlConnection.Open();
-            }
-            catch (Exception ex)
+            }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
                     "Error", MessageBoxButtons.YesNo,

@@ -18,7 +18,7 @@ namespace Stall_Rental_Management_System.Utils
 
         private static void InitializeConn()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["SRMS"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
             _conn = new SqlConnection(connectionString);
         }
     }
