@@ -16,7 +16,7 @@ namespace Stall_Rental_Management_System.Repositories
         public ContractRepository() {
             try
             {
-                sqlConnection = DatabaseUtil.GetConn();
+                sqlConnection = DatabaseUtil.GetConnection();
             }catch (Exception ex) {
                 MessageBox.Show(ex.Message, "SQL Connection", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
@@ -103,7 +103,6 @@ namespace Stall_Rental_Management_System.Repositories
                 }
             }
             sqlConnection.Close();
-            
             return contractList;
         }
 

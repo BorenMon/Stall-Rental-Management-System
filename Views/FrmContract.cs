@@ -1,27 +1,15 @@
-﻿using Minio;
-using Minio.DataModel.Args;
-using Stall_Rental_Management_System.Models;
+﻿using Minio.DataModel.Args;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Repositories;
 
-namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
+namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmContract : Form, IContractView
     {
@@ -208,7 +196,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                                      //this.MaximumSize = new System.Drawing.Size(800, 600);
                                      //this.MinimumSize = new System.Drawing.Size(800, 600);
                                      //todo table
-            ReloadDatabase();
+            new ContractPresenter(this, new ContractRepository());
 
 
             // trigger search event
