@@ -173,6 +173,7 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Presenter\ContractPresenter.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -198,12 +199,16 @@
     <Compile Include="Models\IContractRepository.cs" />
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Presenter\IInvoiceView.cs" />
+    <Compile Include="Presenter\InvoicePresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repository\ContractRepository.cs" />
+    <Compile Include="Repository\IInvoiceRepository.cs" />
+    <Compile Include="Repository\InvoiceRepository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
