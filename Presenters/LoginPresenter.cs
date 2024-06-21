@@ -32,8 +32,7 @@ namespace Stall_Rental_Management_System.Presenters
                         _view.NavigateToVendorPanel();
                         break;
                     case UserType.SUPERMARKET_STAFF:
-                        if (currentUser.Position == StaffPosition.MANAGER)
-                            _view.NavigateToManagerPanel();
+                        if (currentUser.Position == StaffPosition.MANAGER) _view.NavigateToManagerPanel();
                         else _view.NavigateToStaffPanel();
                         break;
                 }

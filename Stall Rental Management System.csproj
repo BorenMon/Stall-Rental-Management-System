@@ -196,7 +196,6 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
     <Compile Include="Utils\AuthHelper.cs" />
-    <Compile Include="Utils\ConsoleHelper.cs" />
     <Compile Include="Utils\DesignUtils\DataGridViewHelper.cs" />
     <Compile Include="Models\StaffModel.cs" />
     <Compile Include="Program.cs" />
@@ -284,15 +283,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow-left.png" />
+    <Content Include="Resources\arrow_left.png" />
+    <Content Include="Resources\search_normal.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\search-normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\document-upload.png" />
-    <Content Include="Resources\stall-rental-management-system.ico" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

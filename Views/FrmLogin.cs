@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Presenters;
@@ -16,6 +17,8 @@ namespace Stall_Rental_Management_System.Views
         {
             InitializeComponent();
             _presenter = new LoginPresenter(this, authService);
+            
+            comboBoxUserType.DataSource = Enum.GetValues(typeof(UserType)).Cast<UserType>().ToList();
         }
 
         public string PhoneNumber => textBoxPhoneNumber.Text;
@@ -35,18 +38,13 @@ namespace Stall_Rental_Management_System.Views
 
         public void NavigateToStaffPanel()
         {
-            var StaffPanel = new FrmStaffPanel();
-            StaffPanel.Show();
+            var staffPanel = new FrmStaffPanel();
+            staffPanel.Show();
         }
         public void NavigateToManagerPanel()
         {
-            var ManagerPanel = new FrmManagerPanel();
-            ManagerPanel.Show();
-        }
-
-        public new void Close()
-        {
-            base.Close();
+            var managerPanel = new FrmManagerPanel();
+            managerPanel.Show();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)

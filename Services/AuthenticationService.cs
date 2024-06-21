@@ -12,7 +12,7 @@ namespace Stall_Rental_Management_System.Services
     public class AuthenticationService : IAuthenticationService
     {
         private User _currentUser;
-        
+
         public bool Login(string phoneNumber, string password, UserType userType)
         {
             string tableName = userType == UserType.VENDOR ? "tbVendor" : "tbStaff";
@@ -21,7 +21,8 @@ namespace Stall_Rental_Management_System.Services
             using (SqlConnection connection = DatabaseUtil.GetConnection())
             using (var command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                connection.Open();
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -54,6 +55,7 @@ namespace Stall_Rental_Management_System.Services
                         }
                     }
                 }
+                connection.Close();
             }
 
             return false;

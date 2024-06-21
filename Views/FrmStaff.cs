@@ -8,7 +8,7 @@ namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmStaff : Form, IStaffView
     {
-        private FrmStaff()
+        public FrmStaff()
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
