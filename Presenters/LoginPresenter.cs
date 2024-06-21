@@ -26,18 +26,6 @@ namespace Stall_Rental_Management_System.Presenters
                 var currentUser = _authService.CurrentUser;
                 _view.ShowMessage("Login successful!");
 
-                switch (userType)
-                {
-                    case UserType.VENDOR:
-                        _view.NavigateToVendorPanel();
-                        break;
-                    case UserType.SUPERMARKET_STAFF:
-                        if (currentUser.Position == StaffPosition.MANAGER)
-                            _view.NavigateToManagerPanel();
-                        else _view.NavigateToStaffPanel();
-                        break;
-                }
-
                 _view.Close();
             }
             else

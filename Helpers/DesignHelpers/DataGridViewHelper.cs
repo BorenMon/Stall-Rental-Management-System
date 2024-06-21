@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Utils.DesignUtils
+namespace Stall_Rental_Management_System.Helpers.DesignHelpers
 {
     public static class DataGridViewHelper
     {

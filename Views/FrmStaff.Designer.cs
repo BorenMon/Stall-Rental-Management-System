@@ -83,7 +83,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(65, 20);
+            this.label1.Location = new System.Drawing.Point(64, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(282, 50);
@@ -100,24 +100,25 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1226, 89);
+            this.panel1.Size = new System.Drawing.Size(1226, 90);
             this.panel1.TabIndex = 1;
             // 
             // buttonBack
             // 
             this.buttonBack.BackColor = System.Drawing.Color.Transparent;
             this.buttonBack.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Image = global::Stall_Rental_Management_System.Properties.Resources.arrow_left;
             this.buttonBack.Location = new System.Drawing.Point(20, 20);
             this.buttonBack.Margin = new System.Windows.Forms.Padding(4);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(38, 44);
+            this.buttonBack.Size = new System.Drawing.Size(38, 43);
             this.buttonBack.TabIndex = 2;
             this.buttonBack.UseVisualStyleBackColor = false;
             // 
             // buttonLogout
             // 
             this.buttonLogout.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogout.Location = new System.Drawing.Point(1052, 24);
+            this.buttonLogout.Location = new System.Drawing.Point(1051, 24);
             this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(148, 45);
@@ -131,12 +132,12 @@
             this.tabControlStaff.Controls.Add(this.tabPageStaffDetail);
             this.tabControlStaff.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlStaff.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControlStaff.Location = new System.Drawing.Point(0, 89);
+            this.tabControlStaff.Location = new System.Drawing.Point(0, 90);
             this.tabControlStaff.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlStaff.Name = "tabControlStaff";
             this.tabControlStaff.Padding = new System.Drawing.Point(21, 3);
             this.tabControlStaff.SelectedIndex = 0;
-            this.tabControlStaff.Size = new System.Drawing.Size(1226, 1097);
+            this.tabControlStaff.Size = new System.Drawing.Size(1226, 1125);
             this.tabControlStaff.TabIndex = 2;
             // 
             // tabPageStaffList
@@ -153,7 +154,7 @@
             this.tabPageStaffList.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageStaffList.Name = "tabPageStaffList";
             this.tabPageStaffList.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageStaffList.Size = new System.Drawing.Size(1218, 1044);
+            this.tabPageStaffList.Size = new System.Drawing.Size(1218, 1072);
             this.tabPageStaffList.TabIndex = 0;
             this.tabPageStaffList.Text = "Staff List";
             this.tabPageStaffList.UseVisualStyleBackColor = true;
@@ -161,7 +162,7 @@
             // dataGridViewStaff
             // 
             this.dataGridViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStaff.Location = new System.Drawing.Point(23, 92);
+            this.dataGridViewStaff.Location = new System.Drawing.Point(22, 92);
             this.dataGridViewStaff.Name = "dataGridViewStaff";
             this.dataGridViewStaff.RowHeadersWidth = 72;
             this.dataGridViewStaff.RowTemplate.Height = 31;
@@ -174,7 +175,7 @@
             this.buttonDelete.Location = new System.Drawing.Point(1049, 220);
             this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(148, 44);
+            this.buttonDelete.Size = new System.Drawing.Size(148, 43);
             this.buttonDelete.TabIndex = 7;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -185,7 +186,7 @@
             this.buttonEdit.Location = new System.Drawing.Point(1049, 157);
             this.buttonEdit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(148, 44);
+            this.buttonEdit.Size = new System.Drawing.Size(148, 43);
             this.buttonEdit.TabIndex = 6;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
@@ -194,7 +195,7 @@
             // 
             this.buttonSearch.BackColor = System.Drawing.Color.Transparent;
             this.buttonSearch.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
+            this.buttonSearch.Image = global::Stall_Rental_Management_System.Properties.Resources.search_normal;
             this.buttonSearch.Location = new System.Drawing.Point(603, 28);
             this.buttonSearch.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSearch.Name = "buttonSearch";
@@ -208,7 +209,7 @@
             this.buttonAddNew.Location = new System.Drawing.Point(1049, 92);
             this.buttonAddNew.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddNew.Name = "buttonAddNew";
-            this.buttonAddNew.Size = new System.Drawing.Size(148, 44);
+            this.buttonAddNew.Size = new System.Drawing.Size(148, 43);
             this.buttonAddNew.TabIndex = 3;
             this.buttonAddNew.Text = "Add New";
             this.buttonAddNew.UseVisualStyleBackColor = true;
@@ -226,7 +227,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 28);
+            this.label2.Location = new System.Drawing.Point(15, 28);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(163, 42);
@@ -268,7 +269,7 @@
             this.tabPageStaffDetail.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageStaffDetail.Name = "tabPageStaffDetail";
             this.tabPageStaffDetail.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageStaffDetail.Size = new System.Drawing.Size(1218, 1044);
+            this.tabPageStaffDetail.Size = new System.Drawing.Size(1218, 1072);
             this.tabPageStaffDetail.TabIndex = 1;
             this.tabPageStaffDetail.Text = "Staff Detail";
             this.tabPageStaffDetail.UseVisualStyleBackColor = true;
@@ -305,7 +306,7 @@
             // textBoxFirstNameEn
             // 
             this.textBoxFirstNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFirstNameEn.Location = new System.Drawing.Point(254, 315);
+            this.textBoxFirstNameEn.Location = new System.Drawing.Point(253, 315);
             this.textBoxFirstNameEn.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxFirstNameEn.Name = "textBoxFirstNameEn";
             this.textBoxFirstNameEn.Size = new System.Drawing.Size(612, 42);
@@ -315,7 +316,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(14, 317);
+            this.label12.Location = new System.Drawing.Point(14, 316);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(181, 42);
@@ -325,7 +326,7 @@
             // textBoxLastNameEn
             // 
             this.textBoxLastNameEn.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxLastNameEn.Location = new System.Drawing.Point(254, 241);
+            this.textBoxLastNameEn.Location = new System.Drawing.Point(253, 241);
             this.textBoxLastNameEn.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLastNameEn.Name = "textBoxLastNameEn";
             this.textBoxLastNameEn.Size = new System.Drawing.Size(612, 42);
@@ -348,7 +349,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(970, 969);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(226, 45);
+            this.buttonCancel.Size = new System.Drawing.Size(225, 45);
             this.buttonCancel.TabIndex = 25;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -359,7 +360,7 @@
             this.buttonSave.Location = new System.Drawing.Point(970, 900);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(226, 45);
+            this.buttonSave.Size = new System.Drawing.Size(225, 45);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -388,7 +389,7 @@
             // textBoxPassword
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPassword.Location = new System.Drawing.Point(253, 761);
+            this.textBoxPassword.Location = new System.Drawing.Point(253, 762);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(612, 42);
@@ -408,7 +409,7 @@
             // textBoxPhoneNumber
             // 
             this.textBoxPhoneNumber.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPhoneNumber.Location = new System.Drawing.Point(253, 691);
+            this.textBoxPhoneNumber.Location = new System.Drawing.Point(253, 692);
             this.textBoxPhoneNumber.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPhoneNumber.Name = "textBoxPhoneNumber";
             this.textBoxPhoneNumber.Size = new System.Drawing.Size(612, 42);
@@ -449,7 +450,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(13, 555);
+            this.label7.Location = new System.Drawing.Point(13, 554);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 42);
@@ -490,7 +491,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 166);
+            this.label5.Location = new System.Drawing.Point(13, 167);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(183, 42);
@@ -521,11 +522,11 @@
             // 
             this.buttonUploadProfile.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonUploadProfile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonUploadProfile.Location = new System.Drawing.Point(970, 341);
+            this.buttonUploadProfile.Location = new System.Drawing.Point(970, 342);
             this.buttonUploadProfile.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUploadProfile.Name = "buttonUploadProfile";
             this.buttonUploadProfile.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
-            this.buttonUploadProfile.Size = new System.Drawing.Size(226, 45);
+            this.buttonUploadProfile.Size = new System.Drawing.Size(225, 45);
             this.buttonUploadProfile.TabIndex = 3;
             this.buttonUploadProfile.Text = "Upload Profile";
             this.buttonUploadProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -536,7 +537,7 @@
             this.pictureBoxProfile.Location = new System.Drawing.Point(970, 22);
             this.pictureBoxProfile.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
-            this.pictureBoxProfile.Size = new System.Drawing.Size(226, 299);
+            this.pictureBoxProfile.Size = new System.Drawing.Size(225, 300);
             this.pictureBoxProfile.TabIndex = 7;
             this.pictureBoxProfile.TabStop = false;
             // 
@@ -553,7 +554,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 26);
+            this.label3.Location = new System.Drawing.Point(13, 27);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 42);
@@ -564,7 +565,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1226, 1186);
+            this.ClientSize = new System.Drawing.Size(1226, 1215);
             this.Controls.Add(this.tabControlStaff);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -573,7 +574,7 @@
             this.MaximizeBox = false;
             this.Name = "FrmStaff";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Stall Rental Management System";
+            this.Text = "Stall Rental Management System / Manager Panel / Staff Management";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControlStaff.ResumeLayout(false);
