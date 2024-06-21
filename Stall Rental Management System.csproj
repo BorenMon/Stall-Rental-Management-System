@@ -147,6 +147,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\UserType.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
     <Compile Include="DataSet1.Designer.cs">
@@ -171,9 +173,7 @@
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
     <Compile Include="Repositories\StaffRepository.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
-    <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
-    <Compile Include="Services\Service Interfaces\IAuthorizationService.cs" />
     <Compile Include="Utils\ConsoleHelper.cs" />
     <Compile Include="Utils\DesignUtils\DataGridViewHelper.cs" />
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
@@ -269,5 +269,6 @@
     <None Include="Resources\document-upload.png" />
     <Content Include="Resources\stall-rental-management-system.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

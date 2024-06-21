@@ -21,23 +21,6 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-
-            // Initialize services
-            IAuthenticationService authenticationService = new AuthenticationService();
-            IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
-
-            // Initialize views
-            ILoginView loginView = new FrmLogin();
-            IMainView mainView = new FrmMain();
-
-            // Initialize presenters
-            LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
-            MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
-
-            // Show the main form
-            Application.Run((Form)mainView);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
