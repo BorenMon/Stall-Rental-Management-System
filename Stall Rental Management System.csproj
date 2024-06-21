@@ -187,10 +187,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
-=======
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
@@ -200,7 +198,6 @@
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
     <Compile Include="Utils\ConsoleHelper.cs" />
     <Compile Include="Utils\DesignUtils\DataGridViewHelper.cs" />
->>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Models\StaffModel.cs" />
     <Compile Include="Program.cs" />
@@ -219,7 +216,6 @@
     <Compile Include="Views\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Views\InvoiceForm\Invoice.cs">
       <DependentUpon>Invoice.xsd</DependentUpon>
     </Compile>
@@ -235,9 +231,7 @@
       <DependentUpon>Print.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Supermarket Staff Forms\FrmContract.cs">
-=======
     <Compile Include="Views\FrmContract.cs">
->>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FrmContract.Designer.cs">
@@ -267,15 +261,12 @@
     <EmbeddedResource Include="Views\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="Views\InvoiceForm\Print.resx">
       <DependentUpon>Print.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\InvoiceForm\Report1.rdlc" />
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmContract.resx">
-=======
     <EmbeddedResource Include="Views\FrmContract.resx">
->>>>>>> 297c9c425840e567d6a02ba54bf3aafcd46a9a8c
       <DependentUpon>FrmContract.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmInvoice.resx">
