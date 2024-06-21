@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Utils.DesignUtils;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
@@ -178,23 +178,6 @@ namespace Stall_Rental_Management_System.Views
             };
 
             DataGridViewHelper.SetDataGridViewColumns(dataGridViewStaff, staffList, columns);
-        }
-        
-        // Singleton pattern (Open a single form instance)
-        private static FrmStaff _instance;
-
-        public static FrmStaff GetInstance()
-        {
-            if (_instance == null || _instance.IsDisposed)
-                _instance = new FrmStaff();
-            else
-            {
-                if (_instance.WindowState == FormWindowState.Minimized)
-                    _instance.WindowState = FormWindowState.Normal;
-                _instance.BringToFront();
-            }
-
-            return _instance;
         }
     }
 }

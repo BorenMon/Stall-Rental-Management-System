@@ -1,8 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
-using System;
 
-namespace Stall_Rental_Management_System.Utils
+namespace Stall_Rental_Management_System.Helpers
 {
     public static class AuthHelper
     {

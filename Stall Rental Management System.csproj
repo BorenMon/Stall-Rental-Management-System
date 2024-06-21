@@ -169,6 +169,10 @@
   <ItemGroup>
     <Compile Include="Enums\StaffPosition.cs" />
     <Compile Include="Enums\UserType.cs" />
+    <Compile Include="Helpers\AuthHelper.cs" />
+    <Compile Include="Helpers\DesignHelpers\DataGridViewHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\NavigateHelper.cs" />
     <Compile Include="Middlewares\AuthenticationMiddleware.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
@@ -195,12 +199,11 @@
     <Compile Include="Repositories\StaffRepository.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
-    <Compile Include="Utils\AuthHelper.cs" />
-    <Compile Include="Utils\DesignUtils\DataGridViewHelper.cs" />
     <Compile Include="Models\StaffModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
+    <Compile Include="Utils\DisplayNameAttribute.cs" />
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Utils\MinIOUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
@@ -268,6 +271,24 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Fonts\Poppins-Black.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-BlackItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-BoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-ExtraBold.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-ExtraBoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-ExtraLight.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Italic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Light.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-LightItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Medium.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-MediumItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-SemiBold.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-SemiBoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-Thin.ttf" />
+    <EmbeddedResource Include="Fonts\Poppins-ThinItalic.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
