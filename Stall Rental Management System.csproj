@@ -190,6 +190,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
     <Compile Include="Utils\MinIOUtil.cs" />
+    <Compile Include="Views\Supermarket Staff Forms\FrmSupportTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Supermarket Staff Forms\FrmSupportTicket.Designer.cs">
+      <DependentUpon>FrmSupportTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Supermarket Staff Forms\FrmContract.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Supermarket Staff Forms\FrmSupportTicket.resx">
+      <DependentUpon>FrmSupportTicket.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
