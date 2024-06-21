@@ -1,56 +1,55 @@
-﻿using Stall_Rental_Management_System.Enums;
+﻿using System;
+using System.Data.SqlClient;
+
+using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
-using System;
-using System.Configuration;
-using System.Data.SqlClient;
+using Stall_Rental_Management_System.Utils;
+
 
 namespace Stall_Rental_Management_System.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly string _connectionString;
         private User _currentUser;
-        public AuthenticationService()
-        {
-            _connectionString = ConfigurationManager.ConnectionStrings["SRMSConnectionString"].ConnectionString;
-        }
         
         public bool Login(string phoneNumber, string password, UserType userType)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            string tableName = userType == UserType.VENDOR ? "tbVendor" : "tbStaff";
+            string query = $"SELECT * FROM {tableName} WHERE PhoneNumber = @PhoneNumber";
+
+            using (SqlConnection connection = DatabaseUtil.GetConnection())
+            using (var command = new SqlCommand(query, connection))
             {
-                connection.Open();
+                command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
 
-                string query = string.Empty;
-
-                switch (userType)
+                using (var reader = command.ExecuteReader())
                 {
-                    case UserType.VENDOR:
-                        query = "SELECT PhoneNumber, Password FROM tbVendor WHERE PhoneNumber = @phoneNumber AND Password = @password";
-                        break;
-                    case UserType.SUPERMARKET_STAFF:
-                        query = "SELECT PhoneNumber, Password FROM tbStaff WHERE PhoneNumber = @phoneNumber AND Password = @password";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
-                }
-
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                    command.Parameters.AddWithValue("@password", password);
-
-                    using (var reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        string hashedPasswordFromDb = reader["Password"].ToString();
+                        if (AuthHelper.VerifyPassword(password, hashedPasswordFromDb))
                         {
                             _currentUser = new User
                             {
-                                Username = phoneNumber,
-                                Password = password,
-                                UserType = userType
+                                PhoneNumber = phoneNumber,
+                                UserType = userType,
+                                LastNameEn = reader["LastNameEN"].ToString(),
+                                FirstNameEn = reader["FirstNameEN"].ToString(),
+                                LastNameKh = reader["LastNameKH"].ToString(),
+                                FirstNameKh = reader["FirstNameKH"].ToString(),
+                                BirthDate = reader["BirthDate"] != DBNull.Value ? Convert.ToDateTime(reader["BirthDate"]) : default,
+                                Gender = reader["Gender"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Address = reader["Address"].ToString(),
+                                ProfileImageUrl = reader["ProfileImageURL"].ToString()
                             };
+
+                            if (userType == UserType.SUPERMARKET_STAFF)
+                            {
+                                _currentUser.Position = Enum.TryParse<StaffPosition>(reader["Position"].ToString(), out var position) ? position : StaffPosition.STAFF;
+                            }
+
                             return true;
                         }
                     }
@@ -62,12 +61,10 @@ namespace Stall_Rental_Management_System.Services
 
         public void Logout()
         {
-            IsAuthenticated = false;
-            CurrentUser = null;
+            _currentUser = null;
         }
 
-        public bool IsAuthenticated { get; private set; }
-
-        public string CurrentUser { get; private set; }
+        public bool IsAuthenticated => _currentUser != null;
+        public User CurrentUser => _currentUser;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
@@ -7,27 +7,42 @@ namespace Stall_Rental_Management_System.Presenters
     public class LoginPresenter
     {
         private readonly ILoginView _view;
-        private readonly IAuthenticationService _authenticationService;
-        
-        public LoginPresenter(ILoginView view, IAuthenticationService authenticationService)
+        private readonly IAuthenticationService _authService;
+
+        public LoginPresenter(ILoginView view, IAuthenticationService authService)
         {
             _view = view;
-            _authenticationService = authenticationService;
-            _view.Login += OnLogin;
+            _authService = authService;
         }
 
-        private void OnLogin(object sender, EventArgs e)
+        public void Login()
         {
             var phoneNumber = _view.PhoneNumber;
             var password = _view.Password;
-            if (_authenticationService.Login(phoneNumber, password))
+            var userType = _view.SelectedUserType;
+
+            if (_authService.Login(phoneNumber, password, userType))
             {
+                var currentUser = _authService.CurrentUser;
                 _view.ShowMessage("Login successful!");
-                // Proceed to the next view or main application
+
+                switch (userType)
+                {
+                    case UserType.VENDOR:
+                        _view.NavigateToVendorPanel();
+                        break;
+                    case UserType.SUPERMARKET_STAFF:
+                        if (currentUser.Position == StaffPosition.MANAGER)
+                            _view.NavigateToManagerPanel();
+                        else _view.NavigateToStaffPanel();
+                        break;
+                }
+
+                _view.Close();
             }
             else
             {
-                _view.ShowMessage("Login failed!");
+                _view.ShowMessage("Invalid phone number or password.");
             }
         }
     }
