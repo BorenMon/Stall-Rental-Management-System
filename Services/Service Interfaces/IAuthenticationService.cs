@@ -1,4 +1,5 @@
-﻿using Stall_Rental_Management_System.Enums;
+﻿using System;
+using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Models;
 
 namespace Stall_Rental_Management_System.Services.Service_Interfaces

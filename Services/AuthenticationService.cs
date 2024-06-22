@@ -12,14 +12,12 @@ namespace Stall_Rental_Management_System.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private User _currentUser;
-
         public bool Login(string phoneNumber, string password, UserType userType)
         {
-            string tableName = userType == UserType.VENDOR ? "tbVendor" : "tbStaff";
-            string query = $"SELECT * FROM {tableName} WHERE PhoneNumber = @PhoneNumber";
+            var tableName = userType == UserType.VENDOR ? "tbVendor" : "tbStaff";
+            var query = $"SELECT * FROM {tableName} WHERE PhoneNumber = @PhoneNumber";
 
-            using (SqlConnection connection = DatabaseUtil.GetConnection())
+            using (var connection = DatabaseUtil.GetConnection())
             using (var command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
@@ -29,10 +27,10 @@ namespace Stall_Rental_Management_System.Services
                 {
                     if (reader.Read())
                     {
-                        string hashedPasswordFromDb = reader["Password"].ToString();
+                        var hashedPasswordFromDb = reader["Password"].ToString();
                         if (AuthHelper.VerifyPassword(password, hashedPasswordFromDb))
                         {
-                            _currentUser = new User
+                            CurrentUser = new User
                             {
                                 PhoneNumber = phoneNumber,
                                 UserType = userType,
@@ -49,9 +47,10 @@ namespace Stall_Rental_Management_System.Services
 
                             if (userType == UserType.SUPERMARKET_STAFF)
                             {
-                                _currentUser.Position = Enum.TryParse<StaffPosition>(reader["Position"].ToString(), out var position) ? position : StaffPosition.STAFF;
+                                CurrentUser.Position = Enum.TryParse<StaffPosition>(reader["Position"].ToString(), out var position) ? position : StaffPosition.STAFF;
                             }
 
+                            CurrentUserUtil.User = CurrentUser; // Set the current user in the static class
                             return true;
                         }
                     }
@@ -64,10 +63,11 @@ namespace Stall_Rental_Management_System.Services
 
         public void Logout()
         {
-            _currentUser = null;
+            CurrentUser = null;
+            CurrentUserUtil.User = null; // Clear the current user in the static class
         }
 
-        public bool IsAuthenticated => _currentUser != null;
-        public User CurrentUser => _currentUser;
+        public bool IsAuthenticated => CurrentUser != null;
+        public User CurrentUser { get; private set; }
     }
 }

@@ -43,7 +43,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPageStaffDetail = new System.Windows.Forms.TabPage();
-            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
+            this.textBoxPosition = new System.Windows.Forms.TextBox();
             this.dateTimeBirthDate = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxFirstNameEn = new System.Windows.Forms.TextBox();
@@ -236,7 +236,7 @@
             // 
             // tabPageStaffDetail
             // 
-            this.tabPageStaffDetail.Controls.Add(this.comboBoxPosition);
+            this.tabPageStaffDetail.Controls.Add(this.textBoxPosition);
             this.tabPageStaffDetail.Controls.Add(this.dateTimeBirthDate);
             this.tabPageStaffDetail.Controls.Add(this.label14);
             this.tabPageStaffDetail.Controls.Add(this.textBoxFirstNameEn);
@@ -274,15 +274,15 @@
             this.tabPageStaffDetail.Text = "Staff Detail";
             this.tabPageStaffDetail.UseVisualStyleBackColor = true;
             // 
-            // comboBoxPosition
+            // textBoxPosition
             // 
-            this.comboBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxPosition.FormattingEnabled = true;
-            this.comboBoxPosition.Location = new System.Drawing.Point(253, 620);
-            this.comboBoxPosition.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBoxPosition.Name = "comboBoxPosition";
-            this.comboBoxPosition.Size = new System.Drawing.Size(612, 48);
-            this.comboBoxPosition.TabIndex = 33;
+            this.textBoxPosition.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPosition.Location = new System.Drawing.Point(253, 623);
+            this.textBoxPosition.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxPosition.Name = "textBoxPosition";
+            this.textBoxPosition.ReadOnly = true;
+            this.textBoxPosition.Size = new System.Drawing.Size(612, 42);
+            this.textBoxPosition.TabIndex = 34;
             // 
             // dateTimeBirthDate
             // 
@@ -392,6 +392,7 @@
             this.textBoxPassword.Location = new System.Drawing.Point(253, 762);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(612, 42);
             this.textBoxPassword.TabIndex = 21;
             // 
@@ -529,7 +530,6 @@
             this.buttonUploadProfile.Size = new System.Drawing.Size(225, 45);
             this.buttonUploadProfile.TabIndex = 3;
             this.buttonUploadProfile.Text = "Upload Profile";
-            this.buttonUploadProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonUploadProfile.UseVisualStyleBackColor = true;
             // 
             // pictureBoxProfile
@@ -547,6 +547,7 @@
             this.textBoxStaffId.Location = new System.Drawing.Point(253, 22);
             this.textBoxStaffId.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxStaffId.Name = "textBoxStaffId";
+            this.textBoxStaffId.ReadOnly = true;
             this.textBoxStaffId.Size = new System.Drawing.Size(612, 42);
             this.textBoxStaffId.TabIndex = 6;
             // 
@@ -586,6 +587,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.TextBox textBoxPosition;
 
         #endregion
 
@@ -629,7 +632,6 @@
         private System.Windows.Forms.TextBox textBoxLastNameEn;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker dateTimeBirthDate;
-        private System.Windows.Forms.ComboBox comboBoxPosition;
         private System.Windows.Forms.DataGridView dataGridViewStaff;
     }
 }

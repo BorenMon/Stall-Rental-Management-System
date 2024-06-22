@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Models
 {
@@ -38,7 +39,7 @@ namespace Stall_Rental_Management_System.Models
         [DisplayName("Gender")]
         [Required(ErrorMessage = "Gender is required")]
         [StringLength(5, ErrorMessage = "Gender must be at most 5 characters")]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
 
         [DisplayName("Email")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
@@ -48,7 +49,7 @@ namespace Stall_Rental_Management_System.Models
         [DisplayName("Position")]
         [Required(ErrorMessage = "Position is required")]
         [StringLength(100, ErrorMessage = "Position must be at most 100 characters")]
-        public string Position { get; set; }
+        public StaffPosition Position { get; set; }
 
         [DisplayName("Address")] // New Property
         [StringLength(255, ErrorMessage = "Address must be at most 255 characters")]

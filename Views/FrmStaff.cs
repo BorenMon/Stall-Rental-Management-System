@@ -1,17 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmStaff : Form, IStaffView
+    public partial class FrmStaff : Form, IStaffView, IManagementView
     {
-        public FrmStaff()
+        private StaffPresenter _presenter;
+        private AuthenticationService _authService;
+        
+        public FrmStaff(IStaffRepository staffRepository, AuthenticationService authService)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
+
+            _authService = authService;
+            
+            // Initialize the presenter
+            _presenter = new StaffPresenter(this, staffRepository, authService);
+            
+            comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
+            comboBoxGender.DisplayMember = "Value";
+            comboBoxGender.ValueMember = "Key";
+            
             tabControlStaff.TabPages.Remove(tabPageStaffDetail);
         }
 
@@ -67,68 +86,91 @@ namespace Stall_Rental_Management_System.Views
             buttonDelete.Click += delegate
             {
                 var result = MessageBox.Show(
-                    @"Are you sure you want to delete the selected staff?", 
+                    @"Are you sure you want to delete the selected staff?",
                     @"Warning",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
-                    );
+                );
 
                 if (result != DialogResult.Yes) return;
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+            
+            // Back to panel
+            buttonBack.Click += delegate { BackToPanelEvent?.Invoke(this, EventArgs.Empty); };
+            
+            // Logout
+            buttonLogout.Click += delegate
+            {
+                var result = MessageBox.Show(
+                    @"Are you sure you want to logout?",
+                    @"Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result != DialogResult.Yes) return;
+                LogoutEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+                GeneralNavigateHelper.NavigateToLoginForm(this, _authService);
+            };
         }
 
         // Properties
-        public string StaffID
+        public string StaffId
         {
             get => textBoxStaffId.Text;
             set => textBoxStaffId.Text = value;
         }
-        public string ProfileImageURL
+        public string ProfileImageUrl
         {
             get => "";
             set { }
         }
-        public string LastNameEN
+        public string LastNameEn
         {
             get => textBoxLastNameEn.Text;
             set => textBoxLastNameEn.Text = value;
         }
-        public string FirstNameEN
+        public string FirstNameEn
         {
-            get => textBoxFirstNameKh.Text;
-            set => textBoxFirstNameKh.Text = value;
+            get => textBoxFirstNameEn.Text;
+            set => textBoxFirstNameEn.Text = value;
         }
-        public string LastNameKH
+        public string LastNameKh
         {
             get => textBoxLastNameKh.Text;
             set => textBoxLastNameKh.Text = value;
         }
-        public string FirstNameKH
+        public string FirstNameKh
         {
-            get => textBoxFirstNameKh.Text;
+            get => textBoxFirstNameKh.Text; 
             set => textBoxFirstNameKh.Text = value;
         }
         public DateTime BirthDate
         {
-            get => new DateTime();
-            set { }
+            get => dateTimeBirthDate.Value;
+            set => dateTimeBirthDate.Value = value;
         }
-        public string Gender
+        public Gender Gender
         {
-            get => comboBoxGender.Text;
-            set => comboBoxGender.Text = value;
+            get => (Gender)comboBoxGender.SelectedValue;
+            set => comboBoxGender.SelectedValue = value;
         }
         public string Email
         {
             get => textBoxEmail.Text;
             set => textBoxEmail.Text = value;
         }
-        public string Position
+        public StaffPosition Position
         {
-            get => comboBoxPosition.Text;
-            set => comboBoxPosition.Text = value;
+            get
+            {
+                Enum.TryParse(textBoxPosition.Text, out StaffPosition position);
+                return position;
+            }
+            set => textBoxPosition.Text = EnumHelper.GetDisplayName(value);
         }
         public string Address
         {
@@ -164,6 +206,8 @@ namespace Stall_Rental_Management_System.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        public event EventHandler BackToPanelEvent;
+        public event EventHandler LogoutEvent;
 
         // Methods
         public void SetStaffListBindingSource(BindingSource staffList)

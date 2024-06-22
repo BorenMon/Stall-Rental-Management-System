@@ -109,7 +109,7 @@ namespace Stall_Rental_Management_System.Views
                     return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
                 }
                 catch(NullReferenceException ex) {
-                    MessageBox.Show("Missing Vendor ID.");
+                    MessageBox.Show(@"Missing Vendor ID.");
                 }
                 return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
             }
