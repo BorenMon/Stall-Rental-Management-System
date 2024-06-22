@@ -1,18 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmStaff : Form, IStaffView
     {
-        public FrmStaff()
+        private StaffPresenter _presenter;
+        
+        public FrmStaff(IStaffRepository staffRepository)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
             tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+            
+            comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
+            comboBoxGender.DisplayMember = "Value";
+            comboBoxGender.ValueMember = "Key";
+            
+            // Initialize the presenter
+            _presenter = new StaffPresenter(this, staffRepository);
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -77,30 +90,32 @@ namespace Stall_Rental_Management_System.Views
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+            
+            
         }
 
         // Properties
-        public string StaffID
+        public string StaffId
         {
             get => textBoxStaffId.Text;
             set => textBoxStaffId.Text = value;
         }
-        public string ProfileImageURL
+        public string ProfileImageUrl
         {
             get => "";
             set { }
         }
-        public string LastNameEN
+        public string LastNameEn
         {
             get => textBoxLastNameEn.Text;
             set => textBoxLastNameEn.Text = value;
         }
-        public string FirstNameEN
+        public string FirstNameEn
         {
-            get => textBoxFirstNameKh.Text;
-            set => textBoxFirstNameKh.Text = value;
+            get => textBoxFirstNameEn.Text;
+            set => textBoxFirstNameEn.Text = value;
         }
-        public string LastNameKH
+        public string LastNameKh
         {
             get => textBoxLastNameKh.Text;
             set => textBoxLastNameKh.Text = value;
@@ -115,10 +130,10 @@ namespace Stall_Rental_Management_System.Views
             get => new DateTime();
             set { }
         }
-        public string Gender
+        public Gender Gender
         {
-            get => comboBoxGender.Text;
-            set => comboBoxGender.Text = value;
+            get => (Gender)comboBoxGender.SelectedValue;
+            set => comboBoxGender.SelectedValue = value;
         }
         public string Email
         {
@@ -127,8 +142,8 @@ namespace Stall_Rental_Management_System.Views
         }
         public string Position
         {
-            get => comboBoxPosition.Text;
-            set => comboBoxPosition.Text = value;
+            get => textBoxPosition.Text;
+            set => textBoxPosition.Text = value;
         }
         public string Address
         {

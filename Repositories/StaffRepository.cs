@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Utils;
 
 namespace Stall_Rental_Management_System.Repositories
 {
     public class StaffRepository : BaseRepository, IStaffRepository
     {
         // Constructor
-        public StaffRepository(string connectionString)
+        public StaffRepository()
         {
-            this.connectionString = connectionString;
+            this.connectionString = DatabaseUtil.GetConnectionString();
         }
         
         // Methods
@@ -64,18 +66,31 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select * from tbStaff order by StaffID desc";
+                command.CommandText = "SELECT * FROM tbStaff ORDER BY StaffID ASC";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        var genderString = reader["Gender"].ToString();
+                        Console.Write(genderString);
+                        Enum.TryParse(genderString, true, out Gender gender);
+                        
                         var staff = new StaffModel
                         {
-                            StaffId = (int)reader[0],
-                            FullNameKh = reader[4] + " " + reader[5],
-                            FullNameEn = reader[2] + " " + reader[3],
-                            Position = reader[9].ToString(),
-                            PhoneNumber = reader[10].ToString(),
+                            StaffId = (int)reader["StaffID"],
+                            FullNameKh = reader["LastNameKH"] + " " + reader["FirstNameKH"],
+                            FullNameEn = reader["LastNameEN"] + " " + reader["FirstNameEN"],
+                            LastNameKh = reader["LastNameKH"].ToString(),
+                            FirstNameKh = reader["FirstNameKH"].ToString(),
+                            LastNameEn = reader["LastNameEN"].ToString(),
+                            FirstNameEn = reader["FirstNameEN"].ToString(),
+                            BirthDate = (DateTime)reader["BirthDate"],
+                            Gender = gender,
+                            Email = reader["Email"].ToString(),
+                            Position = reader["Position"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Address = reader["Address"].ToString()
                         };
                         staffList.Add(staff);
                     }
@@ -108,13 +123,25 @@ namespace Stall_Rental_Management_System.Repositories
                 {
                     while (reader.Read())
                     {
+                        var genderString = reader["Gender"].ToString();
+                        Enum.TryParse(genderString, true, out Gender gender);
+                        
                         var staff = new StaffModel
                         {
-                            StaffId = (int)reader[0],
-                            FullNameKh = reader[4] + " " + reader[5],
-                            FullNameEn = reader[2] + " " + reader[3],
-                            Position = reader[9].ToString(),
-                            PhoneNumber = reader[10].ToString(),
+                            StaffId = (int)reader["StaffID"],
+                            FullNameKh = reader["LastNameKH"] + " " + reader["FirstNameKH"],
+                            FullNameEn = reader["LastNameEN"] + " " + reader["FirstNameEN"],
+                            LastNameKh = reader["LastNameKH"].ToString(),
+                            FirstNameKh = reader["FirstNameKH"].ToString(),
+                            LastNameEn = reader["LastNameEN"].ToString(),
+                            FirstNameEn = reader["FirstNameEN"].ToString(),
+                            BirthDate = (DateTime)reader["BirthDate"],
+                            Gender = gender,
+                            Email = reader["Email"].ToString(),
+                            Position = reader["Position"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Address = reader["Address"].ToString()
                         };
                         staffList.Add(staff);
                     }

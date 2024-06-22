@@ -259,6 +259,9 @@
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Panel Forms\FrmManagerPanel.resx">
+      <DependentUpon>FrmManagerPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
@@ -305,6 +308,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\arrow_left.png" />
+    <None Include="Resources\building.png" />
+    <None Include="Resources\profile.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\people1.png" />
+    <None Include="Resources\graph.png" />
     <Content Include="Resources\search_normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

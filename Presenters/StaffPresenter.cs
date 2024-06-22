@@ -61,8 +61,8 @@ namespace Stall_Rental_Management_System.Presenters
         {
             var model = new StaffModel
             {
-                StaffId = Convert.ToInt32(_view.StaffID),
-                LastNameKh = _view.LastNameKH,
+                StaffId = Convert.ToInt32(_view.StaffId),
+                LastNameKh = _view.LastNameKh,
             };
             try
             {
@@ -91,8 +91,8 @@ namespace Stall_Rental_Management_System.Presenters
 
         private void CleanViewFields()
         {
-            _view.StaffID = "0";
-            _view.LastNameKH = "";
+            _view.StaffId = "0";
+            _view.LastNameKh = "";
         }
 
         private void DeleteSelectedStaff(object sender, EventArgs e)
@@ -115,8 +115,20 @@ namespace Stall_Rental_Management_System.Presenters
         private void LoadSelectedStaffToEdit(object sender, EventArgs e)
         {
             var staff = (StaffModel)_staffsBindingSource.Current;
-            _view.StaffID = staff.StaffId.ToString();
-            _view.LastNameKH = staff.LastNameKh;
+            
+            _view.StaffId = staff.StaffId.ToString();
+            _view.LastNameKh = staff.LastNameKh;
+            _view.FirstNameKh = staff.FirstNameKh;
+            _view.LastNameEn = staff.LastNameEn;
+            _view.FirstNameEn = staff.FirstNameEn;
+            _view.BirthDate = staff.BirthDate;
+            _view.Gender = staff.Gender;
+            _view.Email = staff.Email;
+            _view.Position = staff.Position;
+            _view.PhoneNumber = staff.PhoneNumber;
+            _view.Password = staff.Password;
+            _view.Address = staff.Address;
+            
             _view.IsEdit = true;
         }
 

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Utils;
 
 namespace Stall_Rental_Management_System.Views.Panel_Forms
 {
@@ -15,6 +12,16 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         public FrmManagerPanel()
         {
             InitializeComponent();
+        }
+
+        private void buttonStalls_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void buttonStaffs_Click(object sender, EventArgs e)
+        {
+            ManagerNavigateHelper.NavigateToStaffForm(this);
         }
     }
 }

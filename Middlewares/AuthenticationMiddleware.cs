@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
+using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
 using Stall_Rental_Management_System.Views.Panel_Forms;
 
@@ -25,8 +27,8 @@ namespace Stall_Rental_Management_System.Middlewares
             }
             else
             {
-                var currentUser = _authService.CurrentUser;
-                UserType userType = currentUser.UserType;
+                var currentUser =  CurrentUserUtil.User; // Use the static class to get the current user
+                var userType = currentUser.UserType;
                 switch (userType)
                 {
                     case UserType.VENDOR:
@@ -37,13 +39,15 @@ namespace Stall_Rental_Management_System.Middlewares
                             ShowManagerPanel();
                         else ShowStaffPanel();
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
         private void ShowLoginForm()
         {
-            using (FrmLogin loginForm = new FrmLogin(_authService))
+            using (var loginForm = new FrmLogin(_authService))
             {
                 loginForm.ShowDialog();
                 if (_authService.IsAuthenticated)
@@ -53,25 +57,25 @@ namespace Stall_Rental_Management_System.Middlewares
             }
         }
 
-        private void ShowVendorPanel()
+        private static void ShowVendorPanel()
         {
-            using (FrmVendorPanel vendorPanel = new FrmVendorPanel())
+            using (var vendorPanel = new FrmVendorPanel())
             {
                 Application.Run(vendorPanel);
             }
         }
 
-        private void ShowStaffPanel()
+        private static void ShowStaffPanel()
         {
-            using (FrmStaffPanel staffPanel = new FrmStaffPanel())
+            using (var staffPanel = new FrmStaffPanel())
             {
                 Application.Run(staffPanel);
             }
         }
 
-        private void ShowManagerPanel()
+        private static void ShowManagerPanel()
         {
-            using (FrmManagerPanel managerPanel = new FrmManagerPanel())
+            using (var managerPanel = new FrmManagerPanel())
             {
                 Application.Run(managerPanel);
             }
