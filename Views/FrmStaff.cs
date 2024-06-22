@@ -120,15 +120,15 @@ namespace Stall_Rental_Management_System.Views
             get => textBoxLastNameKh.Text;
             set => textBoxLastNameKh.Text = value;
         }
-        public string FirstNameKH
+        public string FirstNameKh
         {
-            get => textBoxFirstNameKh.Text;
+            get => textBoxFirstNameKh.Text; 
             set => textBoxFirstNameKh.Text = value;
         }
         public DateTime BirthDate
         {
-            get => new DateTime();
-            set { }
+            get => dateTimeBirthDate.Value;
+            set => dateTimeBirthDate.Value = value;
         }
         public Gender Gender
         {

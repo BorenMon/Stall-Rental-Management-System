@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 
 using Stall_Rental_Management_System.Middlewares;
+using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Testing;
@@ -31,7 +32,8 @@ namespace Stall_Rental_Management_System
             // var middleware = new AuthenticationMiddleware(authService);
             // middleware.Run();
             
-             Application.Run(new FrmManagerPanel());
+            var staffRepository = new StaffRepository();
+            Application.Run(new FrmStaff(staffRepository));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

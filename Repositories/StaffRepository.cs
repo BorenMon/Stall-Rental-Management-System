@@ -72,7 +72,6 @@ namespace Stall_Rental_Management_System.Repositories
                     while (reader.Read())
                     {
                         var genderString = reader["Gender"].ToString();
-                        Console.Write(genderString);
                         Enum.TryParse(genderString, true, out Gender gender);
                         
                         var staff = new StaffModel
