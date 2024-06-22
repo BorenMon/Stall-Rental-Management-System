@@ -49,9 +49,8 @@ namespace Stall_Rental_Management_System.Services
                             {
                                 CurrentUser.Position = Enum.TryParse<StaffPosition>(reader["Position"].ToString(), out var position) ? position : StaffPosition.STAFF;
                             }
-                            
-                            CurrentUserUtil.User = CurrentUser; // Set the current user in the static class
 
+                            CurrentUserUtil.User = CurrentUser; // Set the current user in the static class
                             return true;
                         }
                     }

@@ -4,28 +4,34 @@ using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmStaff : Form, IStaffView
+    public partial class FrmStaff : Form, IStaffView, IManagementView
     {
         private StaffPresenter _presenter;
+        private AuthenticationService _authService;
         
-        public FrmStaff(IStaffRepository staffRepository)
+        public FrmStaff(IStaffRepository staffRepository, AuthenticationService authService)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
-            tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+
+            _authService = authService;
+            
+            // Initialize the presenter
+            _presenter = new StaffPresenter(this, staffRepository, authService);
             
             comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
             comboBoxGender.DisplayMember = "Value";
             comboBoxGender.ValueMember = "Key";
             
-            // Initialize the presenter
-            _presenter = new StaffPresenter(this, staffRepository);
+            tabControlStaff.TabPages.Remove(tabPageStaffDetail);
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -80,18 +86,35 @@ namespace Stall_Rental_Management_System.Views
             buttonDelete.Click += delegate
             {
                 var result = MessageBox.Show(
-                    @"Are you sure you want to delete the selected staff?", 
+                    @"Are you sure you want to delete the selected staff?",
                     @"Warning",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
-                    );
+                );
 
                 if (result != DialogResult.Yes) return;
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
             
+            // Back to panel
+            buttonBack.Click += delegate { BackToPanelEvent?.Invoke(this, EventArgs.Empty); };
             
+            // Logout
+            buttonLogout.Click += delegate
+            {
+                var result = MessageBox.Show(
+                    @"Are you sure you want to logout?",
+                    @"Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result != DialogResult.Yes) return;
+                LogoutEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+                GeneralNavigateHelper.NavigateToLoginForm(this, _authService);
+            };
         }
 
         // Properties
@@ -140,10 +163,14 @@ namespace Stall_Rental_Management_System.Views
             get => textBoxEmail.Text;
             set => textBoxEmail.Text = value;
         }
-        public string Position
+        public StaffPosition Position
         {
-            get => textBoxPosition.Text;
-            set => textBoxPosition.Text = value;
+            get
+            {
+                Enum.TryParse(textBoxPosition.Text, out StaffPosition position);
+                return position;
+            }
+            set => textBoxPosition.Text = EnumHelper.GetDisplayName(value);
         }
         public string Address
         {
@@ -179,6 +206,8 @@ namespace Stall_Rental_Management_System.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        public event EventHandler BackToPanelEvent;
+        public event EventHandler LogoutEvent;
 
         // Methods
         public void SetStaffListBindingSource(BindingSource staffList)

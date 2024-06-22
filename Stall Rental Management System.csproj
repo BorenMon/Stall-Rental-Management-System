@@ -173,8 +173,8 @@
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\DesignHelpers\DataGridViewHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
-    <Compile Include="Middlewares\AuthenticationMiddleware.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
@@ -247,6 +247,7 @@
     </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
+    <Compile Include="Views\View Interfaces\IManagementView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

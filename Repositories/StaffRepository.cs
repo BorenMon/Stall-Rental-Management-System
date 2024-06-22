@@ -73,6 +73,8 @@ namespace Stall_Rental_Management_System.Repositories
                     {
                         var genderString = reader["Gender"].ToString();
                         Enum.TryParse(genderString, true, out Gender gender);
+                        var positionString = reader["Position"].ToString();
+                        Enum.TryParse(positionString, true, out StaffPosition position);
                         
                         var staff = new StaffModel
                         {
@@ -86,7 +88,7 @@ namespace Stall_Rental_Management_System.Repositories
                             BirthDate = (DateTime)reader["BirthDate"],
                             Gender = gender,
                             Email = reader["Email"].ToString(),
-                            Position = reader["Position"].ToString(),
+                            Position = position,
                             PhoneNumber = reader["PhoneNumber"].ToString(),
                             Password = reader["Password"].ToString(),
                             Address = reader["Address"].ToString()
@@ -124,6 +126,8 @@ namespace Stall_Rental_Management_System.Repositories
                     {
                         var genderString = reader["Gender"].ToString();
                         Enum.TryParse(genderString, true, out Gender gender);
+                        var positionString = reader["Position"].ToString();
+                        Enum.TryParse(positionString, true, out StaffPosition position);
                         
                         var staff = new StaffModel
                         {
@@ -137,7 +141,7 @@ namespace Stall_Rental_Management_System.Repositories
                             BirthDate = (DateTime)reader["BirthDate"],
                             Gender = gender,
                             Email = reader["Email"].ToString(),
-                            Position = reader["Position"].ToString(),
+                            Position = position,
                             PhoneNumber = reader["PhoneNumber"].ToString(),
                             Password = reader["Password"].ToString(),
                             Address = reader["Address"].ToString()

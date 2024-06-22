@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
@@ -13,7 +14,7 @@ namespace Stall_Rental_Management_System.Views
     {
         private readonly LoginPresenter _presenter;
 
-        public FrmLogin(IAuthenticationService authService)
+        public FrmLogin(AuthenticationService authService)
         {
             InitializeComponent();
             _presenter = new LoginPresenter(this, authService);

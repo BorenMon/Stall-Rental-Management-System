@@ -49,7 +49,7 @@ namespace Stall_Rental_Management_System.Models
         [DisplayName("Position")]
         [Required(ErrorMessage = "Position is required")]
         [StringLength(100, ErrorMessage = "Position must be at most 100 characters")]
-        public string Position { get; set; }
+        public StaffPosition Position { get; set; }
 
         [DisplayName("Address")] // New Property
         [StringLength(255, ErrorMessage = "Address must be at most 255 characters")]

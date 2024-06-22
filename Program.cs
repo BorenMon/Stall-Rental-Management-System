@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using Stall_Rental_Management_System.Middlewares;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
@@ -26,14 +25,10 @@ namespace Stall_Rental_Management_System
             Application.SetCompatibleTextRenderingDefault(false);
             
             // Uncomment this line for testing purposes
-            TestSetup.SetupTestUser();
-
-            // IAuthenticationService authService = new AuthenticationService();
-            // var middleware = new AuthenticationMiddleware(authService);
-            // middleware.Run();
+            // TestSetup.SetupTestUser();
             
-            var staffRepository = new StaffRepository();
-            Application.Run(new FrmStaff(staffRepository));
+            var authService = new AuthenticationService();
+            Application.Run(new FrmLogin(authService));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

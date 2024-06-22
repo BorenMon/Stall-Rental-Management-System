@@ -392,6 +392,7 @@
             this.textBoxPassword.Location = new System.Drawing.Point(253, 762);
             this.textBoxPassword.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(612, 42);
             this.textBoxPassword.TabIndex = 21;
             // 
@@ -529,7 +530,6 @@
             this.buttonUploadProfile.Size = new System.Drawing.Size(225, 45);
             this.buttonUploadProfile.TabIndex = 3;
             this.buttonUploadProfile.Text = "Upload Profile";
-            this.buttonUploadProfile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonUploadProfile.UseVisualStyleBackColor = true;
             // 
             // pictureBoxProfile
