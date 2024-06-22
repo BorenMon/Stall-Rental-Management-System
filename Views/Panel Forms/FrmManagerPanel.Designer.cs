@@ -63,6 +63,7 @@
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonLogout.UseVisualStyleBackColor = false;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
             // buttonProfile
             // 
