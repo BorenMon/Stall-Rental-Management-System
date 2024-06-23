@@ -56,7 +56,7 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "delete from vStaffs where StaffID = @staff_id";
+                command.CommandText = "delete from tbStaff where StaffID = @staff_id";
                 command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
                 command.ExecuteNonQuery();
             }
@@ -70,7 +70,7 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM tbStaff ORDER BY StaffID ASC";
+                command.CommandText = "SELECT * FROM vStaffs ORDER BY StaffID ASC";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
