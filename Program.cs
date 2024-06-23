@@ -29,12 +29,12 @@ namespace Stall_Rental_Management_System
             MinIoUtil.InitMinioClient();
             
             // Uncomment this line for testing purposes
-            TestSetup.SetupTestUser();
+            // TestSetup.SetupTestUser();
             
-            // var authService = new AuthenticationService();
-            // Application.Run(new FrmLogin(authService));
+            var authService = new AuthenticationService();
+            Application.Run(new FrmLogin(authService));
             
-            Application.Run(new FrmStaff(new StaffRepository(), new AuthenticationService()));
+            // Application.Run(new FrmStaff(new StaffRepository(), new AuthenticationService()));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

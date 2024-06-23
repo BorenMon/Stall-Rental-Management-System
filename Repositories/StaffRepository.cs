@@ -25,11 +25,9 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 staffModel.Password = AuthHelper.HashPassword(staffModel.Password);
             }
-            
-            Console.Write(staffModel);
 
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("InsertOrUpdateStaff", connection))
+            using (var command = new SqlCommand("spInsertOrUpdateStaff", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@staff_id", SqlDbType.Int).Value = primaryKey;
@@ -58,7 +56,7 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "delete from tbStaff where StaffID = @staff_id";
+                command.CommandText = "delete from vStaffs where StaffID = @staff_id";
                 command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
                 command.ExecuteNonQuery();
             }
@@ -109,22 +107,13 @@ namespace Stall_Rental_Management_System.Repositories
         public IEnumerable<StaffModel> GetByValue(string value)
         {
             var staffList = new List<StaffModel>();
-            var staffId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var command = new SqlCommand("spGetStaffsByValue", connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@value", SqlDbType.NVarChar).Value = value;
+
                 connection.Open();
-                command.Connection = connection;
-                command.CommandText = @"Select * from tbStaff 
-                        where StaffID = @id 
-                        or LastNameEN + ' ' + FirstNameEN like @name_en + '%'
-                        or LastNameKH + ' ' + FirstNameKH like @name_kh + '%'
-                        or Position like @name_en + '%'
-                        or PhoneNumber like @name_en + '%'
-                        order by StaffID desc";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = staffId;
-                command.Parameters.Add("@name_en", SqlDbType.VarChar).Value = value;
-                command.Parameters.Add("@name_kh", SqlDbType.NVarChar).Value = value;
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -133,7 +122,7 @@ namespace Stall_Rental_Management_System.Repositories
                         Enum.TryParse(genderString, true, out Gender gender);
                         var positionString = reader["Position"].ToString();
                         Enum.TryParse(positionString, true, out StaffPosition position);
-                        
+
                         var staff = new StaffModel
                         {
                             StaffId = (int)reader["StaffID"],
@@ -154,7 +143,7 @@ namespace Stall_Rental_Management_System.Repositories
                     }
                 }
             }
-                
+
             return staffList;
         }
     }

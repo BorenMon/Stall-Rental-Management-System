@@ -34,7 +34,6 @@ namespace Stall_Rental_Management_System.Presenters
             // Subscribe event handler methods to view events
             _view.SearchEvent += SearchStaff;
             _view.UploadProfileEvent += UploadStaffProfile;
-            _view.PasswordChangedEvent += ChangePassword;
             _view.AddNewEvent += AddNewStaff;
             _view.DeleteEvent += DeleteSelectedStaff;
             _view.SaveOrUpdateEvent += SaveOrUpdateStaff;
@@ -46,14 +45,6 @@ namespace Stall_Rental_Management_System.Presenters
 
             // Load staff list view
             LoadAllStaffList();
-
-            // Show view
-            _view.Show();
-        }
-
-        private void ChangePassword(object sender, EventArgs e)
-        {
-            _view.IsPasswordChanged = true;
         }
 
         private async void UploadStaffProfile(object sender, EventArgs e)
@@ -183,7 +174,7 @@ namespace Stall_Rental_Management_System.Presenters
         private void LoadSelectedStaff()
         {
             var staff = (StaffModel)_staffsBindingSource.Current;
-            
+        
             _view.StaffId = staff.StaffId.ToString();
             _view.ProfileImageUrl = staff.ProfileImageUrl;
             _view.LastNameKh = staff.LastNameKh;
@@ -197,6 +188,8 @@ namespace Stall_Rental_Management_System.Presenters
             _view.PhoneNumber = staff.PhoneNumber;
             _view.Password = staff.Password;
             _view.Address = staff.Address;
+
+            _view.IsPasswordChanged = false; // reset the flag after loading the staff details
         }
 
         private void AddNewStaff(object sender, EventArgs e)

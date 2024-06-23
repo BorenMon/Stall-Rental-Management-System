@@ -18,6 +18,7 @@ namespace Stall_Rental_Management_System.Views
     {
         private StaffPresenter _presenter;
         private readonly AuthenticationService _authService;
+        private bool _isPasswordManuallyChanged;
         public string CurrentProfileImageObjectName { get; set; }
         
         public FrmStaff(StaffRepository staffRepository, AuthenticationService authService)
@@ -83,14 +84,16 @@ namespace Stall_Rental_Management_System.Views
             };
             
             // Change password
-            textBoxPassword.TextChanged += delegate
+            textBoxPassword.TextChanged += (sender, e) =>
             {
-                PasswordChangedEvent?.Invoke(this, EventArgs.Empty);
+                if (!_isPasswordManuallyChanged) _isPasswordManuallyChanged = true;
+                else IsPasswordChanged = true;
             };
             
             // View
             dataGridViewStaff.CellClick += delegate
             {
+                _isPasswordManuallyChanged = false;
                 buttonUpdateOrSave.Text = @"Update";
                 panelDetail.Enabled = true;
                 ViewEvent?.Invoke(this, EventArgs.Empty);
@@ -190,11 +193,7 @@ namespace Stall_Rental_Management_System.Views
         }
         public StaffPosition Position
         {
-            get
-            {
-                Enum.TryParse(textBoxPosition.Text, out StaffPosition position);
-                return position;
-            }
+            get => EnumHelper.TryGetEnumValueFromDisplayName<StaffPosition>(textBoxPosition.Text, out var position) ? position : default;
             set => textBoxPosition.Text = EnumHelper.GetDisplayName(value);
         }
         public string Address
@@ -212,7 +211,7 @@ namespace Stall_Rental_Management_System.Views
             get => textBoxPassword.Text;
             set
             {
-                IsPasswordChanged = false; // Reset the flag when setting the password from the database
+                IsPasswordChanged = false;
                 textBoxPassword.Text = value;
             }
         }
@@ -231,7 +230,6 @@ namespace Stall_Rental_Management_System.Views
         // Events
         public event EventHandler SearchEvent;
         public event EventHandler UploadProfileEvent;
-        public event EventHandler PasswordChangedEvent;
         public event EventHandler ViewEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler DeleteEvent;
