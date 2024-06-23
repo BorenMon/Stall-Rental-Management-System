@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 using Stall_Rental_Management_System.Enums;
@@ -14,13 +15,14 @@ namespace Stall_Rental_Management_System.Services
     {
         public bool Login(string phoneNumber, string password, UserType userType)
         {
-            var tableName = userType == UserType.VENDOR ? "tbVendor" : "tbStaff";
-            var query = $"SELECT * FROM {tableName} WHERE PhoneNumber = @PhoneNumber";
+            const string query = "spLoginUser";
 
             using (var connection = DatabaseUtil.GetConnection())
             using (var command = new SqlCommand(query, connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                command.Parameters.AddWithValue("@UserType", userType.ToString());
                 connection.Open();
 
                 using (var reader = command.ExecuteReader())
@@ -34,15 +36,15 @@ namespace Stall_Rental_Management_System.Services
                             {
                                 PhoneNumber = phoneNumber,
                                 UserType = userType,
-                                LastNameEn = reader["LastNameEN"].ToString(),
-                                FirstNameEn = reader["FirstNameEN"].ToString(),
-                                LastNameKh = reader["LastNameKH"].ToString(),
-                                FirstNameKh = reader["FirstNameKH"].ToString(),
+                                LastNameEn = reader["LastNameEn"].ToString(),
+                                FirstNameEn = reader["FirstNameEn"].ToString(),
+                                LastNameKh = reader["LastNameKh"].ToString(),
+                                FirstNameKh = reader["FirstNameKh"].ToString(),
                                 BirthDate = reader["BirthDate"] != DBNull.Value ? Convert.ToDateTime(reader["BirthDate"]) : default,
                                 Gender = reader["Gender"].ToString(),
                                 Email = reader["Email"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                ProfileImageUrl = reader["ProfileImageURL"].ToString()
+                                ProfileImageUrl = reader["ProfileImageUrl"].ToString()
                             };
 
                             if (userType == UserType.SUPERMARKET_STAFF)

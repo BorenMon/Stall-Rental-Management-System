@@ -26,5 +26,20 @@ namespace Stall_Rental_Management_System.Helpers
                        .Select(e => new KeyValuePair<Enum, string>(e, GetDisplayName(e)))
                        .ToList();
         }
+        
+        public static bool TryGetEnumValueFromDisplayName<T>(string displayName, out T enumValue) where T : Enum
+        {
+            foreach (var value in Enum.GetValues(typeof(T)).Cast<T>())
+            {
+                if (GetDisplayName(value).Equals(displayName, StringComparison.OrdinalIgnoreCase))
+                {
+                    enumValue = value;
+                    return true;
+                }
+            }
+            enumValue = default;
+            return false;
+        }
+        
     }
 }

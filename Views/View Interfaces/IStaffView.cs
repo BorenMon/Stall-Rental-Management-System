@@ -29,7 +29,6 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         // Events
         event EventHandler SearchEvent;
         event EventHandler UploadProfileEvent;
-        event EventHandler PasswordChangedEvent;
         event EventHandler ViewEvent;
         event EventHandler AddNewEvent;
         event EventHandler DeleteEvent;
