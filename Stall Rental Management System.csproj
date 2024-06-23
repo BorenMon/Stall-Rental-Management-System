@@ -172,7 +172,9 @@
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\DesignHelpers\DataGridViewHelper.cs" />
+    <Compile Include="Helpers\DesignHelpers\PhoneNumberValidationHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
     <Compile Include="Models\User.cs" />
@@ -207,8 +209,8 @@
     <Compile Include="Utils\CurrentUserUtil.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
     <Compile Include="Utils\DisplayNameAttribute.cs" />
-    <Compile Include="Utils\MinIOObjectNameUtil.cs" />
-    <Compile Include="Utils\MinIOUtil.cs" />
+    <Compile Include="Utils\MinIoObjectNameUtil.cs" />
+    <Compile Include="Utils\MinIoUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>

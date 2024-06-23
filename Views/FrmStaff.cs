@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
-using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Presenters;
-using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
+
 
 namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmStaff : Form, IStaffView, IManagementView
     {
         private StaffPresenter _presenter;
-        private AuthenticationService _authService;
+        private readonly AuthenticationService _authService;
+        public string CurrentProfileImageObjectName { get; set; }
         
-        public FrmStaff(IStaffRepository staffRepository, AuthenticationService authService)
+        public FrmStaff(StaffRepository staffRepository, AuthenticationService authService)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
@@ -26,12 +29,39 @@ namespace Stall_Rental_Management_System.Views
             
             // Initialize the presenter
             _presenter = new StaffPresenter(this, staffRepository, authService);
-            
+
+            Customize();
+        }
+
+        private void Customize()
+        {
             comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
             comboBoxGender.DisplayMember = "Value";
             comboBoxGender.ValueMember = "Key";
+
+            panelDetail.Enabled = false;
             
-            tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+            pictureBoxProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            
+            pictureBoxProfile.LoadCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    // Error loading the image, set a default error image
+                    pictureBoxProfile.ImageLocation = MinIoUtil.GenerateFileUrl("error_image.png", "srms");
+                }
+            };
+            
+            textBoxPhoneNumber.KeyPress += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidateKeypress(textBox, e);
+            };
+            textBoxPhoneNumber.TextChanged += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidatePaste(textBox);
+            };
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -45,41 +75,42 @@ namespace Stall_Rental_Management_System.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+            
+            // Upload Profile
+            buttonUploadProfile.Click += delegate
+            {
+                UploadProfileEvent?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // Change password
+            textBoxPassword.TextChanged += delegate
+            {
+                PasswordChangedEvent?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // View
+            dataGridViewStaff.CellClick += delegate
+            {
+                buttonUpdateOrSave.Text = @"Update";
+                panelDetail.Enabled = true;
+                ViewEvent?.Invoke(this, EventArgs.Empty);
+            };
 
             // Add new
             buttonAddNew.Click += delegate
             {
+                buttonUpdateOrSave.Text = @"Save";
+                panelDetail.Enabled = true;
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffList);
-                tabControlStaff.TabPages.Add(tabPageStaffDetail);
-                tabPageStaffDetail.Text = @"Add new staff";
-            };
-            
-            // Edit
-            buttonEdit.Click += delegate
-            {
-                EditEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffList);
-                tabControlStaff.TabPages.Add(tabPageStaffDetail);
-                tabPageStaffDetail.Text = @"Edit staff";
             };
             
             // Save
-            buttonSave.Click += delegate
+            buttonUpdateOrSave.Click += delegate
             {
-                SaveEvent?.Invoke(this, EventArgs.Empty);
+                SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
                 if (!IsSuccessful) return;
-                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
-                tabControlStaff.TabPages.Add(tabPageStaffList);
+                panelDetail.Enabled = false;
                 MessageBox.Show(Message);
-            };
-            
-            // Save
-            buttonCancel.Click += delegate
-            {
-                CancelEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
-                tabControlStaff.TabPages.Add(tabPageStaffList);
             };
             
             // Delete
@@ -101,20 +132,7 @@ namespace Stall_Rental_Management_System.Views
             buttonBack.Click += delegate { BackToPanelEvent?.Invoke(this, EventArgs.Empty); };
             
             // Logout
-            buttonLogout.Click += delegate
-            {
-                var result = MessageBox.Show(
-                    @"Are you sure you want to logout?",
-                    @"Warning",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (result != DialogResult.Yes) return;
-                LogoutEvent?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
-                GeneralNavigateHelper.NavigateToLoginForm(this, _authService);
-            };
+            buttonLogout.Click += (sender, args) => CurrentUserUtil.Logout(this, _authService);
         }
 
         // Properties
@@ -125,9 +143,16 @@ namespace Stall_Rental_Management_System.Views
         }
         public string ProfileImageUrl
         {
-            get => "";
-            set { }
+            set
+            {
+                CurrentProfileImageObjectName = value;
+                var imageLocation = value != string.Empty
+                    ? MinIoUtil.GenerateFileUrl(value, "srms")
+                    : null;
+                pictureBoxProfile.ImageLocation = string.IsNullOrEmpty(imageLocation) ? MinIoUtil.GenerateFileUrl("profile/null_profile.png", "srms") : imageLocation;
+            }
         }
+
         public string LastNameEn
         {
             get => textBoxLastNameEn.Text;
@@ -185,29 +210,33 @@ namespace Stall_Rental_Management_System.Views
         public string Password
         {
             get => textBoxPassword.Text;
-            set => textBoxPassword.Text = value;
+            set
+            {
+                IsPasswordChanged = false; // Reset the flag when setting the password from the database
+                textBoxPassword.Text = value;
+            }
         }
         public string SearchValue 
         { 
             get => textBoxSearch.Text;
             set => textBoxSearch.Text = value;
         }
+
+        public bool IsPasswordChanged { get; set; }
         public bool IsEdit { get; set; }
-
         public bool IsSuccessful { get; set; }
-
         public string Message { get; set; }
 
 
         // Events
         public event EventHandler SearchEvent;
+        public event EventHandler UploadProfileEvent;
+        public event EventHandler PasswordChangedEvent;
+        public event EventHandler ViewEvent;
         public event EventHandler AddNewEvent;
-        public event EventHandler EditEvent;
         public event EventHandler DeleteEvent;
-        public event EventHandler SaveEvent;
-        public event EventHandler CancelEvent;
+        public event EventHandler SaveOrUpdateEvent;
         public event EventHandler BackToPanelEvent;
-        public event EventHandler LogoutEvent;
 
         // Methods
         public void SetStaffListBindingSource(BindingSource staffList)

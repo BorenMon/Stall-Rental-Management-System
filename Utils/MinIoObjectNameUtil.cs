@@ -3,7 +3,7 @@
 
 namespace Stall_Rental_Management_System.Utils
 {
-    internal class MinIOObjectNameUtil
+    internal class MinIoObjectNameUtil
     {
         public static string GetOnlyObjectName(string minioUrl)
         {

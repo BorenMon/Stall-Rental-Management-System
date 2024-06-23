@@ -266,7 +266,7 @@ namespace Stall_Rental_Management_System.Views
                 DataGridViewRow row = contractDataGridView.Rows[e.RowIndex];
                 contractID = row.Cells[0].Value.ToString();
                 FileUrl = row.Cells[1].Value.ToString();
-                contractUploadButton.Text = MinIOObjectNameUtil.GetOnlyObjectName(FileUrl);
+                contractUploadButton.Text = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
                 // get value back from seleting on row
                 contractCodeText.Text = row.Cells[2].Value.ToString();
                 contractStatusComboBox.Text = row.Cells[3].Value.ToString();
@@ -310,13 +310,13 @@ namespace Stall_Rental_Management_System.Views
         {
             // Get the user's Downloads folder path
             string downloadsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
-            string objectName = MinIOObjectNameUtil.GetOnlyObjectName(FileUrl);
+            string objectName = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
             MessageBox.Show(objectName);
             string bucketName = "srms";
             try
             {
                 // Retrieve object information to get the MIME type
-                var statObject = await MinIOUtil.GetMinioClient()
+                var statObject = await MinIoUtil.GetMinioClient()
                     .StatObjectAsync(
                     new StatObjectArgs()
                     .WithBucket(bucketName)
@@ -341,7 +341,7 @@ namespace Stall_Rental_Management_System.Views
                     try
                     {
                         // Download the file from MinIO
-                        await MinIOUtil.GetMinioClient()
+                        await MinIoUtil.GetMinioClient()
                             .GetObjectAsync(
                             new GetObjectArgs()
                             .WithBucket(bucketName)

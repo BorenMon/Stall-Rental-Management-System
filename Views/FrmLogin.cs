@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
@@ -23,35 +24,16 @@ namespace Stall_Rental_Management_System.Views
             comboBoxUserType.DisplayMember = "Value";
             comboBoxUserType.ValueMember = "Key";
 
-            textBoxPhoneNumber.KeyPress += textBoxPhoneNumber_KeyPress;
-            textBoxPhoneNumber.TextChanged += textBoxPhoneNumber_TextChanged;
-        }
-
-        private void textBoxPhoneNumber_TextChanged(object sender, EventArgs e)
-        {
-            var regex = new Regex(@"[^\d]");
-            textBoxPhoneNumber.Text = regex.Replace(textBoxPhoneNumber.Text, ""); // Remove non-digit characters
-
-            // If the text length exceeds 20 characters, truncate it
-            if (textBoxPhoneNumber.Text.Length > 20)
+            textBoxPhoneNumber.KeyPress += (sender, e) =>
             {
-                textBoxPhoneNumber.Text = textBoxPhoneNumber.Text.Substring(0, 20);
-            }
-
-            // Set the cursor to the end of the text
-            textBoxPhoneNumber.SelectionStart = textBoxPhoneNumber.Text.Length;
-        }
-
-        private void textBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Regular expression for digits only
-            var regex = new Regex(@"^\d+$");
-
-            // Check if the pressed key is a digit and if the length is less than 20
-            if (!char.IsControl(e.KeyChar) && (!regex.IsMatch(e.KeyChar.ToString()) || textBoxPhoneNumber.Text.Length >= 20))
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidateKeypress(textBox, e);
+            };
+            textBoxPhoneNumber.TextChanged += (sender, e) =>
             {
-                e.Handled = true; // Suppress the event
-            }
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidatePaste(textBox);
+            };
         }
 
         public string PhoneNumber => textBoxPhoneNumber.Text;

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Utils;
 
 namespace Stall_Rental_Management_System.Views.Panel_Forms
 {
@@ -26,17 +27,7 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show(
-                @"Are you sure you want to logout?",
-                @"Warning",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
-
-            if (result != DialogResult.Yes) return;
-
-            MessageBox.Show(@"Logout successfully!");
-            GeneralNavigateHelper.NavigateToLoginForm(this, _authService);
+            CurrentUserUtil.Logout(this, _authService);
         }
     }
 }
