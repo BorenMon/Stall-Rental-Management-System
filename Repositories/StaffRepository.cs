@@ -25,8 +25,6 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 staffModel.Password = AuthHelper.HashPassword(staffModel.Password);
             }
-            
-            Console.Write(staffModel);
 
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand("InsertOrUpdateStaff", connection))
