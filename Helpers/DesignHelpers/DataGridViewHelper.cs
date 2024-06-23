@@ -31,7 +31,7 @@ namespace Stall_Rental_Management_System.Helpers.DesignHelpers
             }
 
             // Set the AutoSizeColumnsMode
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

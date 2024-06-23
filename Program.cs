@@ -5,6 +5,7 @@ using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Testing;
+using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
 using Stall_Rental_Management_System.Views.Panel_Forms;
 
@@ -24,11 +25,16 @@ namespace Stall_Rental_Management_System
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            // Uncomment this line for testing purposes
-            // TestSetup.SetupTestUser();
+            // Init MinIO Client
+            MinIoUtil.InitMinioClient();
             
-            var authService = new AuthenticationService();
-            Application.Run(new FrmLogin(authService));
+            // Uncomment this line for testing purposes
+            TestSetup.SetupTestUser();
+            
+            // var authService = new AuthenticationService();
+            // Application.Run(new FrmLogin(authService));
+            
+            Application.Run(new FrmStaff(new StaffRepository(), new AuthenticationService()));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

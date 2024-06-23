@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Utils;
@@ -18,29 +19,34 @@ namespace Stall_Rental_Management_System.Repositories
         }
         
         // Methods
-        public void Add(StaffModel staffModel)
+        public void InsertOrUpdate(StaffModel staffModel, int primaryKey, bool isPasswordChanged)
         {
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            if (isPasswordChanged)
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "Insert into tbStaff values (@last_name_kh)";
-                command.Parameters.Add("@last_name_kh", SqlDbType.VarChar).Value = staffModel.LastNameKh;
-                command.ExecuteNonQuery();
+                staffModel.Password = AuthHelper.HashPassword(staffModel.Password);
             }
-        }
+            
+            Console.Write(staffModel);
 
-        public void Edit(StaffModel staffModel)
-        {
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var command = new SqlCommand("InsertOrUpdateStaff", connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@staff_id", SqlDbType.Int).Value = primaryKey;
+                command.Parameters.Add("@last_name_kh", SqlDbType.NVarChar).Value = staffModel.LastNameKh;
+                command.Parameters.Add("@first_name_kh", SqlDbType.NVarChar).Value = staffModel.FirstNameKh;
+                command.Parameters.Add("@last_name_en", SqlDbType.VarChar).Value = staffModel.LastNameEn;
+                command.Parameters.Add("@first_name_en", SqlDbType.VarChar).Value = staffModel.FirstNameEn;
+                command.Parameters.Add("@birth_date", SqlDbType.DateTime).Value = staffModel.BirthDate;
+                command.Parameters.Add("@gender", SqlDbType.VarChar).Value = staffModel.Gender.ToString();
+                command.Parameters.Add("@email", SqlDbType.VarChar).Value = staffModel.Email;
+                command.Parameters.Add("@position", SqlDbType.VarChar).Value = staffModel.Position.ToString();
+                command.Parameters.Add("@address", SqlDbType.VarChar).Value = staffModel.Address;
+                command.Parameters.Add("@phone_number", SqlDbType.VarChar).Value = staffModel.PhoneNumber;
+                command.Parameters.Add("@password", SqlDbType.VarChar).Value = staffModel.Password;
+                command.Parameters.Add("@profile_image_url", SqlDbType.VarChar).Value = staffModel.ProfileImageUrl;
+
                 connection.Open();
-                command.Connection = connection;
-                command.CommandText = "update tbStaff set LastNameKH = @last_name_kh where StaffID = @staff_id";
-                command.Parameters.Add("@last_name_kh", SqlDbType.VarChar).Value = staffModel.LastNameKh;
-                command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
                 command.ExecuteNonQuery();
             }
         }
@@ -79,8 +85,7 @@ namespace Stall_Rental_Management_System.Repositories
                         var staff = new StaffModel
                         {
                             StaffId = (int)reader["StaffID"],
-                            FullNameKh = reader["LastNameKH"] + " " + reader["FirstNameKH"],
-                            FullNameEn = reader["LastNameEN"] + " " + reader["FirstNameEN"],
+                            ProfileImageUrl = reader["ProfileImageURL"].ToString(),
                             LastNameKh = reader["LastNameKH"].ToString(),
                             FirstNameKh = reader["FirstNameKH"].ToString(),
                             LastNameEn = reader["LastNameEN"].ToString(),
@@ -132,8 +137,7 @@ namespace Stall_Rental_Management_System.Repositories
                         var staff = new StaffModel
                         {
                             StaffId = (int)reader["StaffID"],
-                            FullNameKh = reader["LastNameKH"] + " " + reader["FirstNameKH"],
-                            FullNameEn = reader["LastNameEN"] + " " + reader["FirstNameEN"],
+                            ProfileImageUrl = reader["ProfileImageURL"].ToString(),
                             LastNameKh = reader["LastNameKH"].ToString(),
                             FirstNameKh = reader["FirstNameKH"].ToString(),
                             LastNameEn = reader["LastNameEN"].ToString(),
