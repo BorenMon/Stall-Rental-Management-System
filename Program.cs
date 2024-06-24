@@ -12,6 +12,7 @@ using Stall_Rental_Management_System.Views.View_Interfaces;
 using Stall_Rental_Management_System.Views.Panel_Forms;
 using System.Configuration;
 using Stall_Rental_Management_System.Presenters;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Stall_Rental_Management_System
@@ -30,19 +31,19 @@ namespace Stall_Rental_Management_System
             Application.SetCompatibleTextRenderingDefault(false);
             
 
-            var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            //var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
             // Initialize services
             IAuthenticationService authenticationService = new AuthenticationService();
-            IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
+            //IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
 
-            // Initialize views
-            ILoginView loginView = new FrmLogin();
-            IMainView mainView = new FrmMain();
+            //// Initialize views
+            //ILoginView loginView = new FrmLogin();
+            //IMainView mainView = new FrmMain();
 
-            // Initialize presenters
-            LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
-            MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
+            //// Initialize presenters
+            //LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
+            //MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
 
             // Show the main form
             Application.Run(new FrmVendor());

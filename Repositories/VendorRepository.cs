@@ -20,7 +20,7 @@ namespace Stall_Rental_Management_System.Repositories
         public VendorRepository() {
             try
             {
-                sqlConnection = DatabaseUtil.GetConn();
+                sqlConnection = DatabaseUtil.GetConnection();
             }
             catch (Exception ex)
             {

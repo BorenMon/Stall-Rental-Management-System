@@ -161,7 +161,7 @@ namespace Stall_Rental_Management_System.Presenters
 
             try
             {
-                await MinIOUtil
+                await MinIoUtil
                     .GetMinioClient()
                     .PutObjectAsync(new PutObjectArgs()
                         .WithBucket(bucketName)
@@ -183,7 +183,7 @@ namespace Stall_Rental_Management_System.Presenters
             try
             {
                 // Generate a presigned URL for the uploaded file
-                string url = await MinIOUtil.GetMinioClient()
+                string url = await MinIoUtil.GetMinioClient()
                     .PresignedGetObjectAsync(new PresignedGetObjectArgs()
                 .WithBucket(bucketName)
                         .WithObject(objectName)
@@ -207,7 +207,7 @@ namespace Stall_Rental_Management_System.Presenters
                 string objectName = $"{folderName}/{fileName}";
 
                 // Remove the file from MinIO
-                await MinIOUtil.GetMinioClient()
+                await MinIoUtil.GetMinioClient()
                     .RemoveObjectAsync(new RemoveObjectArgs()
                         .WithBucket(bucketName)
                         .WithObject(objectName));
