@@ -133,7 +133,7 @@ namespace Stall_Rental_Management_System.Presenters
             string bucketName = "srms";
             try
             {
-                await MinIOUtil
+                await MinIoUtil
                     .GetMinioClient()
                     .PutObjectAsync(new PutObjectArgs()
                     .WithBucket(bucketName)
@@ -155,7 +155,7 @@ namespace Stall_Rental_Management_System.Presenters
             string bucketName = "srms";
             // get Url file from minio
             // Generate the presigned URL with the maximum allowed expiration time (7 days)
-            string url = await MinIOUtil.GetMinioClient()
+            string url = await MinIoUtil.GetMinioClient()
                 .PresignedGetObjectAsync(new PresignedGetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(fileName)

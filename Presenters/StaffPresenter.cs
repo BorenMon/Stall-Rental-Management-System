@@ -1,43 +1,89 @@
 ﻿using Stall_Rental_Management_System.Models;
-using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Presenters.Common;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Utils;
+using Stall_Rental_Management_System.Views;
 
 namespace Stall_Rental_Management_System.Presenters
 {
     public class StaffPresenter
     {
         // Fields
-        private readonly IStaffView _view;
-        private readonly IStaffRepository _repository;
+        private readonly FrmStaff _view;
+        private readonly StaffRepository _repository;
         private readonly BindingSource _staffsBindingSource;
         private IEnumerable<StaffModel> _staffList;
+        
+        private readonly AuthenticationService _authService;
 
         // Constructor
-        public StaffPresenter(IStaffView view, IStaffRepository repository)
+        public StaffPresenter(FrmStaff view, StaffRepository repository, AuthenticationService authService)
         {
             _staffsBindingSource = new BindingSource();
             _view = view;
             _repository = repository;
+            _authService = authService;
 
             // Subscribe event handler methods to view events
             _view.SearchEvent += SearchStaff;
+            _view.UploadProfileEvent += UploadStaffProfile;
             _view.AddNewEvent += AddNewStaff;
-            _view.EditEvent += LoadSelectedStaffToEdit;
             _view.DeleteEvent += DeleteSelectedStaff;
-            _view.SaveEvent += SaveStaff;
-            _view.CancelEvent += CancelAction;
+            _view.SaveOrUpdateEvent += SaveOrUpdateStaff;
+            _view.BackToPanelEvent += BackToPanel;
+            _view.ViewEvent += ViewStaff;
 
             // Set staffs binding source
             _view.SetStaffListBindingSource(_staffsBindingSource);
 
             // Load staff list view
             LoadAllStaffList();
+        }
 
-            // Show view
-            _view.Show();
+        private async void UploadStaffProfile(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = @"Image files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+                var selectedFileName = openFileDialog.FileName;
+
+                // Compress the image before uploading
+                var compressedFileStream = ImageHelper.CompressImage(selectedFileName);
+
+                var objectName = "profile/" + MinIoUtil.GenerateRandomObjectName("staff_profile", 15);
+                var contentType = MinIoUtil.GetContentType(selectedFileName);
+                const string bucketName = "srms";
+
+                MinIoUtil.InitMinioClient();
+                await MinIoUtil.UploadFileAsync(objectName, compressedFileStream, contentType, bucketName);
+
+                _view.CurrentProfileImageObjectName = objectName;
+                _view.ProfileImageUrl = objectName;
+            }
+        }
+
+        private void ViewStaff(object sender, EventArgs e)
+        {
+            _view.IsEdit = true;
+            LoadSelectedStaff();
+        }
+
+        private void BackToPanel(object sender, EventArgs e)
+        {
+            var currentUser = CurrentUserUtil.User;
+            if (currentUser.UserType == UserType.SUPERMARKET_STAFF && currentUser.Position == StaffPosition.MANAGER) 
+                ManagerNavigateHelper.NavigateToManagerPanel(_view, _authService);
         }
 
         private void LoadAllStaffList()
@@ -52,31 +98,32 @@ namespace Stall_Rental_Management_System.Presenters
             _staffsBindingSource.DataSource = _staffList;
         }
 
-        private void CancelAction(object sender, EventArgs e)
+        private void SaveOrUpdateStaff(object sender, EventArgs e)
         {
-            CleanViewFields();
-        }
-
-        private void SaveStaff(object sender, EventArgs e)
-        {
-            var model = new StaffModel
+            var staff = new StaffModel
             {
-                StaffId = Convert.ToInt32(_view.StaffID),
-                LastNameKh = _view.LastNameKH,
+                ProfileImageUrl = _view.CurrentProfileImageObjectName,
+                LastNameEn = _view.LastNameEn,
+                FirstNameEn = _view.FirstNameEn,
+                LastNameKh = _view.LastNameKh,
+                FirstNameKh = _view.FirstNameKh,
+                BirthDate = _view.BirthDate,
+                Gender = _view.Gender,
+                Email = _view.Email,
+                Position = _view.Position,
+                PhoneNumber = _view.PhoneNumber,
+                Password = _view.Password,
+                Address = _view.Address
             };
             try
             {
-                new Common.ModelDataValidation().Validate(model);
-                if (_view.IsEdit) // Edit model
+                ModelDataValidation.Validate(staff);
+                if (!int.TryParse(_view.StaffId, out var staffId))
                 {
-                    _repository.Edit(model);
-                    _view.Message = "Staff edited successfully";
+                    staffId = 0; // Set default value if parsing fails
                 }
-                else // Add new model
-                {
-                    _repository.Add(model);
-                    _view.Message = "Staff added successfully";
-                }
+                _repository.InsertOrUpdate(staff, staffId, _view.IsPasswordChanged);
+                _view.Message = _view.IsEdit ? "Staff edited successfully" : "Staff added successfully";
 
                 _view.IsSuccessful = true;
                 LoadAllStaffList();
@@ -91,8 +138,20 @@ namespace Stall_Rental_Management_System.Presenters
 
         private void CleanViewFields()
         {
-            _view.StaffID = "0";
-            _view.LastNameKH = "";
+            _view.StaffId = "Auto Generate";
+            _view.CurrentProfileImageObjectName = null;
+            _view.ProfileImageUrl = "";
+            _view.LastNameEn = null;
+            _view.FirstNameEn = null;
+            _view.LastNameKh = null;
+            _view.FirstNameKh = null;
+            _view.BirthDate = DateTime.Now.Date;
+            _view.Gender = Gender.FEMALE;
+            _view.Email = null;
+            _view.Position = StaffPosition.STAFF;
+            _view.PhoneNumber = null;
+            _view.Password = null;
+            _view.Address = null;
         }
 
         private void DeleteSelectedStaff(object sender, EventArgs e)
@@ -112,17 +171,31 @@ namespace Stall_Rental_Management_System.Presenters
             }
         }
 
-        private void LoadSelectedStaffToEdit(object sender, EventArgs e)
+        private void LoadSelectedStaff()
         {
             var staff = (StaffModel)_staffsBindingSource.Current;
-            _view.StaffID = staff.StaffId.ToString();
-            _view.LastNameKH = staff.LastNameKh;
-            _view.IsEdit = true;
+        
+            _view.StaffId = staff.StaffId.ToString();
+            _view.ProfileImageUrl = staff.ProfileImageUrl;
+            _view.LastNameKh = staff.LastNameKh;
+            _view.FirstNameKh = staff.FirstNameKh;
+            _view.LastNameEn = staff.LastNameEn;
+            _view.FirstNameEn = staff.FirstNameEn;
+            _view.BirthDate = staff.BirthDate;
+            _view.Gender = staff.Gender;
+            _view.Email = staff.Email;
+            _view.Position = staff.Position;
+            _view.PhoneNumber = staff.PhoneNumber;
+            _view.Password = staff.Password;
+            _view.Address = staff.Address;
+
+            _view.IsPasswordChanged = false; // reset the flag after loading the staff details
         }
 
         private void AddNewStaff(object sender, EventArgs e)
         {
             _view.IsEdit = false;
+            CleanViewFields();
         }
     }
 }

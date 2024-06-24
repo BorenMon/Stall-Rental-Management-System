@@ -1,18 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Utils.DesignUtils;
+
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
+
 
 namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmStaff : Form, IStaffView
+    public partial class FrmStaff : Form, IStaffView, IManagementView
     {
-        private FrmStaff()
+        private StaffPresenter _presenter;
+        private readonly AuthenticationService _authService;
+        private bool _isPasswordManuallyChanged;
+        public string CurrentProfileImageObjectName { get; set; }
+        
+        public FrmStaff(StaffRepository staffRepository, AuthenticationService authService)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
-            tabControlStaff.TabPages.Remove(tabPageStaffDetail);
+
+            _authService = authService;
+            
+            // Initialize the presenter
+            _presenter = new StaffPresenter(this, staffRepository, authService);
+
+            Customize();
+        }
+
+        private void Customize()
+        {
+            comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
+            comboBoxGender.DisplayMember = "Value";
+            comboBoxGender.ValueMember = "Key";
+
+            panelDetail.Enabled = false;
+            
+            pictureBoxProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            
+            pictureBoxProfile.LoadCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    // Error loading the image, set a default error image
+                    pictureBoxProfile.ImageLocation = MinIoUtil.GenerateFileUrl("error_image.png", "srms");
+                }
+            };
+            
+            textBoxPhoneNumber.KeyPress += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidateKeypress(textBox, e);
+            };
+            textBoxPhoneNumber.TextChanged += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidatePaste(textBox);
+            };
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -26,109 +76,125 @@ namespace Stall_Rental_Management_System.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+            
+            // Upload Profile
+            buttonUploadProfile.Click += delegate
+            {
+                UploadProfileEvent?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // Change password
+            textBoxPassword.TextChanged += (sender, e) =>
+            {
+                if (!_isPasswordManuallyChanged) _isPasswordManuallyChanged = true;
+                else IsPasswordChanged = true;
+            };
+            
+            // View
+            dataGridViewStaff.CellClick += delegate
+            {
+                _isPasswordManuallyChanged = false;
+                buttonUpdateOrSave.Text = @"Update";
+                panelDetail.Enabled = true;
+                ViewEvent?.Invoke(this, EventArgs.Empty);
+            };
 
             // Add new
             buttonAddNew.Click += delegate
             {
+                buttonUpdateOrSave.Text = @"Save";
+                panelDetail.Enabled = true;
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffList);
-                tabControlStaff.TabPages.Add(tabPageStaffDetail);
-                tabPageStaffDetail.Text = @"Add new staff";
-            };
-            
-            // Edit
-            buttonEdit.Click += delegate
-            {
-                EditEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffList);
-                tabControlStaff.TabPages.Add(tabPageStaffDetail);
-                tabPageStaffDetail.Text = @"Edit staff";
             };
             
             // Save
-            buttonSave.Click += delegate
+            buttonUpdateOrSave.Click += delegate
             {
-                SaveEvent?.Invoke(this, EventArgs.Empty);
+                SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
                 if (!IsSuccessful) return;
-                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
-                tabControlStaff.TabPages.Add(tabPageStaffList);
+                panelDetail.Enabled = false;
                 MessageBox.Show(Message);
-            };
-            
-            // Save
-            buttonCancel.Click += delegate
-            {
-                CancelEvent?.Invoke(this, EventArgs.Empty);
-                tabControlStaff.TabPages.Remove(tabPageStaffDetail);
-                tabControlStaff.TabPages.Add(tabPageStaffList);
             };
             
             // Delete
             buttonDelete.Click += delegate
             {
                 var result = MessageBox.Show(
-                    @"Are you sure you want to delete the selected staff?", 
+                    @"Are you sure you want to delete the selected staff?",
                     @"Warning",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
-                    );
+                );
 
                 if (result != DialogResult.Yes) return;
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+            
+            // Back to panel
+            buttonBack.Click += delegate { BackToPanelEvent?.Invoke(this, EventArgs.Empty); };
+            
+            // Logout
+            buttonLogout.Click += (sender, args) => CurrentUserUtil.Logout(this, _authService);
         }
 
         // Properties
-        public string StaffID
+        public string StaffId
         {
             get => textBoxStaffId.Text;
             set => textBoxStaffId.Text = value;
         }
-        public string ProfileImageURL
+        public string ProfileImageUrl
         {
-            get => "";
-            set { }
+            set
+            {
+                CurrentProfileImageObjectName = value;
+                var imageLocation = value != string.Empty
+                    ? MinIoUtil.GenerateFileUrl(value, "srms")
+                    : null;
+                pictureBoxProfile.ImageLocation = string.IsNullOrEmpty(imageLocation) ? MinIoUtil.GenerateFileUrl("profile/null_profile.png", "srms") : imageLocation;
+            }
         }
-        public string LastNameEN
+
+        public string LastNameEn
         {
             get => textBoxLastNameEn.Text;
             set => textBoxLastNameEn.Text = value;
         }
-        public string FirstNameEN
+        public string FirstNameEn
         {
-            get => textBoxFirstNameKh.Text;
-            set => textBoxFirstNameKh.Text = value;
+            get => textBoxFirstNameEn.Text;
+            set => textBoxFirstNameEn.Text = value;
         }
-        public string LastNameKH
+        public string LastNameKh
         {
             get => textBoxLastNameKh.Text;
             set => textBoxLastNameKh.Text = value;
         }
-        public string FirstNameKH
+        public string FirstNameKh
         {
-            get => textBoxFirstNameKh.Text;
+            get => textBoxFirstNameKh.Text; 
             set => textBoxFirstNameKh.Text = value;
         }
         public DateTime BirthDate
         {
-            get => new DateTime();
-            set { }
+            get => dateTimeBirthDate.Value;
+            set => dateTimeBirthDate.Value = value;
         }
-        public string Gender
+        public Gender Gender
         {
-            get => comboBoxGender.Text;
-            set => comboBoxGender.Text = value;
+            get => (Gender)comboBoxGender.SelectedValue;
+            set => comboBoxGender.SelectedValue = value;
         }
         public string Email
         {
             get => textBoxEmail.Text;
             set => textBoxEmail.Text = value;
         }
-        public string Position
+        public StaffPosition Position
         {
-            get => comboBoxPosition.Text;
-            set => comboBoxPosition.Text = value;
+            get => EnumHelper.TryGetEnumValueFromDisplayName<StaffPosition>(textBoxPosition.Text, out var position) ? position : default;
+            set => textBoxPosition.Text = EnumHelper.GetDisplayName(value);
         }
         public string Address
         {
@@ -143,27 +209,32 @@ namespace Stall_Rental_Management_System.Views
         public string Password
         {
             get => textBoxPassword.Text;
-            set => textBoxPassword.Text = value;
+            set
+            {
+                IsPasswordChanged = false;
+                textBoxPassword.Text = value;
+            }
         }
         public string SearchValue 
         { 
             get => textBoxSearch.Text;
             set => textBoxSearch.Text = value;
         }
+
+        public bool IsPasswordChanged { get; set; }
         public bool IsEdit { get; set; }
-
         public bool IsSuccessful { get; set; }
-
         public string Message { get; set; }
 
 
         // Events
         public event EventHandler SearchEvent;
+        public event EventHandler UploadProfileEvent;
+        public event EventHandler ViewEvent;
         public event EventHandler AddNewEvent;
-        public event EventHandler EditEvent;
         public event EventHandler DeleteEvent;
-        public event EventHandler SaveEvent;
-        public event EventHandler CancelEvent;
+        public event EventHandler SaveOrUpdateEvent;
+        public event EventHandler BackToPanelEvent;
 
         // Methods
         public void SetStaffListBindingSource(BindingSource staffList)
@@ -178,23 +249,6 @@ namespace Stall_Rental_Management_System.Views
             };
 
             DataGridViewHelper.SetDataGridViewColumns(dataGridViewStaff, staffList, columns);
-        }
-        
-        // Singleton pattern (Open a single form instance)
-        private static FrmStaff _instance;
-
-        public static FrmStaff GetInstance()
-        {
-            if (_instance == null || _instance.IsDisposed)
-                _instance = new FrmStaff();
-            else
-            {
-                if (_instance.WindowState == FormWindowState.Minimized)
-                    _instance.WindowState = FormWindowState.Normal;
-                _instance.BringToFront();
-            }
-
-            return _instance;
         }
     }
 }

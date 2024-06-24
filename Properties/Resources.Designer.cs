@@ -65,7 +65,7 @@ namespace Stall_Rental_Management_System.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap arrow_left {
             get {
-                object obj = ResourceManager.GetObject("arrow-left", resourceCulture);
+                object obj = ResourceManager.GetObject("arrow_left", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,59 @@ namespace Stall_Rental_Management_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap document_upload {
+        internal static System.Drawing.Bitmap building {
             get {
-                object obj = ResourceManager.GetObject("document-upload", resourceCulture);
+                object obj = ResourceManager.GetObject("building", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap graph {
+            get {
+                object obj = ResourceManager.GetObject("graph", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logout {
+            get {
+                object obj = ResourceManager.GetObject("logout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap note {
+            get {
+                object obj = ResourceManager.GetObject("note", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap people {
+            get {
+                object obj = ResourceManager.GetObject("people", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap profile {
+            get {
+                object obj = ResourceManager.GetObject("profile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,6 +135,7 @@ namespace Stall_Rental_Management_System.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap search_normal {
             get {
+<<<<<<< HEAD
                 object obj = ResourceManager.GetObject("search-normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
@@ -96,6 +147,9 @@ namespace Stall_Rental_Management_System.Properties {
         internal static System.Drawing.Bitmap user {
             get {
                 object obj = ResourceManager.GetObject("user", resourceCulture);
+=======
+                object obj = ResourceManager.GetObject("search_normal", resourceCulture);
+>>>>>>> 957b431f1fd9a25746544a1fa9c5d9e19e706722
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

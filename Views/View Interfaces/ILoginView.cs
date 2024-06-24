@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stall_Rental_Management_System.Enums;
+
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
@@ -6,7 +7,8 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
     {
         string PhoneNumber { get; }
         string Password { get; }
-        event EventHandler Login;
+        UserType SelectedUserType { get; }
         void ShowMessage(string message);
+        void Close();
     }
 }

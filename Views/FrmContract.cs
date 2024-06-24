@@ -1,27 +1,15 @@
-﻿using Minio;
-using Minio.DataModel.Args;
-using Stall_Rental_Management_System.Models;
+﻿using Minio.DataModel.Args;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Repositories;
 
-namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
+namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmContract : Form, IContractView
     {
@@ -115,7 +103,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                     return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
                 }
                 catch(NullReferenceException ex) {
-                    MessageBox.Show("Missing Vendor ID.");
+                    MessageBox.Show(@"Missing Vendor ID.");
                 }
                 return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
             }
@@ -268,7 +256,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                 DataGridViewRow row = contractDataGridView.Rows[e.RowIndex];
                 contractID = row.Cells[0].Value.ToString();
                 FileUrl = row.Cells[1].Value.ToString();
-                contractUploadButton.Text = MinIOObjectNameUtil.GetOnlyObjectName(FileUrl);
+                contractUploadButton.Text = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
                 // get value back from seleting on row
                 contractCodeText.Text = row.Cells[2].Value.ToString();
                 contractStatusComboBox.Text = row.Cells[3].Value.ToString();
@@ -312,13 +300,13 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
         {
             // Get the user's Downloads folder path
             string downloadsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
-            string objectName = MinIOObjectNameUtil.GetOnlyObjectName(FileUrl);
+            string objectName = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
             MessageBox.Show(objectName);
             string bucketName = "srms";
             try
             {
                 // Retrieve object information to get the MIME type
-                var statObject = await MinIOUtil.GetMinioClient()
+                var statObject = await MinIoUtil.GetMinioClient()
                     .StatObjectAsync(
                     new StatObjectArgs()
                     .WithBucket(bucketName)
@@ -343,7 +331,7 @@ namespace Stall_Rental_Management_System.Views.Supermarket_Contract_Forms
                     try
                     {
                         // Download the file from MinIO
-                        await MinIOUtil.GetMinioClient()
+                        await MinIoUtil.GetMinioClient()
                             .GetObjectAsync(
                             new GetObjectArgs()
                             .WithBucket(bucketName)

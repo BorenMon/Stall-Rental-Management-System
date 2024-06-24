@@ -5,21 +5,14 @@ namespace Stall_Rental_Management_System.Utils
 {
     public static class DatabaseUtil
     {
-        private static SqlConnection _conn;
-
-        public static SqlConnection GetConn()
+        public static string GetConnectionString()
         {
-            if (_conn == null)
-            {
-                InitializeConn();
-            }
-            return _conn;
+            return ConfigurationManager.ConnectionStrings["SRMSConnectionString"].ConnectionString;
         }
 
-        private static void InitializeConn()
+        public static SqlConnection GetConnection()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-            _conn = new SqlConnection(connectionString);
+            return new SqlConnection(GetConnectionString());
         }
     }
 }

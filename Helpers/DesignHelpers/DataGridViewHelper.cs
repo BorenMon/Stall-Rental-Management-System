@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Utils.DesignUtils
+namespace Stall_Rental_Management_System.Helpers.DesignHelpers
 {
     public static class DataGridViewHelper
     {
@@ -31,7 +31,7 @@ namespace Stall_Rental_Management_System.Utils.DesignUtils
             }
 
             // Set the AutoSizeColumnsMode
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
