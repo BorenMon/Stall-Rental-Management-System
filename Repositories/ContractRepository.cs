@@ -78,7 +78,7 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 openDatabaseConnection();
 
-                //
+                // 
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = @"SELECT * FROM tbContract 
                                            WHERE Status = 'available'

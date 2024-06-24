@@ -160,6 +160,7 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
+    <Compile Include="Presenters\VendorPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,7 +170,9 @@
     <Compile Include="Repositories\ContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
+    <Compile Include="Repositories\Repository Interfaces\IVendorRepository.cs" />
     <Compile Include="Repositories\StaffRepository.cs" />
+    <Compile Include="Repositories\VendorRepository.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
@@ -212,10 +215,17 @@
     <Compile Include="Views\FrmStaff.Designer.cs">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FrmVendor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmVendor.Designer.cs">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IMainView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
+    <Compile Include="Views\View Interfaces\IVendorView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -232,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmVendor.resx">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
@@ -266,7 +279,9 @@
     <None Include="Resources\search-normal.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\user.png" />
     <None Include="Resources\document-upload.png" />
+    <None Include="Resources\profile.jpg" />
     <Content Include="Resources\stall-rental-management-system.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

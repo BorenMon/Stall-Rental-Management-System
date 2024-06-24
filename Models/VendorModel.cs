@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Stall_Rental_Management_System.Models
     {
         // fields
         private int vendorID;
+        private string profileUrl;
         private string firstNameEN;
         private string lastNameEN;
         private string firstNameKH;
@@ -19,6 +21,7 @@ namespace Stall_Rental_Management_System.Models
         private string email;
         private string password;
         private string phoneNumber;
+        private string address;
         //
         // properties
         public int VendorID
@@ -26,13 +29,27 @@ namespace Stall_Rental_Management_System.Models
             get { return vendorID; }
             set { vendorID = value; }
         }
+        [StringLength(555)]
+
+        public string ProfileUrl
+        {
+            get { return profileUrl; }
+            set { this.profileUrl = value; }
+        }
+
+        public string Address
+        {
+            get { return this.address; }
+            set { this.address = value; }
+        }
+        [StringLength(100)]
 
         public string FirstNameEN
         {
             get { return firstNameEN; }
             set { firstNameEN = value; }
         }
-
+        [StringLength(100)]
         public string LastNameEN
         {
             get { return lastNameEN; }
@@ -68,7 +85,7 @@ namespace Stall_Rental_Management_System.Models
             get { return email; }
             set { email = value; }
         }
-
+        [StringLength(255)]
         public string Password
         {
             get { return password; }
@@ -83,9 +100,10 @@ namespace Stall_Rental_Management_System.Models
 
         public VendorModel() { }
 
-        public VendorModel(int vendorID, string firstNameEN, string lastNameEN, string firstNameKH, string lastNameKH, DateTime birthDate, string gender, string email, string password, string phoneNumber)
+        public VendorModel(int vendorID, string profileUrl ,string firstNameEN, string lastNameEN, string firstNameKH, string lastNameKH, DateTime birthDate, string gender, string email, string password, string phoneNumber)
         {
             this.vendorID = vendorID;
+            this.profileUrl = profileUrl;
             this.firstNameEN = firstNameEN;
             this.lastNameEN = lastNameEN;
             this.firstNameKH = firstNameKH;

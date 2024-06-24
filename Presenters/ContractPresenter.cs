@@ -24,7 +24,6 @@ namespace Stall_Rental_Management_System.Presenters
             contractBindingSource = new BindingSource();   
             this.view = view;
             this.contractRepository = contractRepository;
-
             //
 
             this.view.SearchContract += SearchContractByID;
