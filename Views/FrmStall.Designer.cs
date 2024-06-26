@@ -58,11 +58,18 @@ namespace Stall_Rental_Management_System.Views
             this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonDeleteStall = new System.Windows.Forms.Button();
             this.dataGridViewStall = new System.Windows.Forms.DataGridView();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.listBoxImagesFileName = new System.Windows.Forms.ListBox();
+            this.buttonAddImage = new System.Windows.Forms.Button();
+            this.buttonRemoveImage = new System.Windows.Forms.Button();
             this.panelDetail.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStall)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelDetail
@@ -80,6 +87,11 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.buttonAddImage);
+            this.panel4.Controls.Add(this.buttonRemoveImage);
+            this.panel4.Controls.Add(this.listBoxImagesFileName);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.pictureBox2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 227);
             this.panel4.Name = "panel4";
@@ -354,6 +366,56 @@ namespace Stall_Rental_Management_System.Views
             this.dataGridViewStall.Size = new System.Drawing.Size(981, 226);
             this.dataGridViewStall.TabIndex = 69;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(17, 64);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(277, 277);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Gainsboro;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Font = new System.Drawing.Font("Poppins", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(1009, 47);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Images";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listBoxImagesFileName
+            // 
+            this.listBoxImagesFileName.Font = new System.Drawing.Font("Poppins", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxImagesFileName.FormattingEnabled = true;
+            this.listBoxImagesFileName.ItemHeight = 30;
+            this.listBoxImagesFileName.Location = new System.Drawing.Point(314, 125);
+            this.listBoxImagesFileName.Name = "listBoxImagesFileName";
+            this.listBoxImagesFileName.Size = new System.Drawing.Size(680, 214);
+            this.listBoxImagesFileName.TabIndex = 2;
+            // 
+            // buttonAddImage
+            // 
+            this.buttonAddImage.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddImage.Location = new System.Drawing.Point(314, 64);
+            this.buttonAddImage.Name = "buttonAddImage";
+            this.buttonAddImage.Size = new System.Drawing.Size(107, 31);
+            this.buttonAddImage.TabIndex = 69;
+            this.buttonAddImage.Text = "Add";
+            this.buttonAddImage.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemoveImage
+            // 
+            this.buttonRemoveImage.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveImage.Location = new System.Drawing.Point(438, 64);
+            this.buttonRemoveImage.Name = "buttonRemoveImage";
+            this.buttonRemoveImage.Size = new System.Drawing.Size(107, 31);
+            this.buttonRemoveImage.TabIndex = 70;
+            this.buttonRemoveImage.Text = "Remove";
+            this.buttonRemoveImage.UseVisualStyleBackColor = true;
+            // 
             // FrmStall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -365,8 +427,10 @@ namespace Stall_Rental_Management_System.Views
             this.Controls.Add(this.panel2);
             this.Location = new System.Drawing.Point(15, 15);
             this.Name = "FrmStall";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stall Rental Management System / Manager Panel / Stall Management";
             this.panelDetail.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -374,6 +438,7 @@ namespace Stall_Rental_Management_System.Views
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStall)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,5 +474,10 @@ namespace Stall_Rental_Management_System.Views
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxCode;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button buttonAddImage;
+        private System.Windows.Forms.Button buttonRemoveImage;
+        private System.Windows.Forms.ListBox listBoxImagesFileName;
     }
 }

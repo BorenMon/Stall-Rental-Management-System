@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
@@ -11,6 +12,7 @@ using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
+
 
 namespace Stall_Rental_Management_System.Views
 {
@@ -25,8 +27,6 @@ namespace Stall_Rental_Management_System.Views
             AssociateAndRaiseViewEvents();
 
             _authService = authService;
-            
-            // Initialize the presenter
             _presenter = new StallPresenter(this, stallRepository);
 
             Customize();
@@ -49,6 +49,9 @@ namespace Stall_Rental_Management_System.Views
 
             // Set the selected item
             comboBoxType.SelectedIndex = 0; // Select the "Select" item by default
+
+            textBoxSize.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
+            textBoxMonthlyFee.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -86,6 +89,21 @@ namespace Stall_Rental_Management_System.Views
                 panelDetail.Enabled = true;
                 ViewEvent?.Invoke(this, EventArgs.Empty);
             };
+            
+            // Delete
+            buttonDeleteStall.Click += delegate
+            {
+                var result = MessageBox.Show(
+                    @"Are you sure you want to delete the selected stall?",
+                    @"Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result != DialogResult.Yes) return;
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
 
             // Back to panel
             buttonBack.Click += (sender, args) => GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
@@ -109,17 +127,30 @@ namespace Stall_Rental_Management_System.Views
 
         public string Type
         {
-            get => comboBoxType.SelectedValue.ToString();
+            get
+            {
+                var selected = comboBoxType.SelectedItem;
+                return (string)selected.GetType().GetProperty("Value").GetValue(selected);
+            }
             set
             {
                 if (Enum.TryParse(value, out StallType stallType))
                 {
-                    comboBoxType.SelectedItem = new { DisplayName = EnumHelper.GetDisplayName(stallType), Value = stallType.ToString() };
+                    foreach (var item in comboBoxType.Items)
+                    {
+                        if ((string)item.GetType().GetProperty("Value").GetValue(item) == value)
+                        {
+                            comboBoxType.SelectedItem = item;
+                            return;
+                        }
+                    }
                 }
-                else comboBoxType.SelectedIndex = 0;
+                else
+                {
+                    comboBoxType.SelectedIndex = 0;
+                }
             }
         }
-
 
         public float StallSize
         {
@@ -130,8 +161,7 @@ namespace Stall_Rental_Management_System.Views
 
         public decimal MonthlyFee
         {
-            get =>
-                decimal.TryParse(textBoxSize.Text, out var size) ? size : 0;
+            get => decimal.TryParse(textBoxMonthlyFee.Text, out var size) ? size : 0;
             set => textBoxMonthlyFee.Text = value.ToString(CultureInfo.InvariantCulture);
         }
 

@@ -15,7 +15,6 @@ namespace Stall_Rental_Management_System.Presenters.Common
             var isValid = Validator.TryValidateObject(model, context, results, true);
             if (isValid) return;
             var errorMessage = results.Aggregate("", (current, item) => current + ("- " + item.ErrorMessage + "\n"));
-            MessageBox.Show(errorMessage);
             throw new Exception(errorMessage);
         }
     }

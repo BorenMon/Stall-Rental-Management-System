@@ -14,7 +14,7 @@ namespace Stall_Rental_Management_System.Models
 
         [DisplayName("Code")]
         [Required(ErrorMessage = "Code is required.")]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "Code must be between 5 and 100 characters.")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Code must be 5 characters.")]
         public string Code { get; set; }
 
         [DisplayName("Status")]
@@ -36,7 +36,6 @@ namespace Stall_Rental_Management_System.Models
         public decimal MonthlyFee { get; set; }
 
         [DisplayName("Location")]
-        [Required(ErrorMessage = "Location is required.")]
         [StringLength(255, ErrorMessage = "Location must be at most 255 characters.")]
         public string Location { get; set; }
 

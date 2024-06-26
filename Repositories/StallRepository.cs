@@ -27,11 +27,11 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@stall_id", SqlDbType.Int).Value = primaryKey;
-                command.Parameters.Add("@code", SqlDbType.NVarChar).Value = stallModel.Code;
-                command.Parameters.Add("@status", SqlDbType.NVarChar).Value = stallModel.Status;
+                command.Parameters.Add("@code", SqlDbType.VarChar).Value = stallModel.Code;
+                command.Parameters.Add("@status", SqlDbType.VarChar).Value = stallModel.Status;
                 command.Parameters.Add("@type", SqlDbType.VarChar).Value = stallModel.Type;
-                command.Parameters.Add("@size", SqlDbType.VarChar).Value = stallModel.Size;
-                command.Parameters.Add("@monthly_fee", SqlDbType.DateTime).Value = stallModel.MonthlyFee;
+                command.Parameters.Add("@size", SqlDbType.Float).Value = stallModel.Size;
+                command.Parameters.Add("@monthly_fee", SqlDbType.Money).Value = stallModel.MonthlyFee;
                 command.Parameters.Add("@location", SqlDbType.VarChar).Value = stallModel.Location;
 
                 connection.Open();

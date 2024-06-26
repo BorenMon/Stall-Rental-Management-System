@@ -73,7 +73,7 @@ namespace Stall_Rental_Management_System.Presenters
             try
             {
                 ModelDataValidation.Validate(stall);
-                _repository.InsertOrUpdate(stall, 1);
+                _repository.InsertOrUpdate(stall, _view.StallId);
                 _view.Message = _view.IsEdit ? "Stall edited successfully" : "Stall added successfully";
                 
                 _view.IsSuccessful = true;
@@ -105,7 +105,7 @@ namespace Stall_Rental_Management_System.Presenters
                 var stall = (StallModel)_stallsBindingSource.Current;
                 _repository.Delete(stall);
                 _view.IsSuccessful = true;
-                _view.Message = "Staff deleted successfully";
+                _view.Message = "Stall deleted successfully";
                 LoadAllStalls();
             }
             catch (Exception ex)
