@@ -7,6 +7,9 @@ using Stall_Rental_Management_System.Presenters.Common;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Views;
 using Stall_Rental_Management_System.Models;
+using System.IO;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Utils;
 
 
 namespace Stall_Rental_Management_System.Presenters
@@ -32,12 +35,64 @@ namespace Stall_Rental_Management_System.Presenters
             _view.DeleteEvent += DeleteSelectedStall;
             _view.SaveOrUpdateEvent += SaveOrUpdateStall;
             _view.ViewEvent += ViewStall;
+            _view.AddImageButton.Click += OnAddImage;
+            _view.RemoveImageButton.Click += OnRemoveImage;
+            _view.ImageListBox.SelectedIndexChanged += OnImageSelected;
 
             // Set staffs binding source
             _view.SetStallListBindingSource(_stallsBindingSource);
 
             // Load staff list view
             LoadAllStalls();
+        }
+
+        public void LoadImages(int stallId)
+        {
+            var images = _repository.GetImagesByStallId(stallId);
+            _view.ImageListBox.DataSource = images;
+            _view.ImageListBox.DisplayMember = "FileName";
+            if (images != null) { _view.ImagePictureBox.ImageLocation = null; } 
+        }
+
+        private async void OnAddImage(object sender, EventArgs e)
+        {
+            if (_view.OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var selectedFileName = _view.OpenFileDialog.FileName;
+
+                // Compress the image before uploading
+                var compressedFileStream = ImageHelper.CompressImage(selectedFileName);
+
+                var fileName = MinIoUtil.GenerateRandomObjectName("stall_image", 15);
+                var objectName = "stall/" + fileName;
+                var contentType = MinIoUtil.GetContentType(selectedFileName);
+                const string bucketName = "srms";
+
+                MinIoUtil.InitMinioClient();
+                await MinIoUtil.UploadFileAsync(objectName, compressedFileStream, contentType, bucketName);
+
+                var url = objectName;
+                var image = new StallImageModel { URL = url, FileName = fileName, StallID = _view.StallId };
+                _repository.AddImage(image);
+                LoadImages(_view.StallId);
+            }
+        }
+
+        private void OnRemoveImage(object sender, EventArgs e)
+        {
+            if (_view.ImageListBox.SelectedItem is StallImageModel selectedImage)
+            {
+                _repository.RemoveImage(selectedImage.StallImageID);
+                LoadImages(_view.StallId); // Refresh the image list
+            }
+        }
+
+        private void OnImageSelected(object sender, EventArgs e)
+        {
+            if (_view.ImageListBox.SelectedItem is StallImageModel selectedImage)
+            {
+                _view.ImagePictureBox.ImageLocation = MinIoUtil.GenerateFileUrl(selectedImage.URL, "srms");
+            }
         }
 
         private void ViewStall(object sender, EventArgs e)
@@ -118,6 +173,8 @@ namespace Stall_Rental_Management_System.Presenters
         private void LoadSelectedStall()
         {
             var stall = (StallModel)_stallsBindingSource.Current;
+
+            LoadImages(stall.StallId);
 
             _view.StallId = stall.StallId;
             _view.Code = stall.Code;

@@ -32,7 +32,7 @@ namespace Stall_Rental_Management_System.Views
         private void InitializeComponent()
         {
             this.panelDetail = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panelImages = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxMonthlyFee = new System.Windows.Forms.TextBox();
@@ -58,23 +58,24 @@ namespace Stall_Rental_Management_System.Views
             this.buttonSearch = new System.Windows.Forms.Button();
             this.buttonDeleteStall = new System.Windows.Forms.Button();
             this.dataGridViewStall = new System.Windows.Forms.DataGridView();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxImage = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.listBoxImagesFileName = new System.Windows.Forms.ListBox();
             this.buttonAddImage = new System.Windows.Forms.Button();
             this.buttonRemoveImage = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panelDetail.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.panelImages.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStall)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             this.SuspendLayout();
             // 
             // panelDetail
             // 
-            this.panelDetail.Controls.Add(this.panel4);
+            this.panelDetail.Controls.Add(this.panelImages);
             this.panelDetail.Controls.Add(this.panel3);
             this.panelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDetail.Location = new System.Drawing.Point(0, 64);
@@ -83,20 +84,20 @@ namespace Stall_Rental_Management_System.Views
             this.panelDetail.Size = new System.Drawing.Size(1011, 588);
             this.panelDetail.TabIndex = 102;
             // 
-            // panel4
+            // panelImages
             // 
-            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.buttonAddImage);
-            this.panel4.Controls.Add(this.buttonRemoveImage);
-            this.panel4.Controls.Add(this.listBoxImagesFileName);
-            this.panel4.Controls.Add(this.label6);
-            this.panel4.Controls.Add(this.pictureBox2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 227);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1011, 361);
-            this.panel4.TabIndex = 1;
+            this.panelImages.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelImages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelImages.Controls.Add(this.buttonAddImage);
+            this.panelImages.Controls.Add(this.buttonRemoveImage);
+            this.panelImages.Controls.Add(this.listBoxImagesFileName);
+            this.panelImages.Controls.Add(this.label6);
+            this.panelImages.Controls.Add(this.pictureBoxImage);
+            this.panelImages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelImages.Location = new System.Drawing.Point(0, 227);
+            this.panelImages.Name = "panelImages";
+            this.panelImages.Size = new System.Drawing.Size(1011, 361);
+            this.panelImages.TabIndex = 1;
             // 
             // panel3
             // 
@@ -366,13 +367,15 @@ namespace Stall_Rental_Management_System.Views
             this.dataGridViewStall.Size = new System.Drawing.Size(981, 226);
             this.dataGridViewStall.TabIndex = 69;
             // 
-            // pictureBox2
+            // pictureBoxImage
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(17, 64);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(277, 277);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.pictureBoxImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxImage.Location = new System.Drawing.Point(17, 64);
+            this.pictureBoxImage.Name = "pictureBoxImage";
+            this.pictureBoxImage.Size = new System.Drawing.Size(277, 277);
+            this.pictureBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxImage.TabIndex = 0;
+            this.pictureBoxImage.TabStop = false;
             // 
             // label6
             // 
@@ -391,7 +394,7 @@ namespace Stall_Rental_Management_System.Views
             this.listBoxImagesFileName.Font = new System.Drawing.Font("Poppins", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxImagesFileName.FormattingEnabled = true;
             this.listBoxImagesFileName.ItemHeight = 30;
-            this.listBoxImagesFileName.Location = new System.Drawing.Point(314, 125);
+            this.listBoxImagesFileName.Location = new System.Drawing.Point(314, 127);
             this.listBoxImagesFileName.Name = "listBoxImagesFileName";
             this.listBoxImagesFileName.Size = new System.Drawing.Size(680, 214);
             this.listBoxImagesFileName.TabIndex = 2;
@@ -416,6 +419,10 @@ namespace Stall_Rental_Management_System.Views
             this.buttonRemoveImage.Text = "Remove";
             this.buttonRemoveImage.UseVisualStyleBackColor = true;
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // FrmStall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -430,7 +437,7 @@ namespace Stall_Rental_Management_System.Views
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stall Rental Management System / Manager Panel / Stall Management";
             this.panelDetail.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
+            this.panelImages.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -438,7 +445,7 @@ namespace Stall_Rental_Management_System.Views
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStall)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -459,7 +466,7 @@ namespace Stall_Rental_Management_System.Views
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonDeleteStall;
         private System.Windows.Forms.DataGridView dataGridViewStall;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panelImages;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxMonthlyFee;
@@ -475,9 +482,10 @@ namespace Stall_Rental_Management_System.Views
         private System.Windows.Forms.TextBox textBoxCode;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBoxImage;
         private System.Windows.Forms.Button buttonAddImage;
         private System.Windows.Forms.Button buttonRemoveImage;
         private System.Windows.Forms.ListBox listBoxImagesFileName;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

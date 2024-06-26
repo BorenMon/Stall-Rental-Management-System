@@ -43,4 +43,12 @@ namespace Stall_Rental_Management_System.Models
         public string ConvertedType => EnumHelper.ConvertToReadableFormat(Type);
         public string ConvertedStatus => EnumHelper.GetDisplayName(Status);
     }
+
+    public class StallImageModel
+    {
+        public int StallImageID { get; set; }
+        public string URL { get; set; }
+        public string FileName { get; set; }
+        public int StallID { get; set; }
+    }
 }

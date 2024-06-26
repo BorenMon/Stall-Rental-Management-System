@@ -29,5 +29,11 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
 
         // Methods
         void SetStallListBindingSource(BindingSource stallList);
+
+        ListBox ImageListBox { get; }
+        PictureBox ImagePictureBox { get; }
+        Button AddImageButton { get; }
+        Button RemoveImageButton { get; }
+        OpenFileDialog OpenFileDialog { get; }
     }
 }

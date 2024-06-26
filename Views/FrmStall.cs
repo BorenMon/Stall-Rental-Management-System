@@ -21,6 +21,12 @@ namespace Stall_Rental_Management_System.Views
         private StallPresenter _presenter;
         private readonly AuthenticationService _authService;
 
+        public ListBox ImageListBox => listBoxImagesFileName;
+        public PictureBox ImagePictureBox => pictureBoxImage;
+        public Button AddImageButton => buttonAddImage;
+        public Button RemoveImageButton => buttonRemoveImage;
+        public OpenFileDialog OpenFileDialog => openFileDialog;
+
         public FrmStall(StallRepository stallRepository, AuthenticationService authService)
         {
             InitializeComponent();
@@ -52,6 +58,19 @@ namespace Stall_Rental_Management_System.Views
 
             textBoxSize.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
             textBoxMonthlyFee.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
+
+            OpenFileDialog.Filter = @"Image files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
+            OpenFileDialog.FilterIndex = 1;
+            OpenFileDialog.RestoreDirectory = true;
+
+            ImagePictureBox.LoadCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    // Error loading the image, set a default error image
+                    ImagePictureBox.ImageLocation = MinIoUtil.GenerateFileUrl("error_image.png", "srms");
+                }
+            };
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -69,6 +88,7 @@ namespace Stall_Rental_Management_System.Views
             // Add new
             buttonAddNewStall.Click += delegate
             {
+                panelImages.Enabled = false;
                 buttonUpdateOrSave.Text = @"Save";
                 panelDetail.Enabled = true;
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
@@ -78,13 +98,20 @@ namespace Stall_Rental_Management_System.Views
             buttonUpdateOrSave.Click += delegate
             {
                 SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful) panelDetail.Enabled = false;
+                if (IsSuccessful)
+                {
+                    panelDetail.Enabled = false;
+                    panelImages.Enabled = false;
+                    ImagePictureBox.ImageLocation = null;
+                    ImageListBox.DataSource = null;
+                }
                 MessageBox.Show(Message);
             };
 
             // View
             dataGridViewStall.CellClick += delegate
             {
+                panelImages.Enabled = true;
                 buttonUpdateOrSave.Text = @"Update";
                 panelDetail.Enabled = true;
                 ViewEvent?.Invoke(this, EventArgs.Empty);
@@ -104,6 +131,11 @@ namespace Stall_Rental_Management_System.Views
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+
+            // Add Image
+            buttonAddImage.Click += delegate { AddImageEvent?.Invoke(this, EventArgs.Empty); };
+            buttonRemoveImage.Click += delegate { RemoveImageEvent?.Invoke(this, EventArgs.Empty); };
+            listBoxImagesFileName.SelectedIndexChanged += delegate { SelectImageEvent?.Invoke(this, EventArgs.Empty); };
 
             // Back to panel
             buttonBack.Click += (sender, args) => GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
@@ -180,13 +212,16 @@ namespace Stall_Rental_Management_System.Views
         public bool IsEdit { get; set; }
         public bool IsSuccessful { get; set; }
         public string Message { get; set; }
-        
+
         public event EventHandler SearchEvent;
         public event EventHandler ViewEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler DeleteEvent;
         public event EventHandler SaveOrUpdateEvent;
-        
+        public event EventHandler SelectImageEvent;
+        public event EventHandler AddImageEvent;
+        public event EventHandler RemoveImageEvent;
+
         public void SetStallListBindingSource(BindingSource stallList)
         {
             var columns = new List<(string DataPropertyName, string HeaderText)>

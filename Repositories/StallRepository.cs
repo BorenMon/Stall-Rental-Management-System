@@ -124,5 +124,56 @@ namespace Stall_Rental_Management_System.Repositories
 
             return stallList;
         }
+
+
+        // Images
+        public IEnumerable<StallImageModel> GetImagesByStallId(int stallId)
+        {
+            var images = new List<StallImageModel>();
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("SELECT * FROM tbStallImage WHERE StallID = @StallID", connection))
+            {
+                command.Parameters.AddWithValue("@StallID", stallId);
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        images.Add(new StallImageModel
+                        {
+                            StallImageID = (int)reader["StallImageID"],
+                            URL = reader["URL"].ToString(),
+                            FileName = reader["FileName"].ToString(),
+                            StallID = (int)reader["StallID"]
+                        });
+                    }
+                }
+            }
+            return images;
+        }
+
+        public void AddImage(StallImageModel image)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("INSERT INTO tbStallImage (URL, FileName, StallID) VALUES (@URL, @FileName, @StallID)", connection))
+            {
+                command.Parameters.AddWithValue("@URL", image.URL);
+                command.Parameters.AddWithValue("@FileName", image.FileName);
+                command.Parameters.AddWithValue("@StallID", image.StallID);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void RemoveImage(int imageId)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("DELETE FROM tbStallImage WHERE StallImageID = @StallImageID", connection))
+            {
+                command.Parameters.AddWithValue("@StallImageID", imageId);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
