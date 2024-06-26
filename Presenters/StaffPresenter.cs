@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
-using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Presenters.Common;
 using Stall_Rental_Management_System.Repositories;
-using Stall_Rental_Management_System.Services;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
 
@@ -20,16 +18,13 @@ namespace Stall_Rental_Management_System.Presenters
         private readonly StaffRepository _repository;
         private readonly BindingSource _staffsBindingSource;
         private IEnumerable<StaffModel> _staffList;
-        
-        private readonly AuthenticationService _authService;
 
         // Constructor
-        public StaffPresenter(FrmStaff view, StaffRepository repository, AuthenticationService authService)
+        public StaffPresenter(FrmStaff view, StaffRepository repository)
         {
             _staffsBindingSource = new BindingSource();
             _view = view;
             _repository = repository;
-            _authService = authService;
 
             // Subscribe event handler methods to view events
             _view.SearchEvent += SearchStaff;
@@ -37,7 +32,6 @@ namespace Stall_Rental_Management_System.Presenters
             _view.AddNewEvent += AddNewStaff;
             _view.DeleteEvent += DeleteSelectedStaff;
             _view.SaveOrUpdateEvent += SaveOrUpdateStaff;
-            _view.BackToPanelEvent += BackToPanel;
             _view.ViewEvent += ViewStaff;
 
             // Set staffs binding source
@@ -77,13 +71,6 @@ namespace Stall_Rental_Management_System.Presenters
         {
             _view.IsEdit = true;
             LoadSelectedStaff();
-        }
-
-        private void BackToPanel(object sender, EventArgs e)
-        {
-            var currentUser = CurrentUserUtil.User;
-            if (currentUser.UserType == UserType.SUPERMARKET_STAFF && currentUser.Position == StaffPosition.MANAGER) 
-                ManagerNavigateHelper.NavigateToManagerPanel(_view, _authService);
         }
 
         private void LoadAllStaffList()
@@ -164,10 +151,10 @@ namespace Stall_Rental_Management_System.Presenters
                 _view.Message = "Staff deleted successfully";
                 LoadAllStaffList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _view.IsSuccessful = false;
-                _view.Message = "An error occured, could not delete staff";
+                _view.Message = ex.Message;
             }
         }
 

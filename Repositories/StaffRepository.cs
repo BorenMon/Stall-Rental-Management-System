@@ -52,12 +52,12 @@ namespace Stall_Rental_Management_System.Repositories
         public void Delete(StaffModel staffModel)
         {
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var command = new SqlCommand("spDeleteStaff", connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@StaffID", SqlDbType.Int).Value = staffModel.StaffId;
+        
                 connection.Open();
-                command.Connection = connection;
-                command.CommandText = "delete from tbStaff where StaffID = @staff_id";
-                command.Parameters.Add("@staff_id", SqlDbType.Int).Value = staffModel.StaffId;
                 command.ExecuteNonQuery();
             }
         }
@@ -107,11 +107,14 @@ namespace Stall_Rental_Management_System.Repositories
         public IEnumerable<StaffModel> GetByValue(string value)
         {
             var staffList = new List<StaffModel>();
+            var staffId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand("spGetStaffsByValue", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@value", SqlDbType.NVarChar).Value = value;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = staffId;
+                command.Parameters.Add("@name_en", SqlDbType.VarChar).Value = value;
+                command.Parameters.Add("@name_kh", SqlDbType.NVarChar).Value = value;
 
                 connection.Open();
                 using (var reader = command.ExecuteReader())

@@ -8,7 +8,7 @@ namespace Stall_Rental_Management_System.Helpers.DesignHelpers
         public static void SetDataGridViewColumns(
             DataGridView dataGridView, 
             BindingSource bindingSource, 
-            List<(string DataPropertyName, string HeaderText, string Name)> columns)
+            List<(string DataPropertyName, string HeaderText)> columns)
         {
             // Set the data source
             dataGridView.DataSource = bindingSource;
@@ -25,8 +25,7 @@ namespace Stall_Rental_Management_System.Helpers.DesignHelpers
                 dataGridView.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     DataPropertyName = column.DataPropertyName, 
-                    HeaderText = column.HeaderText, 
-                    Name = column.Name
+                    HeaderText = column.HeaderText
                 });
             }
 

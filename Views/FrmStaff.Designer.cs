@@ -78,10 +78,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Poppins Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(46, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 35);
+            this.label1.Size = new System.Drawing.Size(213, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "Staff Management";
             // 
@@ -120,9 +120,13 @@
             // 
             // dataGridViewStaff
             // 
+            this.dataGridViewStaff.AllowUserToAddRows = false;
+            this.dataGridViewStaff.AllowUserToDeleteRows = false;
+            this.dataGridViewStaff.AllowUserToResizeColumns = false;
+            this.dataGridViewStaff.AllowUserToResizeRows = false;
             this.dataGridViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStaff.Location = new System.Drawing.Point(14, 61);
-            this.dataGridViewStaff.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewStaff.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewStaff.MultiSelect = false;
             this.dataGridViewStaff.Name = "dataGridViewStaff";
             this.dataGridViewStaff.ReadOnly = true;
@@ -135,7 +139,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelete.Location = new System.Drawing.Point(893, 14);
+            this.buttonDelete.Location = new System.Drawing.Point(888, 14);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(107, 31);
             this.buttonDelete.TabIndex = 68;
@@ -194,7 +198,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(0, 510);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1011, 307);
             this.panel2.TabIndex = 98;
@@ -438,7 +442,7 @@
             this.dateTimeBirthDate.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimeBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimeBirthDate.Location = new System.Drawing.Point(360, 186);
-            this.dateTimeBirthDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimeBirthDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimeBirthDate.Name = "dateTimeBirthDate";
             this.dateTimeBirthDate.Size = new System.Drawing.Size(215, 32);
             this.dateTimeBirthDate.TabIndex = 124;
@@ -483,7 +487,7 @@
             this.panelDetail.Controls.Add(this.label3);
             this.panelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDetail.Location = new System.Drawing.Point(0, 64);
-            this.panelDetail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelDetail.Margin = new System.Windows.Forms.Padding(2);
             this.panelDetail.Name = "panelDetail";
             this.panelDetail.Size = new System.Drawing.Size(1011, 446);
             this.panelDetail.TabIndex = 99;
@@ -500,6 +504,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmStaff";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stall Rental Management System / Manager Panel / Staff Management";
             this.panel1.ResumeLayout(false);
@@ -511,7 +516,6 @@
             this.panelDetail.ResumeLayout(false);
             this.panelDetail.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
