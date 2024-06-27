@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=8.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Authorization.8.0.6\lib\net462\Microsoft.AspNetCore.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Metadata, Version=8.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Metadata.8.0.6\lib\net462\Microsoft.AspNetCore.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -155,6 +161,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -196,6 +203,7 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\ProfilePresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
+    <Compile Include="Presenters\VendorPresenter.cs" />
     <Compile Include="Presenters\StallPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -207,8 +215,10 @@
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStallRepository.cs" />
+    <Compile Include="Repositories\Repository Interfaces\IVendorRepository.cs" />
     <Compile Include="Repositories\StaffRepository.cs" />
     <Compile Include="Repositories\StallRepository.cs" />
+    <Compile Include="Repositories\VendorRepository.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
     <Compile Include="Models\StaffModel.cs" />
@@ -274,10 +284,17 @@
     <Compile Include="Views\Panel Forms\FrmVendorPanel.Designer.cs">
       <DependentUpon>FrmVendorPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FrmVendor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmVendor.Designer.cs">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
     <Compile Include="Views\View Interfaces\IStallView.cs" />
+    <Compile Include="Views\View Interfaces\IVendorView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -306,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Panel Forms\FrmStaffPanel.resx">
       <DependentUpon>FrmStaffPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmVendor.resx">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>

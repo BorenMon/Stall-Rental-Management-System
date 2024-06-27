@@ -7,7 +7,11 @@ using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Testing;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
+//using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 using Stall_Rental_Management_System.Views.Panel_Forms;
+using System.Configuration;
+using Stall_Rental_Management_System.Presenters;
 
 
 namespace Stall_Rental_Management_System
@@ -24,7 +28,8 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+          
+
             // Init MinIO Client
             MinIoUtil.InitMinioClient();
             

@@ -18,13 +18,7 @@ namespace Stall_Rental_Management_System.Views
         private string seletedFilePath;
         private string fileName;
         private string minioFileUrl;
-        private int stallID;
-        private int staffID;
-        private int vendorID;
-        private string minIOUrl;
         private string contractID;
-        // Specify the format of the input string
-        private string dateformat = "M/d/yyyy";
         private ToolTip toolTip = new ToolTip();
 
 
@@ -191,11 +185,7 @@ namespace Stall_Rental_Management_System.Views
             // Set the form's properties to create a fixed size form
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MinimizeBox = true; // Set to false if you don't want the minimize button
-                                     //this.Size = new System.Drawing.Size(1000, 800); // Set your desired form size
-                                     //this.MaximumSize = new System.Drawing.Size(800, 600);
-                                     //this.MinimumSize = new System.Drawing.Size(800, 600);
-                                     //todo table
+            this.MinimizeBox = true;
             new ContractPresenter(this, new ContractRepository());
 
 
