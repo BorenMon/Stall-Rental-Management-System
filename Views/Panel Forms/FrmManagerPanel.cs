@@ -32,5 +32,10 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         {
             CurrentUserUtil.Logout(this, _authService);
         }
+
+        private void buttonProfile_Click(object sender, EventArgs e)
+        {
+            CurrentUserUtil.Profile(this, _authService);
+        }
     }
 }

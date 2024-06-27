@@ -17,11 +17,23 @@ namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
             loginForm.FormClosed += (s, args) => currentForm.Close();
         }
 
+        public static void NavigateToProfileForm(Form currentForm, AuthenticationService authService)
+        {
+            var profileForm = new FrmProfile(authService);
+            profileForm.Show();
+            currentForm.Hide();
+            profileForm.FormClosed += (s, args) => currentForm.Close();
+        }
+
         public static void NavigateToPanelForm(Form view, AuthenticationService authService)
         {
             var currentUser = CurrentUserUtil.User;
-            if (currentUser.UserType == UserType.SUPERMARKET_STAFF && currentUser.Position == StaffPosition.MANAGER) 
-                ManagerNavigateHelper.NavigateToManagerPanel(view, authService);
+            if (currentUser.UserType == UserType.SUPERMARKET_STAFF)
+            {
+                if (currentUser.Position == StaffPosition.MANAGER) ManagerNavigateHelper.NavigateToManagerPanel(view, authService);
+                else StaffNavigateHelper.NavigateToStaffPanel(view, authService);
+            }
+            else VendorNavigateHelper.NavigateToVendorPanel(view, authService);
         }
     }
 }

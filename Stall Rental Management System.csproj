@@ -180,6 +180,8 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
+    <Compile Include="Helpers\NavigateHelpers\StaffNavigateHelper.cs" />
+    <Compile Include="Helpers\NavigateHelpers\VendorNavigateHelper.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
+    <Compile Include="Presenters\ProfilePresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
     <Compile Include="Presenters\StallPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -217,6 +220,12 @@
     <Compile Include="Utils\DisplayNameAttribute.cs" />
     <Compile Include="Utils\MinIoObjectNameUtil.cs" />
     <Compile Include="Utils\MinIoUtil.cs" />
+    <Compile Include="Views\FrmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmChangePassword.Designer.cs">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +237,12 @@
     </Compile>
     <Compile Include="Views\FrmContract.Designer.cs">
       <DependentUpon>FrmContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmProfile.Designer.cs">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FrmStaff.cs">
       <SubType>Form</SubType>
@@ -268,11 +283,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmChangePassword.resx">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmContract.resx">
       <DependentUpon>FrmContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmProfile.resx">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>

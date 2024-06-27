@@ -111,7 +111,7 @@
             // buttonLogout
             // 
             this.buttonLogout.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogout.Location = new System.Drawing.Point(889, 17);
+            this.buttonLogout.Location = new System.Drawing.Point(888, 17);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(107, 32);
             this.buttonLogout.TabIndex = 1;
@@ -516,6 +516,7 @@
             this.panelDetail.ResumeLayout(false);
             this.panelDetail.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

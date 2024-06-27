@@ -32,6 +32,9 @@ namespace Stall_Rental_Management_System.Services
                         var hashedPasswordFromDb = reader["Password"].ToString();
                         if (AuthHelper.VerifyPassword(password, hashedPasswordFromDb))
                         {
+                            var genderString = reader["Gender"].ToString();
+                            Enum.TryParse(genderString, true, out Gender gender);
+                            
                             CurrentUser = new User
                             {
                                 PhoneNumber = phoneNumber,
@@ -41,7 +44,7 @@ namespace Stall_Rental_Management_System.Services
                                 LastNameKh = reader["LastNameKh"].ToString(),
                                 FirstNameKh = reader["FirstNameKh"].ToString(),
                                 BirthDate = reader["BirthDate"] != DBNull.Value ? Convert.ToDateTime(reader["BirthDate"]) : default,
-                                Gender = reader["Gender"].ToString(),
+                                Gender = gender,
                                 Email = reader["Email"].ToString(),
                                 Address = reader["Address"].ToString(),
                                 ProfileImageUrl = reader["ProfileImageUrl"].ToString()
