@@ -176,14 +176,19 @@
   <ItemGroup>
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\StaffPosition.cs" />
+    <Compile Include="Enums\StallStatus.cs" />
+    <Compile Include="Enums\StallType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\DesignHelpers\DataGridViewHelper.cs" />
+    <Compile Include="Helpers\DesignHelpers\FloatOrDecimalValidationHelper.cs" />
     <Compile Include="Helpers\DesignHelpers\PhoneNumberValidationHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
+    <Compile Include="Helpers\NavigateHelpers\StaffNavigateHelper.cs" />
+    <Compile Include="Helpers\NavigateHelpers\VendorNavigateHelper.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
@@ -196,8 +201,10 @@
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
+    <Compile Include="Presenters\ProfilePresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
     <Compile Include="Presenters\VendorPresenter.cs" />
+    <Compile Include="Presenters\StallPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,8 +214,10 @@
     <Compile Include="Repositories\ContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
+    <Compile Include="Repositories\Repository Interfaces\IStallRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IVendorRepository.cs" />
     <Compile Include="Repositories\StaffRepository.cs" />
+    <Compile Include="Repositories\StallRepository.cs" />
     <Compile Include="Repositories\VendorRepository.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\Service Interfaces\IAuthenticationService.cs" />
@@ -221,6 +230,12 @@
     <Compile Include="Utils\DisplayNameAttribute.cs" />
     <Compile Include="Utils\MinIoObjectNameUtil.cs" />
     <Compile Include="Utils\MinIoUtil.cs" />
+    <Compile Include="Views\FrmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmChangePassword.Designer.cs">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,11 +248,23 @@
     <Compile Include="Views\FrmContract.Designer.cs">
       <DependentUpon>FrmContract.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FrmProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmProfile.Designer.cs">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmStaff.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FrmStaff.Designer.cs">
       <DependentUpon>FrmStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmStall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmStall.Designer.cs">
+      <DependentUpon>FrmStall.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Panel Forms\FrmManagerPanel.cs">
       <SubType>Form</SubType>
@@ -265,13 +292,16 @@
     </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
-    <Compile Include="Views\View Interfaces\IManagementView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
+    <Compile Include="Views\View Interfaces\IStallView.cs" />
     <Compile Include="Views\View Interfaces\IVendorView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmChangePassword.resx">
+      <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -279,11 +309,20 @@
     <EmbeddedResource Include="Views\FrmContract.resx">
       <DependentUpon>FrmContract.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmProfile.resx">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmStall.resx">
+      <DependentUpon>FrmStall.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Panel Forms\FrmManagerPanel.resx">
       <DependentUpon>FrmManagerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Panel Forms\FrmStaffPanel.resx">
+      <DependentUpon>FrmStaffPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmVendor.resx">
       <DependentUpon>FrmVendor.cs</DependentUpon>

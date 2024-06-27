@@ -12,11 +12,12 @@ namespace Stall_Rental_Management_System.Helpers
     {
         public static string GetDisplayName(Enum enumValue)
         {
-            return enumValue.GetType()
-                            .GetMember(enumValue.ToString())
-                            .First()
-                            .GetCustomAttribute<DisplayNameAttribute>()
-                            ?.DisplayName ?? enumValue.ToString();
+            var displayName = enumValue.GetType()
+                .GetMember(enumValue.ToString())[0]
+                .GetCustomAttribute<DisplayNameAttribute>(false)
+                ?.DisplayName;
+
+            return displayName ?? enumValue.ToString();
         }
 
         public static List<KeyValuePair<Enum, string>> GetEnumDisplayNames<T>() where T : Enum
@@ -31,15 +32,25 @@ namespace Stall_Rental_Management_System.Helpers
         {
             foreach (var value in Enum.GetValues(typeof(T)).Cast<T>())
             {
-                if (GetDisplayName(value).Equals(displayName, StringComparison.OrdinalIgnoreCase))
-                {
-                    enumValue = value;
-                    return true;
-                }
+                if (!GetDisplayName(value).Equals(displayName, StringComparison.OrdinalIgnoreCase)) continue;
+                enumValue = value;
+                return true;
             }
             enumValue = default;
             return false;
         }
         
+        public static string ConvertToReadableFormat(string constantFormat)
+        {
+            if (string.IsNullOrEmpty(constantFormat))
+                return string.Empty;
+
+            var words = constantFormat.Split('_');
+            for (var i = 0; i < words.Length; i++)
+            {
+                words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+            }
+            return string.Join(" ", words);
+        }
     }
 }

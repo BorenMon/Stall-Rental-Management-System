@@ -1,78 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using System;
+
 
 namespace Stall_Rental_Management_System.Models
 {
-    internal class StallModel
+    public class StallModel
     {
-        // field
-        private int stallID;
-        private string code;
-        private string status;
-        private string type;
-        private float size;
-        private decimal monthlyFee;
-        private string location;
+        // Properties - Validations
+        public int StallId { get; set; }
 
-        // Properties
-        public int Id
-        {
-            get { return stallID; }
-            set { stallID = value; }
-        }
+        [DisplayName("Code")]
+        [Required(ErrorMessage = "Code is required.")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Code must be 5 characters.")]
+        public string Code { get; set; }
 
-        public string Code
-        {
-            get { return code; }
-            set { code = value; }
-        }
+        [DisplayName("Status")]
+        [Required(ErrorMessage = "Status is required.")]
+        public StallStatus Status { get; set; }
 
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
+        [DisplayName("Type")]
+        [StringLength(50, ErrorMessage = "Type must be at most 50 characters.")]
+        public string Type { get; set; }
 
-        public string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        [DisplayName("Size")]
+        [Required(ErrorMessage = "Size is required.")]
+        [Range(0, float.MaxValue, ErrorMessage = "Size must be a positive number.")]
+        public float Size { get; set; }
 
-        public float Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
+        [DisplayName("Monthly Fee")]
+        [Required(ErrorMessage = "Monthly fee is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Monthly fee must be a positive number.")]
+        public decimal MonthlyFee { get; set; }
 
-        public decimal MonthlyFee
-        {
-            get { return monthlyFee; }
-            set { monthlyFee = value; }
-        }
+        [DisplayName("Location")]
+        [StringLength(255, ErrorMessage = "Location must be at most 255 characters.")]
+        public string Location { get; set; }
 
-        public string Location
-        {
-            get { return location; }
-            set { location = value; }
-        }
+        // Computed Properties
+        public string ConvertedType => EnumHelper.ConvertToReadableFormat(Type);
+        public string ConvertedStatus => EnumHelper.GetDisplayName(Status);
+    }
 
-        // Constructors
-        public StallModel() { }
-
-        public StallModel(int id, string code, string status, string type, float size, decimal monthlyFee, string location)
-        {
-            this.stallID = id;
-            this.code = code;
-            this.status = status;
-            this.type = type;
-            this.size = size;
-            this.monthlyFee = monthlyFee;
-            this.location = location;
-        }
-
+    public class StallImageModel
+    {
+        public int StallImageID { get; set; }
+        public string URL { get; set; }
+        public string FileName { get; set; }
+        public int StallID { get; set; }
     }
 }

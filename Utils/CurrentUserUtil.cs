@@ -29,5 +29,10 @@ namespace Stall_Rental_Management_System.Utils
             MessageBox.Show(@"Logout successfully!");
             GeneralNavigateHelper.NavigateToLoginForm(form, authService);
         }
+
+        public static void Profile(Form form, AuthenticationService authService)
+        {
+            GeneralNavigateHelper.NavigateToProfileForm(form, authService);
+        }
     }
 }

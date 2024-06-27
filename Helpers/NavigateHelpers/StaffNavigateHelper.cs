@@ -6,7 +6,7 @@ using Stall_Rental_Management_System.Views.Panel_Forms;
 
 namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
 {
-    public static class ManagerNavigateHelper
+    public static class StaffNavigateHelper
     {
         public static void NavigateToStaffForm(Form currentForm, AuthenticationService authService)
         {
@@ -26,12 +26,12 @@ namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
             form.FormClosed += (s, args) => currentForm.Close();
         }
         
-        public static void NavigateToManagerPanel(Form currentForm, AuthenticationService authService)
+        public static void NavigateToStaffPanel(Form currentForm, AuthenticationService authService)
         {
-            var staffForm = new FrmManagerPanel(authService);
-            staffForm.Show();
+            var staffPanel = new FrmStaffPanel(authService);
+            staffPanel.Show();
             currentForm.Hide();
-            staffForm.FormClosed += (s, args) => currentForm.Close();
+            staffPanel.FormClosed += (s, args) => currentForm.Close();
         }
     }
 }
