@@ -1,41 +1,32 @@
-﻿using Stall_Rental_Management_System.Presenters;
-using Stall_Rental_Management_System.Repositories;
-using Stall_Rental_Management_System.Views.View_Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Utils;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmVendor : Form, IVendorView
     {
-        private OpenFileDialog openFileDialog;
-        private int vendorId;
-        private string profileUrl;
-        private string firstNameEN;
-        private string lastNameEN;
-        private string gender;
-        private string email;
-        private string password;
-        private string phone;
-        private string address;
+        private OpenFileDialog _openFileDialog;
+
+        private readonly AuthenticationService _authService;
 
         public event EventHandler SaveVendor;
         public event EventHandler SearchVendor;
         public event EventHandler UpdateVendor;
         public event EventHandler DeleteVendor;
 
-        public FrmVendor()
+        public FrmVendor(AuthenticationService authService)
         {
             InitializeComponent();
+            _authService = authService;
             this.StartPosition = FormStartPosition.CenterScreen;
             // Set the form's properties to create a fixed size form
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -45,99 +36,82 @@ namespace Stall_Rental_Management_System.Views
                                      //this.MaximumSize = new System.Drawing.Size(800, 600);
                                      //this.MinimumSize = new System.Drawing.Size(800, 600);
                                      //todo table
-            new VendorPresenter(this,new VendorRepository());
+            var vendorPresenter = new VendorPresenter(this, new VendorRepository());
             ReloadDatabase();
-            disableAllComponents();
-            genderComboBox.Items.Add("Male");
-            genderComboBox.Items.Add("Female");
+            DisableAllComponents();
+            genderComboBox.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
+            genderComboBox.DisplayMember = "Value";
+            genderComboBox.ValueMember = "Key";
             //
-            disableAllComponents();
+            DisableAllComponents();
             newButton.Enabled = true;
             //
             searchTextBox.KeyDown += (e, k) =>
             {
-                if(k.KeyCode==Keys.Enter)
+                switch (k.KeyCode)
                 {
-                    VendorID = int.Parse(searchTextBox.Text);
-                    SearchVendor?.Invoke(this, EventArgs.Empty);
-                    CheckIsNotFoundVendor();
-                    searchTextBox.Text = "";
-                }else if (k.KeyCode == Keys.Back)
-                {
-                    searchTextBox.Text = "";
-                    ReloadDatabase();
+                    case Keys.Enter:
+                        VendorId = int.Parse(searchTextBox.Text);
+                        SearchVendor?.Invoke(this, EventArgs.Empty);
+                        CheckIsNotFoundVendor();
+                        searchTextBox.Text = "";
+                        break;
+                    case Keys.Back:
+                        searchTextBox.Text = "";
+                        ReloadDatabase();
+                        break;
                 }
             };
         }
 
-        public int VendorID {
-            get => vendorId;
-            set => vendorId = value;
-        }
-        public string FirstNameEN {
-            get => firstNameEN;
-            set => firstNameEN = value;
-        }
-        public string LastNameEN {
-            get => lastNameEN;
-            set => lastNameEN=value;
-        }
-        public string FirstNameKH { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string LastNameKH { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime BirthDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Gender { 
-            get =>gender;
-            set => gender= value;
-        }
-        public string Email {
-            get => email;
-            set => email = value;
-        }
-        public string Password {
-            get => password;
-            set => password = value;
-        }
-        public string PhoneNumber {
-            get => phone;
-            set => phone = value;
-        }
-        public string ProfileUrl {
-            get => profileUrl;
-            set => profileUrl = value;
-        }
-        public string Address {
-            get => address;
-            set => address = value;
-        }
+        public int VendorId { get; set; }
 
-        public void setVendorBidingSource(BindingSource bindingSource)
+        public string FirstNameEn { get; set; }
+
+        public string LastNameEn { get; set; }
+
+        public string FirstNameKh { get; set; }
+        public string LastNameKh { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Gender { get; set; }
+
+        public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string ProfileUrl { get; set; }
+
+        public string Address { get; set; }
+
+        public void SetVendorBidingSource(BindingSource bindingSource)
         {
             vendorDataGridView.DataSource = bindingSource;
-            for (int i = 0; i < 11; i++)
+            for (var i = 0; i < 11; i++)
             {
                 vendorDataGridView.Columns[i].Width = 150;
-
             }
         }
 
         private void uploadProfileButton_Click(object sender, EventArgs e)
         {
             // Create an OpenFileDialog to select an image file
-            using (openFileDialog = new OpenFileDialog())
+            using (_openFileDialog = new OpenFileDialog())
             {
                 // Set the initial directory to the Pictures folder
-                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
+                _openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                _openFileDialog.Filter = @"Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp";
+                _openFileDialog.FilterIndex = 1;
+                _openFileDialog.RestoreDirectory = true;
 
                 // If the user selects a file and clicks OK
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (_openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
                         // Get the path of the selected file
-                        ProfileUrl =  openFileDialog.FileName;
+                        ProfileUrl =  _openFileDialog.FileName;
                         
                         
                         // Load the image into the PictureBox
@@ -145,7 +119,7 @@ namespace Stall_Rental_Management_System.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("An error occurred while uploading the image: " + ex.Message);
+                        MessageBox.Show(@"An error occurred while uploading the image: " + ex.Message);
                     }
                 }
             }
@@ -153,28 +127,30 @@ namespace Stall_Rental_Management_System.Views
 
         private async void vendorDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0) {
-                enableAllComponents();
-                saveButton.Enabled = false;
-                DataGridViewRow row = vendorDataGridView.Rows[e.RowIndex];
-                VendorID = int.Parse(row.Cells[0].Value.ToString());
-                ProfileUrl = row.Cells[1].Value.ToString();
-                profileBox.ImageLocation = await VendorPresenter.GetPreviewPictureUrlFromMinIO(ProfileUrl);
-                lastNameTextBox.Text = row.Cells[4].Value.ToString();
-                firstNameTextBox.Text = row.Cells[3].Value.ToString();
-                genderComboBox.Text = row.Cells[8].Value.ToString();
-                emailTextBox.Text = row.Cells[9].Value.ToString();
-                phoneTextBox.Text = row.Cells[11].Value.ToString();
-                passwordTextBox.Text = row.Cells[10].Value.ToString();
-                addressTextBox.Text = row.Cells[2].Value.ToString();
-            }
+            if (e.RowIndex < 0) return;
+            EnableAllComponents();
+            saveButton.Enabled = false;
+            var row = vendorDataGridView.Rows[e.RowIndex];
+            VendorId = int.Parse(row.Cells[0].Value.ToString());
+            ProfileUrl = row.Cells[1].Value.ToString();
+            profileBox.ImageLocation = await VendorPresenter.GetPreviewPictureUrlFromMinIo(ProfileUrl);
+            lastNameTextBox.Text = row.Cells[4].Value.ToString();
+            firstNameTextBox.Text = row.Cells[3].Value.ToString();
+            genderComboBox.Text = row.Cells[8].Value.ToString();
+            emailTextBox.Text = row.Cells[9].Value.ToString();
+            phoneTextBox.Text = row.Cells[11].Value.ToString();
+            passwordTextBox.Text = row.Cells[10].Value.ToString();
+            addressTextBox.Text = row.Cells[2].Value.ToString();
         }
         // disable all text field
-        private void disableAllComponents()
+        private void DisableAllComponents()
         {
             //textBox
             lastNameTextBox.Enabled = false;
             firstNameTextBox.Enabled = false;
+            textBoxLastNameKh.Enabled = false;
+            textBoxFirstNameKh.Enabled = false;
+            dateTimeBirthDate.Enabled = false;
             genderComboBox.Enabled = false;
             emailTextBox.Enabled = false;
             phoneTextBox.Enabled = false;
@@ -186,10 +162,13 @@ namespace Stall_Rental_Management_System.Views
             updateButton.Enabled = false;
             deleteButton.Enabled = false;
         }
-        private void enableAllComponents()
+        private void EnableAllComponents()
         {
             lastNameTextBox.Enabled = true;
             firstNameTextBox.Enabled = true;
+            textBoxLastNameKh.Enabled = true;
+            textBoxFirstNameKh.Enabled = true;
+            dateTimeBirthDate.Enabled = true;
             genderComboBox.Enabled = true;
             emailTextBox.Enabled = true;
             phoneTextBox.Enabled = true;
@@ -200,11 +179,14 @@ namespace Stall_Rental_Management_System.Views
             updateButton.Enabled = true;
             deleteButton.Enabled = true;
         }
-        private void clearAllDataFromTextbox()
+        private void ClearAllDataFromTextbox()
         {
             profileBox.Image = null;
             lastNameTextBox.Text = "";
             firstNameTextBox.Text = "";
+            textBoxLastNameKh.Text = "";
+            textBoxFirstNameKh.Text = "";
+            dateTimeBirthDate.Value = DateTime.Now.Date;
             emailTextBox.Text = "";
             passwordTextBox.Text = "";
             genderComboBox.Text = "";
@@ -214,15 +196,15 @@ namespace Stall_Rental_Management_System.Views
        
         private void searchButton_Click(object sender, EventArgs e)
         {
-            VendorID = int.Parse(searchTextBox.Text);
+            VendorId = int.Parse(searchTextBox.Text);
             SearchVendor?.Invoke(this, EventArgs.Empty);
             CheckIsNotFoundVendor();
         }
 
         private void newButton_Click(object sender, EventArgs e)
         {
-            clearAllDataFromTextbox();
-            enableAllComponents();
+            ClearAllDataFromTextbox();
+            EnableAllComponents();
             updateButton.Enabled = false;
             deleteButton.Enabled = false;
         }
@@ -231,8 +213,11 @@ namespace Stall_Rental_Management_System.Views
         {
             if (!CheckIsTextboxEmpty())
             {
-                LastNameEN = lastNameTextBox.Text;
-                FirstNameEN = firstNameTextBox.Text;
+                LastNameEn = lastNameTextBox.Text;
+                FirstNameEn = firstNameTextBox.Text;
+                LastNameKh = textBoxLastNameKh.Text;
+                FirstNameKh = textBoxFirstNameKh.Text;
+                BirthDate = dateTimeBirthDate.Value;
                 Password = passwordTextBox.Text;
                 Email = emailTextBox.Text;
                 PhoneNumber = phoneTextBox.Text;
@@ -240,22 +225,25 @@ namespace Stall_Rental_Management_System.Views
                 Gender = genderComboBox.Text;
                 SaveVendor?.Invoke(this, EventArgs.Empty);
                 ReloadDatabase();
-                clearAllDataFromTextbox();
+                ClearAllDataFromTextbox();
             }
             else
             {
-                MessageBox.Show("You missed any input field.", "Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(@"You missed any input field.", @"Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             ProfileUrl = null;
         }
         private void updateButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog != null)
+            if (_openFileDialog != null)
             {
-                ProfileUrl = openFileDialog.FileName;
+                ProfileUrl = _openFileDialog.FileName;
             }
-            LastNameEN = lastNameTextBox.Text;
-            FirstNameEN = firstNameTextBox.Text;
+            LastNameEn = lastNameTextBox.Text;
+            FirstNameEn = firstNameTextBox.Text;
+            LastNameKh = textBoxLastNameKh.Text;
+            FirstNameKh = textBoxFirstNameKh.Text;
+            BirthDate = dateTimeBirthDate.Value;
             Password = passwordTextBox.Text;
             Email = emailTextBox.Text;
             PhoneNumber = phoneTextBox.Text;
@@ -263,8 +251,8 @@ namespace Stall_Rental_Management_System.Views
             Gender = genderComboBox.Text;
             UpdateVendor?.Invoke(this, EventArgs.Empty);
             ReloadDatabase();
-            clearAllDataFromTextbox();
-            disableAllComponents();
+            ClearAllDataFromTextbox();
+            DisableAllComponents();
             newButton.Enabled = true;
             searchButton.Enabled = true;
             ProfileUrl = null;
@@ -275,8 +263,8 @@ namespace Stall_Rental_Management_System.Views
         {
             DeleteVendor?.Invoke(this, EventArgs.Empty);
             ReloadDatabase();
-            clearAllDataFromTextbox();
-            disableAllComponents();
+            ClearAllDataFromTextbox();
+            DisableAllComponents();
             newButton.Enabled = true;
             searchButton.Enabled = true;
             ProfileUrl = null;
@@ -284,29 +272,33 @@ namespace Stall_Rental_Management_System.Views
         }
         private void ReloadDatabase()
         {
-            vendorDataGridView.DataSource = new VendorPresenter()
+            vendorDataGridView.DataSource = new VendorPresenter(this, new VendorRepository())
             .ReloadDatabase(new VendorRepository());
         }
         private void CheckIsNotFoundVendor()
         {
-            BindingSource b = (BindingSource) vendorDataGridView.DataSource;
-            if (b.Count == 0)
-            {
-                MessageBox.Show("No Data was found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ReloadDatabase();
-            }
+            var b = (BindingSource) vendorDataGridView.DataSource;
+            if (b.Count != 0) return;
+            MessageBox.Show(@"No Data was found!", @"Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ReloadDatabase();
         }
-        private Boolean CheckIsTextboxEmpty()
+        private bool CheckIsTextboxEmpty()
         {
-            if (lastNameTextBox.Text == "" ||
-               firstNameTextBox.Text == "" ||
-               emailTextBox.Text == ""||
-               passwordTextBox.Text == ""||
-               genderComboBox.Text == "")
-            {
-                return true;
-            }
-            return false;
+            return lastNameTextBox.Text == "" ||
+                   firstNameTextBox.Text == "" ||
+                   emailTextBox.Text == "" ||
+                   passwordTextBox.Text == "" ||
+                   genderComboBox.Text == "";
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            CurrentUserUtil.Logout(this, _authService);
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
         }
     }
 }

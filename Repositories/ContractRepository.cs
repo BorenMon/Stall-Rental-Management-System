@@ -18,7 +18,7 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 sqlConnection = DatabaseUtil.GetConnection();
             }catch (Exception ex) {
-                MessageBox.Show(ex.Message, "SQL Connection", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"SQL Connection", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
@@ -49,21 +49,21 @@ namespace Stall_Rental_Management_System.Repositories
 
                     if (rowAffected > 0)
                     {
-                        MessageBox.Show("Contract has been created successfully",
-                            "Success",MessageBoxButtons.OK,
+                        MessageBox.Show(@"Contract has been created successfully",
+                            @"Success",MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Cannot create new contract",
-                            "Error", MessageBoxButtons.YesNo,
+                        MessageBox.Show(@"Cannot create new contract",
+                            @"Error", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Error);
                     }
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message,
-                        "Error", MessageBoxButtons.YesNo,
+                        @"Error", MessageBoxButtons.YesNo,
                         MessageBoxIcon.Error);
                 }
 
@@ -224,7 +224,7 @@ namespace Stall_Rental_Management_System.Repositories
             }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Error", MessageBoxButtons.YesNo,
+                    @"Error", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
             }
         }

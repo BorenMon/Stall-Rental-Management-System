@@ -15,7 +15,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         event EventHandler SearchVendor;
         event EventHandler UpdateVendor;
         event EventHandler DeleteVendor;
-        int VendorID
+        int VendorId
         {
             get;
             set;
@@ -31,25 +31,25 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
             set;
         }
 
-        string FirstNameEN
+        string FirstNameEn
         {
             get;
             set;
         }
 
-        string LastNameEN
+        string LastNameEn
         {
             get;
             set;
         }
 
-        string FirstNameKH
+        string FirstNameKh
         {
             get;
             set;
         }
 
-        string LastNameKH
+        string LastNameKh
         {
             get;
             set;
@@ -84,6 +84,6 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
             get;
             set;
         }
-        void setVendorBidingSource(BindingSource bindingSource);
+        void SetVendorBidingSource(BindingSource bindingSource);
     }
 }

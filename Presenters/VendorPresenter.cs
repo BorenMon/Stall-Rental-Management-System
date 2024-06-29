@@ -3,85 +3,85 @@ using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Stall_Rental_Management_System.Presenters
 
+namespace Stall_Rental_Management_System.Presenters
 {
-    
     internal class VendorPresenter
     {
-        private IVendorView vendorView;
-        private IVendorRepository vendorRepository;
-        private BindingSource bindingSource;
-        private IEnumerable<VendorModel> modelList;
-        public VendorPresenter() { }
+        private readonly IVendorView _vendorView;
+        private readonly IVendorRepository _vendorRepository;
+
         public VendorPresenter(IVendorView vendorView, IVendorRepository vendorRepository)
         {
-            this.bindingSource = new BindingSource();
-            this.vendorView = vendorView;
-            this.vendorRepository = vendorRepository;
+            var bindingSource = new BindingSource();
+            _vendorView = vendorView;
+            _vendorRepository = vendorRepository;
             // set Data
-            this.bindingSource.DataSource = GetAllVendors();
-            this.vendorView.setVendorBidingSource(bindingSource);
+            bindingSource.DataSource = GetAllVendors();
+            _vendorView.SetVendorBidingSource(bindingSource);
             // button action
-            this.vendorView.SaveVendor += SaveVendor;
-            this.vendorView.SearchVendor += SearchVendorByID;
-            this.vendorView.DeleteVendor += DeleteVendorByID;
-            this.vendorView.UpdateVendor += UpdateVendorrById;
+            _vendorView.SaveVendor += SaveVendor;
+            _vendorView.SearchVendor += SearchVendorById;
+            _vendorView.DeleteVendor += DeleteVendorById;
+            _vendorView.UpdateVendor += UpdateVendorById;
 
         }
 
-        private async void UpdateVendorrById(object sender, EventArgs e)
+        private async void UpdateVendorById(object sender, EventArgs e)
         {
             
-            VendorModel model = new VendorModel ();
-            model.VendorID = vendorView.VendorID;
+            var model = new VendorModel
+            {
+                VendorID = _vendorView.VendorId
+            };
             //vendorModel.VendorID = this.vendorView.VendorID;
-            if (vendorView.ProfileUrl != null)
+            if (_vendorView.ProfileUrl != null)
             {
                 model.ProfileUrl
-                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(vendorView.ProfileUrl);
+                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(_vendorView.ProfileUrl);
             }
             else
             {
                 model.ProfileUrl = "None";
             }
-            model.LastNameEN = vendorView.LastNameEN;
-            model.FirstNameEN = vendorView.FirstNameEN;
-            model.Email = vendorView.Email;
-            model.Password = vendorView.Password;
-            model.PhoneNumber = vendorView.PhoneNumber;
-            model.Address = vendorView.Address;
-            model.Gender = vendorView.Gender;
-            vendorRepository.Update(model);
-            if (vendorView.ProfileUrl != null)
+            model.LastNameEN = _vendorView.LastNameEn;
+            model.FirstNameEN = _vendorView.FirstNameEn;
+            model.LastNameKH = _vendorView.LastNameKh;
+            model.FirstNameKH = _vendorView.FirstNameKh;
+            model.BirthDate = _vendorView.BirthDate;
+            model.Email = _vendorView.Email;
+            model.Password = _vendorView.Password;
+            model.PhoneNumber = _vendorView.PhoneNumber;
+            model.Address = _vendorView.Address;
+            model.Gender = _vendorView.Gender;
+            _vendorRepository.Update(model);
+            if (_vendorView.ProfileUrl != null)
             {
-                await UploadFileToMinIO(vendorView.ProfileUrl, model.ProfileUrl);
+                await UploadFileToMinIo(_vendorView.ProfileUrl, model.ProfileUrl);
             }
         }
 
-        private async void DeleteVendorByID(object sender, EventArgs e)
+        private void DeleteVendorById(object sender, EventArgs e)
         {
-            vendorRepository.Delete(vendorView.VendorID);
-            bool isDeleted = await DeleteFileFromMinIO(vendorView.ProfileUrl);
+            _vendorRepository.Delete(_vendorView.VendorId);
+            DeleteFileFromMinIo(_vendorView.ProfileUrl);
         }
 
-        private void SearchVendorByID(object sender, EventArgs e)
+        private void SearchVendorById(object sender, EventArgs e)
         {
-            var vendor = vendorRepository.GetByID(vendorView.VendorID);
+            var vendor = _vendorRepository.GetByID(_vendorView.VendorId);
             
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = vendor;
             //MessageBox.Show(bindingSource.Count.ToString());
-            vendorView.setVendorBidingSource(bindingSource);
+            _vendorView.SetVendorBidingSource(bindingSource);
         }
 
         private async void SaveVendor(object sender, EventArgs e)
@@ -90,56 +90,59 @@ namespace Stall_Rental_Management_System.Presenters
             VendorModel vendorModel = new VendorModel();
 
             //vendorModel.VendorID = this.vendorView.VendorID;
-            if (vendorView.ProfileUrl != null)
+            if (_vendorView.ProfileUrl != null)
             {
                 vendorModel.ProfileUrl 
-                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(vendorView.ProfileUrl);
+                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(_vendorView.ProfileUrl);
             } else{
                 vendorModel.ProfileUrl = "None";
             }
-            vendorModel.LastNameEN = vendorView.LastNameEN;
-            vendorModel.FirstNameEN = vendorView.FirstNameEN;
-            vendorModel.Gender = vendorView.Gender;
-            vendorModel.Email = vendorView.Email;
-            vendorModel.PhoneNumber = vendorView.PhoneNumber;
-            vendorModel.Password = vendorView.Password;
-            vendorModel.Address  = vendorView.Address;
-            vendorRepository.Add(vendorModel);
-            if(vendorView.ProfileUrl != null)
+            vendorModel.LastNameEN = _vendorView.LastNameEn;
+            vendorModel.FirstNameEN = _vendorView.FirstNameEn;
+            vendorModel.LastNameKH = _vendorView.LastNameKh;
+            vendorModel.FirstNameKH = _vendorView.FirstNameKh;
+            vendorModel.BirthDate = _vendorView.BirthDate;
+            vendorModel.Gender = _vendorView.Gender;
+            vendorModel.Email = _vendorView.Email;
+            vendorModel.PhoneNumber = _vendorView.PhoneNumber;
+            vendorModel.Password = _vendorView.Password;
+            vendorModel.Address  = _vendorView.Address;
+            _vendorRepository.Add(vendorModel);
+            if(_vendorView.ProfileUrl != null)
             {
-                await UploadFileToMinIO(vendorView.ProfileUrl, vendorModel.ProfileUrl);
+                await UploadFileToMinIo(_vendorView.ProfileUrl, vendorModel.ProfileUrl);
             }
         }
 
-        public IEnumerable<VendorModel> GetAllVendors() {
+        private IEnumerable<VendorModel> GetAllVendors() {
             //MessageBox.Show((this.vendorRepository.GetAll().Count()).ToString());
-            return this.vendorRepository.GetAll();
+            return this._vendorRepository.GetAll();
         }
         public IEnumerable<VendorModel> ReloadDatabase(IVendorRepository vendorRepository)
         {
             return vendorRepository.GetAll();
         }
-        public static string GetFileNameFromMinIOUrl(string minioUrl)
+        public static string GetFileNameFromMinIoUrl(string minioUrl)
         {
             try
             {
                 // Parse the URL
-                Uri uri = new Uri(minioUrl);
+                var uri = new Uri(minioUrl);
 
                 // Get the path part of the URL
-                string path = uri.AbsolutePath;
+                var path = uri.AbsolutePath;
 
                 // Decode the URL-encoded path
-                string decodedPath = Uri.UnescapeDataString(path);
+                var decodedPath = Uri.UnescapeDataString(path);
 
                 // The object name is typically after the last '/' in the path
-                string[] segments = decodedPath.Split('/');
+                var segments = decodedPath.Split('/');
 
                 // The file name should be the last segment
-                string fileName = segments[segments.Length - 1];
+                var fileName = segments[segments.Length - 1];
 
                 // Remove any query parameters if present
-                int indexOfQuestionMark = fileName.IndexOf('?');
+                var indexOfQuestionMark = fileName.IndexOf('?');
                 if (indexOfQuestionMark != -1)
                 {
                     fileName = fileName.Substring(0, indexOfQuestionMark);
@@ -149,11 +152,11 @@ namespace Stall_Rental_Management_System.Presenters
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error parsing MinIO URL: {ex.Message}");
+                Console.WriteLine($@"Error parsing MinIO URL: {ex.Message}");
                 return null;
             }
         }
-        private async Task UploadFileToMinIO(string selectedFilePath, string fileName)
+        private async Task UploadFileToMinIo(string selectedFilePath, string fileName)
         {
             string bucketName = "srms";
             string folderName = "profile"; // Specify the folder name here
@@ -172,18 +175,18 @@ namespace Stall_Rental_Management_System.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public static async Task<string> GetPreviewPictureUrlFromMinIO(string fileName)
+        public static async Task<string> GetPreviewPictureUrlFromMinIo(string fileName)
         {
-            string bucketName = "srms";
-            string folderName = "profile"; // Specify the folder name here
-            string objectName = $"{folderName}/{fileName}"; // Construct the full object name including the folder
+            const string bucketName = "srms";
+            const string folderName = "profile"; // Specify the folder name here
+            var objectName = $"{folderName}/{fileName}"; // Construct the full object name including the folder
             try
             {
                 // Generate a presigned URL for the uploaded file
-                string url = await MinIoUtil.GetMinioClient()
+                var url = await MinIoUtil.GetMinioClient()
                     .PresignedGetObjectAsync(new PresignedGetObjectArgs()
                 .WithBucket(bucketName)
                         .WithObject(objectName)
@@ -192,32 +195,30 @@ namespace Stall_Rental_Management_System.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;
         }
-        public static async Task<bool> DeleteFileFromMinIO(string fileName)
+
+        private static async void DeleteFileFromMinIo(string fileName)
         {
    
-            string bucketName = "srms";
-            string folderName = "profile";
+            const string bucketName = "srms";
+            const string folderName = "profile";
 
             try
             {
-                string objectName = $"{folderName}/{fileName}";
+                var objectName = $"{folderName}/{fileName}";
 
                 // Remove the file from MinIO
                 await MinIoUtil.GetMinioClient()
                     .RemoveObjectAsync(new RemoveObjectArgs()
                         .WithBucket(bucketName)
                         .WithObject(objectName));
-
-                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

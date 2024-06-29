@@ -24,7 +24,7 @@ namespace Stall_Rental_Management_System.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "SQL Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"SQL Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void openDatabaseConnection()
@@ -36,7 +36,7 @@ namespace Stall_Rental_Management_System.Repositories
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Error", MessageBoxButtons.YesNo,
+                    @"Error", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error);
             }
         }
@@ -71,21 +71,21 @@ namespace Stall_Rental_Management_System.Repositories
 
                     if (rowAffected > 0)
                     {
-                        MessageBox.Show("Vendor has been created successfully",
-                            "Success", MessageBoxButtons.OK,
+                        MessageBox.Show(@"Vendor has been created successfully",
+                            @"Success", MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Cannot create new vendor",
-                            "Error", MessageBoxButtons.OK,
+                        MessageBox.Show(@"Cannot create new vendor",
+                            @"Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message,
-                        "Error", MessageBoxButtons.OK,
+                        @"Error", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
             }
@@ -191,7 +191,7 @@ namespace Stall_Rental_Management_System.Repositories
                 cmd.ExecuteNonQuery();
 
                 // Inform the user
-                MessageBox.Show("Vendor updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"Vendor updated successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             sqlConnection.Close() ;
         }
@@ -207,24 +207,24 @@ namespace Stall_Rental_Management_System.Repositories
                 {
                     command.Parameters.AddWithValue("@RecordID", id);
                     // Show confirmation dialog
-                    DialogResult result = MessageBox.Show($"Are you sure you want to delete vendor with ID {id}?",
-                        "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show($@"Are you sure you want to delete vendor with ID {id}?",
+                        @"Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Vendor deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(@"Vendor deleted successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("No record found with the specified ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(@"No record found with the specified ID.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             sqlConnection.Close();
 
