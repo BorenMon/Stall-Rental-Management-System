@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
@@ -11,13 +12,15 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         string FileUrl { get; set; }
         string FileName { get; set; }
         string Code { get; set; }
-        string Status { get; set; }
+        ContractStatus Status { get; set; }
         DateTime StartDate { get; set; }
         DateTime EndDate { get; set; }
         int StallId { get; set; }
         int StaffId { get; set; }
         int VendorId { get; set; }
-        string SeletedFilePath { get; set; }
+        string SelectedFilePath { get; set; }
+        
+        bool IsSuccessful { get; set; }
         //
         // Event to handle contract save button click
         event EventHandler SaveContract;
@@ -30,15 +33,14 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
 
         // Event to handle add new contract button click
         event EventHandler AddNewContract;
-
-        // Event to handle downlaod contract button click
-        event EventHandler DownloadContract;
+        event EventHandler ViewEvent;
 
         //methods
-        void SetContractBindingSource(BindingSource bindingSource);
+        void SetContractBindingSource(BindingSource contractList);
+        
         // set stall IDs
         void SetStallIdOnComboBox(IEnumerable<int> stallIDs);
         // set vendor IDs
-        void SetVendorIdOnComboBox(IEnumerable<int> vendorID);
+        void SetVendorIdOnComboBox(IEnumerable<int> vendorIDs);
     }
 }

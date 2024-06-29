@@ -12,7 +12,7 @@ namespace Stall_Rental_Management_System.Testing
         {
             User testUser = null;
             using (var connection = new SqlConnection(DatabaseUtil.GetConnectionString()))
-            using (var command = new SqlCommand("SELECT * FROM tbStaff WHERE StaffID = 2", connection))
+            using (var command = new SqlCommand("SELECT * FROM tbStaff WHERE StaffID = 1", connection))
             {
                 connection.Open();
                 using (var reader = command.ExecuteReader())

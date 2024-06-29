@@ -12,7 +12,7 @@ namespace Stall_Rental_Management_System.Models
         public int StaffId { get; set; }
         
         [DisplayName("Profile Image URL")]
-        [StringLength(255, ErrorMessage = "Last Name (EN) must be at most 255 characters.")]
+        [StringLength(255, ErrorMessage = "Profile Image URL must be at most 255 characters.")]
         public string ProfileImageUrl { get; set; }
 
         [DisplayName("Last Name (EN)")]

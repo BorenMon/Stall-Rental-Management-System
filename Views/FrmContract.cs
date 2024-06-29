@@ -3,190 +3,47 @@ using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Services;
 
 namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmContract : Form, IContractView
     {
-        private DateTime startDate;
-        private DateTime endDate;
-        private string seletedFilePath;
-        private string fileName;
-        private string minioFileUrl;
-        private string contractID;
-        private ToolTip toolTip = new ToolTip();
+        private readonly ToolTip _toolTip = new ToolTip();
+        private readonly AuthenticationService _authService;
 
-
-        public string ContractId
-        {
-            get { return contractID; }
-            set { contractID = value; }
-
-        }
-        public string FileUrl
-        {
-            get => minioFileUrl;
-            set { minioFileUrl = value; }
-        }
-        public string Code
-        {
-            get => contractCodeText.Text;
-            set => contractCodeText.Text = value;
-        }
-        public string Status
-        {
-            get => contractStatusComboBox.SelectedItem.ToString(); 
-            set => contractStatusComboBox.SelectedItem = value;
-        }
-        public DateTime StartDate
-        {
-            get
-            {
-                if (DateTime.TryParseExact(startDateContract.Text, "M/d/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
-                {
-                    return parsedDate;
-                }
-                else
-                {
-                    throw new FormatException("Invalid start date format. Expected format is M/D/YYYY.");
-                }
-            }
-            set
-            {
-                // Update the internal field and UI control
-                startDate = value;
-                startDateContract.Text = value.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
-            }
-        }
-        public DateTime EndDate
-        {
-            get
-            {
-                if (DateTime.TryParseExact(endDateConstract.Text, "M/d/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
-                {
-                    return parsedDate;
-                }
-                else
-                {
-                    throw new FormatException("Invalid end date format. Expected format is M/D/YYYY.");
-                }
-            }
-            set
-            {
-                // Update the internal field and UI control
-                endDate = value;
-                endDateConstract.Text = value.ToString("M/d/yyyy", CultureInfo.InvariantCulture);
-            }
-        }
-        public int StallId
-        {
-            get {
-                return int.Parse(contractStallIDComboBox.SelectedItem.ToString());
-            }
-            set => contractStallIDComboBox.SelectedItem = value;
-        }
-        public int StaffId
-        {
-            get => int.Parse(staffIdComboBox.SelectedItem.ToString());
-            set => staffIdComboBox.SelectedItem = value;
-        }
-        public int VendorId
-        {
-            get {
-                try
-                {
-                    return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
-                }
-                catch(NullReferenceException ex) {
-                    MessageBox.Show(@"Missing Vendor ID.");
-                }
-                return int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
-            }
-            set => contractVendorIDComboBox.SelectedItem = value;
-        }
-        public string SeletedFilePath {
-            get => seletedFilePath;
-            set => seletedFilePath = value;
-        }
-        public string FileName {
-            get
-            {
-                return fileName;
-            }
-            set { fileName = value; }
-        }
-
-        public event EventHandler SaveContract;
-        public event EventHandler SearchContract;
-        public event EventHandler UpdateContract;
-        public event EventHandler AddNewContract;
-        public event EventHandler DownloadContract;
-
-        public void SetContractBindingSource(BindingSource bindingSource)
-        {
-            if (bindingSource.Count == 0)
-            {
-                
-            }
-            contractDataGridView.DataSource = bindingSource;
-            // set width for 
-            for(int i = 0;i < 7;i++ )
-            {
-                contractDataGridView.Columns[i].Width = 150;
-
-            }
-
-        }
-        public void SetStallIdOnComboBox(IEnumerable<int> stallIDs)
-        {
-            foreach (int id in stallIDs)
-            {
-                contractStallIDComboBox.Items.Add(id);
-            }
-
-        }
-        public void SetVendorIdOnComboBox(IEnumerable<int> vendorID)
-        {
-            foreach (int id in vendorID)
-            {
-                contractVendorIDComboBox.Items.Add(id);
-            }
-        }
-        public FrmContract()
+        public FrmContract(AuthenticationService authService)
         {
             InitializeComponent();
+            _authService = authService;
             //adding title for each button do
-            toolTip.SetToolTip(downloadButton, "Click to download contract as file");
-            toolTip.SetToolTip(saveButton, "To save contract information");
-            toolTip.SetToolTip(updateButton, "To update contract information");
-            toolTip.SetToolTip(newButton, "To create new contract information");
-            toolTip.SetToolTip(logoutButton, "Logout");
+            _toolTip.SetToolTip(downloadButton, "Click to download contract as file");
+            _toolTip.SetToolTip(saveButton, "To save contract information");
+            _toolTip.SetToolTip(updateButton, "To update contract information");
+            _toolTip.SetToolTip(newButton, "To create new contract information");
+            _toolTip.SetToolTip(logoutButton, "Logout");
 
             //disable button
             saveButton.Enabled = false;
             updateButton.Enabled = false;
             downloadButton.Enabled = false;
-            // set value to combobox
-            contractStatusComboBox.Items.Add("available");
-            contractStatusComboBox.Items.Add("unavailable");
-            contractStatusComboBox.SelectedItem = "available";
-            // staff ID
-            staffIdComboBox.Items.Add("1");
-            staffIdComboBox.SelectedItem = "1";
 
-            //making form to be center write below statement in form constrcutor
-            this.StartPosition = FormStartPosition.CenterScreen;
+            //making form to be center write below statement in form constructor
+            StartPosition = FormStartPosition.CenterScreen;
             //
             // Set the form's properties to create a fixed size form
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = true;
-            new ContractPresenter(this, new ContractRepository());
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = true;
+            var contractPresenter = new ContractPresenter(this, new ContractRepository());
 
 
             // trigger search event
@@ -198,89 +55,147 @@ namespace Stall_Rental_Management_System.Views
                 if (k.KeyCode == Keys.Enter)
                 {
                     //k.SuppressKeyPress = true;
-                    contractID = contractSearchTextBox.Text;
+                    ContractId = contractSearchTextBox.Text;
                     SearchContract?.Invoke(this, EventArgs.Empty);
                     //new ContractPresenter(this, new ContractRepository());
                     contractSearchTextBox.Text = "";
                     //
-                    checkIfDataNotFound();
+                    CheckIfDataNotFound();
                 }
                 else if (k.KeyCode == Keys.Back)
                 {
                     contractSearchTextBox.Text = "";
-                    // reload database
-                    ReloadDatabase();
                 }
-               
             };
+            
+            contractStatusComboBox.DataSource = EnumHelper.GetEnumDisplayNames<ContractStatus>();
+            contractStatusComboBox.DisplayMember = "Value";
+            contractStatusComboBox.ValueMember = "Key";
+            
+            textBoxStaffId.ReadOnly = true;
         }
 
+        public string ContractId { get; set; }
 
-        private void FrmContract_Load(object sender, EventArgs e)
+        public string FileUrl { get; set; }
+
+        public string Code
         {
+            get => contractCodeText.Text;
+            set => contractCodeText.Text = value;
+        }
+        public ContractStatus Status
+        {
+            get => (ContractStatus)contractStatusComboBox.SelectedValue;
+            set => contractStatusComboBox.SelectedValue = value;
+        }
+        public DateTime StartDate
+        {
+            get => startDateContract.Value;
+            set => startDateContract.Value = value;
+        }
+        public DateTime EndDate
+        {
+            get => endDateConstract.Value;
+            set => endDateConstract.Value = value;
+        }
+        public int StallId
+        {
+            get =>
+                string.IsNullOrWhiteSpace(contractStallIDComboBox.Text) ? 0 : // or any default value you consider appropriate
+                    int.Parse(contractStallIDComboBox.Text);
+            set => contractStallIDComboBox.Text = value.ToString();
+        }
 
-            // TODO: This line of code loads data into the 'dbSRMSDataSet2.tbContract' table. You can move, or remove it, as needed.
-            //this.tbContractTableAdapter.Fill(this.dbSRMSDataSet2.tbContract);
+        public int StaffId
+        {
+            get => int.Parse(textBoxStaffId.Text);
+            set => textBoxStaffId.Text = value.ToString();
+        }
+        public int VendorId
+        {
+            get =>
+                string.IsNullOrWhiteSpace(contractVendorIDComboBox.Text) ? 0 : // or any default value you consider appropriate
+                    int.Parse(contractVendorIDComboBox.Text);
+            set => contractVendorIDComboBox.Text = value.ToString();
+        }
+        public string SelectedFilePath { get; set; }
+
+        public string FileName { get; set; }
+
+        public event EventHandler SaveContract;
+        public event EventHandler SearchContract;
+        public event EventHandler UpdateContract;
+        public event EventHandler AddNewContract;
+        public event EventHandler ViewEvent;
+
+        public void SetContractBindingSource(BindingSource contractList)
+        {
+            var columns = new List<(string DataPropertyName, string HeaderText)>
+            {
+                ("Code", "Code"),
+                ("Status", "Status"),
+                ("StaffID", "Staff ID"),
+                ("StallID", "Stall ID"),
+                ("VendorID", "Vendor ID"),
+            };
+
+            DataGridViewHelper.SetDataGridViewColumns(contractDataGridView, contractList, columns);
+        }
+        public void SetStallIdOnComboBox(IEnumerable<int> stallIDs)
+        {
+            contractStallIDComboBox.Items.Clear();
+            foreach (var id in stallIDs)
+            {
+                contractStallIDComboBox.Items.Add(id);
+            }
+        }
+        public void SetVendorIdOnComboBox(IEnumerable<int> vendorIDs)
+        {
+            contractVendorIDComboBox.Items.Clear();
+            foreach (var id in vendorIDs)
+            {
+                contractVendorIDComboBox.Items.Add(id);
+            }
         }
 
         private void saveButton_Click_1(object sender, EventArgs e)
         {
-            //SeletedFilePath = seletedFilePath;
-            //FileUrl = fileName;
-            //stallID = int.Parse(contractStallIDComboBox.SelectedItem.ToString());
-            //staffID = int.Parse(staffIdComboBox.SelectedItem.ToString());
-            //vendorID = int.Parse(contractVendorIDComboBox.SelectedItem.ToString());
             if (
                 contractCodeText.Text == "" ||
-                contractStatusComboBox.SelectedItem == "" ||
-                contractStallIDComboBox.SelectedItem =="" ||
-                contractVendorIDComboBox.SelectedItem == "" ||
-                contractUploadButton.Text == "Upload Contract File (PDF, Doc)"
+                ReferenceEquals(contractStatusComboBox.SelectedItem, "") ||
+                ReferenceEquals(contractStallIDComboBox.SelectedItem, "") ||
+                ReferenceEquals(contractVendorIDComboBox.SelectedItem, "") ||
+                contractUploadButton.Text == @"Upload Contract File (PDF, Doc)"
                 )
             {
                 MessageBox.Show(@"You missed any input field.",@"Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             SaveContract?.Invoke(this, EventArgs.Empty);
-            clearAllTextValue();
-            // reload database
-            ReloadDatabase();
+            if (!IsSuccessful) return;
+            ClearAllTextValue();
         }
 
         private void contractDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            enableAllWindowsFormComponents();
-            contractCodeText.Enabled = false;
+            EnableAllWindowsFormComponents();
+            contractCodeText.ReadOnly = true;
             saveButton.Enabled = false;
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = contractDataGridView.Rows[e.RowIndex];
-                contractID = row.Cells[0].Value.ToString();
-                FileUrl = row.Cells[1].Value.ToString();
-                contractUploadButton.Text = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
-                // get value back from seleting on row
-                contractCodeText.Text = row.Cells[2].Value.ToString();
-                contractStatusComboBox.Text = row.Cells[3].Value.ToString();
-                DateTime.TryParse(row.Cells[4].Value.ToString(), out startDate);
-                startDateContract.Value = startDate;
-                DateTime.TryParse(row.Cells[5].Value.ToString(), out endDate);
-                endDateConstract.Value = endDate;
-                //
-                contractStallIDComboBox.Text = (row.Cells[6].Value.ToString());
-                //contractStallIDComboBox.SelectedItem = StallId;
-                contractVendorIDComboBox.Text = (row.Cells[7].Value.ToString());
-                //contractVendorIDComboBox.SelectedItem = VendorId;
-                staffIdComboBox.Text = (row.Cells[8].Value.ToString());
-                //staffIdComboBox.SelectedItem = StaffId;
-                //enable button
-                updateButton.Enabled = true;
-                downloadButton.Enabled = true;
-            }
+            
+            ViewEvent?.Invoke(this, EventArgs.Empty);
+            contractUploadButton.Text = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
+            contractStatusComboBox.Enabled = Status != ContractStatus.CLOSED;
+
+            contractStallIDComboBox.Enabled = false;
+            contractVendorIDComboBox.Enabled = false;
+            updateButton.Enabled = CurrentUserUtil.User.UserId == StaffId && Status == ContractStatus.ACTIVE;
+            downloadButton.Enabled = true;
         }
 
 
         private void contractUploadButton_Click(object sender, EventArgs e)
         {
-            contractUploadButton.Text = uploadFileAndPreviewFileName();
+            contractUploadButton.Text = UploadFileAndPreviewFileName();
         }
 
         private void newButton_Click(object sender, EventArgs e)
@@ -289,20 +204,19 @@ namespace Stall_Rental_Management_System.Views
             saveButton.Enabled = true;
             updateButton.Enabled = false;
             downloadButton.Enabled = false;
-            enableAllWindowsFormComponents();
-            staffIdComboBox.Enabled = false;
-            contractCodeText.Focus();
-            clearAllTextValue();
-
+            contractStatusComboBox.Enabled = false;
+            contractStallIDComboBox.Enabled = true;
+            contractVendorIDComboBox.Enabled = true;
+            EnableAllWindowsFormComponents();
+            ClearAllTextValue();
         }
 
         private async void downloadButton_Click(object sender, EventArgs e)
         {
             // Get the user's Downloads folder path
-            string downloadsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
-            string objectName = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
-            MessageBox.Show(objectName);
-            string bucketName = "srms";
+            var downloadsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads";
+            var objectName = MinIoObjectNameUtil.GetOnlyObjectName(FileUrl);
+            const string bucketName = "srms";
             try
             {
                 // Retrieve object information to get the MIME type
@@ -312,44 +226,42 @@ namespace Stall_Rental_Management_System.Views
                     .WithBucket(bucketName)
                     .WithObject(objectName)
                     );
-                string contentType = statObject.ContentType;
+                var contentType = statObject.ContentType;
 
                 // Create a SaveFileDialog instance and set the default file name and filter
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = $"{contentType} files (*.{contentType.Split('/')[1]})|*.{contentType.Split('/')[1]}";
-                saveFileDialog.Title = "Save File";
+                var saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = $@"{contentType} files (*.{contentType.Split('/')[1]})|*.{contentType.Split('/')[1]}";
+                saveFileDialog.Title = @"Save File";
                 saveFileDialog.FileName = objectName;
                 saveFileDialog.InitialDirectory = downloadsFolderPath;
 
                 // Show the SaveFileDialog and get the result
-                DialogResult result = saveFileDialog.ShowDialog();
+                var result = saveFileDialog.ShowDialog();
 
-                if (result == DialogResult.OK)
+                if (result != DialogResult.OK) return;
+                // Get the selected file path
+                var downloadFilePath = saveFileDialog.FileName;
+                try
                 {
-                    // Get the selected file path
-                    string downloadFilePath = saveFileDialog.FileName;
-                    try
-                    {
-                        // Download the file from MinIO
-                        await MinIoUtil.GetMinioClient()
-                            .GetObjectAsync(
+                    // Download the file from MinIO
+                    await MinIoUtil.GetMinioClient()
+                        .GetObjectAsync(
                             new GetObjectArgs()
-                            .WithBucket(bucketName)
-                            .WithObject(objectName)
-                            .WithFile(downloadFilePath)
-                            );
-                        // Open the downloaded file
-                        //Process.Start(downloadFilePath);
-                        MessageBox.Show(@"File downloaded successfully!", @"Success",
+                                .WithBucket(bucketName)
+                                .WithObject(objectName)
+                                .WithFile(downloadFilePath)
+                        );
+                    // Open the downloaded file
+                    //Process.Start(downloadFilePath);
+                    MessageBox.Show(@"File downloaded successfully!", @"Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                }
 
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($@"Error downloading file: {ex.Message}",
-                            @"Error", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                    }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($@"Error downloading file: {ex.Message}",
+                        @"Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -363,28 +275,26 @@ namespace Stall_Rental_Management_System.Views
         {
             UpdateContract?.Invoke(this, EventArgs.Empty);
 
-            //staffIdComboBox.Enabled = false;
+            if (!IsSuccessful) return;
+            
             MessageBox.Show(@"Updated contract information successfully!", @"Success",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
-            clearAllTextValue();
-            disableAllWindowsFormComponent();
-
-            // reload database
-            ReloadDatabase();
+            ClearAllTextValue();
+            DisableAllWindowsFormComponent();
         }
-        private void enableAllWindowsFormComponents()
+
+        public bool IsSuccessful { get; set; }
+
+        private void EnableAllWindowsFormComponents()
         {
-            contractCodeText.Enabled = true;
             contractUploadButton.Enabled = true;
-            contractStatusComboBox.Enabled = true;
             startDateContract.Enabled = true;
             endDateConstract.Enabled = true;
             contractStallIDComboBox.Enabled = true;
             contractVendorIDComboBox.Enabled= true;
-            staffIdComboBox.Enabled = true;
 
         }
-        private void disableAllWindowsFormComponent()
+        private void DisableAllWindowsFormComponent()
         {
             contractCodeText.Enabled = false;
             contractUploadButton.Enabled = false;
@@ -395,69 +305,63 @@ namespace Stall_Rental_Management_System.Views
             endDateConstract.Enabled = false;
             contractStallIDComboBox.Enabled = false;
             contractVendorIDComboBox.Enabled = false;
-            staffIdComboBox.Enabled = false;
         }
-        private void clearAllTextValue()
+        private void ClearAllTextValue()
         {
-
-            contractCodeText.Text = "";
+            FileUrl = string.Empty;
+            contractCodeText.Text = CodeGeneratorUtil.GenerateRandomCode(8);
             contractStallIDComboBox.Text = "";
             contractVendorIDComboBox.Text = "";
             startDateContract.Text = "";
             endDateConstract.Text = "";
-            contractUploadButton.Text = "Upload Contract File";
+            contractUploadButton.Text = @"Upload Contract File";
+            textBoxStaffId.Text = CurrentUserUtil.User.UserId.ToString();
         }
-        private string uploadFileAndPreviewFileName()
+        private string UploadFileAndPreviewFileName()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "PDF Files|*.pdf|Word Files|*.doc;*.docx|All Files|*.*"; // Filter to show only PDF and Word files
-            openFileDialog.Title = "Select a contract file";
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = @"PDF Files|*.pdf|Word Files|*.doc;*.docx|All Files|*.*"; // Filter to show only PDF and Word files
+            openFileDialog.Title = @"Select a contract file";
 
             //
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                seletedFilePath = openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return FileName;
+            SelectedFilePath = openFileDialog.FileName;
 
-                // Check if the selected file has a valid extension
-                string extension = Path.GetExtension(seletedFilePath);
-                if (extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase) ||
-                    extension.Equals(".doc", StringComparison.OrdinalIgnoreCase) ||
-                    extension.Equals(".docx", StringComparison.OrdinalIgnoreCase))
-                {
-                    // Valid file selected, do something with it
-                    // For example, display the seleted file name in a TextBox
-                    fileName =  Path.GetFileName(seletedFilePath);
-                }
-                //
-                else
-                {
-                    MessageBox.Show(@"Please select a PDF or Word file.", 
-                        @"Invalid File Type", MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
+            // Check if the selected file has a valid extension
+            var extension = Path.GetExtension(SelectedFilePath);
+            if (extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase) ||
+                extension.Equals(".doc", StringComparison.OrdinalIgnoreCase) ||
+                extension.Equals(".docx", StringComparison.OrdinalIgnoreCase))
+            {
+                // Valid file selected, do something with it
+                // For example, display the selected file name in a TextBox
+                FileName =  Path.GetFileName(SelectedFilePath);
             }
-            return fileName;
+            //
+            else
+            {
+                MessageBox.Show(@"Please select a PDF or Word file.", 
+                    @"Invalid File Type", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+            return FileName;
         }
-        private void ReloadDatabase() {
-            contractDataGridView.DataSource
-            = new ContractPresenter(new ContractRepository()).LoadAllContractData();
+        
+        private void CheckIfDataNotFound()
+        {
+            var b = (BindingSource)contractDataGridView.DataSource;
+            if (b.Count != 0) return;
+            MessageBox.Show(@"No Data was found!", @"Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void logoutButton_Click(object sender, EventArgs e)
         {
-            contractID = contractSearchTextBox.Text;
-            SearchContract?.Invoke(this, EventArgs.Empty);
-            contractSearchTextBox.Text = "";
-            checkIfDataNotFound();
+            CurrentUserUtil.Logout(this, _authService);
         }
-        private void checkIfDataNotFound()
+
+        private void previousButton_Click(object sender, EventArgs e)
         {
-            BindingSource b = (BindingSource)contractDataGridView.DataSource;
-            if (b.Count == 0)
-            {
-                MessageBox.Show(@"No Data was found!", @"Not Foound", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ReloadDatabase();
-            }
+            GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
         }
     }
 }
