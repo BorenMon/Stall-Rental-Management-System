@@ -10,6 +10,9 @@ namespace Stall_Rental_Management_System.Models
     {
         // Properties - Validations
         public int StaffId { get; set; }
+        
+        [DisplayName("Profile Image URL")]
+        [StringLength(255, ErrorMessage = "Last Name (EN) must be at most 255 characters.")]
         public string ProfileImageUrl { get; set; }
 
         [DisplayName("Last Name (EN)")]

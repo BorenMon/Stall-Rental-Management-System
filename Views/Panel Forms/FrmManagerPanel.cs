@@ -13,11 +13,14 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         {
             InitializeComponent();
             _authService = authService;
+
+            buttonStalls.Click += buttonStalls_Click;
+            buttonStaffs.Click += buttonStaffs_Click;
         }
 
         private void buttonStalls_Click(object sender, EventArgs e)
         {
-            
+            ManagerNavigateHelper.NavigateToStallForm(this, _authService);
         }
 
         private void buttonStaffs_Click(object sender, EventArgs e)
@@ -28,6 +31,11 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             CurrentUserUtil.Logout(this, _authService);
+        }
+
+        private void buttonProfile_Click(object sender, EventArgs e)
+        {
+            CurrentUserUtil.Profile(this, _authService);
         }
     }
 }

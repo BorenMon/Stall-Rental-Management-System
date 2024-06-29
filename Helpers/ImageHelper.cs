@@ -7,13 +7,13 @@ namespace Stall_Rental_Management_System.Helpers
 {
     public static class ImageHelper
     {
-        public static Stream CompressImage(string filePath)
+        public static Stream CompressImage(string filePath, int width = 800, int height = 800)
         {
             var compressedStream = new MemoryStream();
             using (var originalImage = Image.FromFile(filePath))
             {
                 // Resize the image if it's larger than a certain size (e.g., 800x800)
-                var resizedImage = ResizeImage(originalImage, 800, 800);
+                var resizedImage = ResizeImage(originalImage, width, height);
 
                 var encoderParameters = new EncoderParameters(1)
                 {

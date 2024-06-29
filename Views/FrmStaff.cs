@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Services;
@@ -14,7 +15,7 @@ using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmStaff : Form, IStaffView, IManagementView
+    public partial class FrmStaff : Form, IStaffView
     {
         private StaffPresenter _presenter;
         private readonly AuthenticationService _authService;
@@ -29,7 +30,7 @@ namespace Stall_Rental_Management_System.Views
             _authService = authService;
             
             // Initialize the presenter
-            _presenter = new StaffPresenter(this, staffRepository, authService);
+            _presenter = new StaffPresenter(this, staffRepository);
 
             Customize();
         }
@@ -111,8 +112,7 @@ namespace Stall_Rental_Management_System.Views
             buttonUpdateOrSave.Click += delegate
             {
                 SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
-                if (!IsSuccessful) return;
-                panelDetail.Enabled = false;
+                if (IsSuccessful) panelDetail.Enabled = false;
                 MessageBox.Show(Message);
             };
             
@@ -132,7 +132,7 @@ namespace Stall_Rental_Management_System.Views
             };
             
             // Back to panel
-            buttonBack.Click += delegate { BackToPanelEvent?.Invoke(this, EventArgs.Empty); };
+            buttonBack.Click += (sender, args) => GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
             
             // Logout
             buttonLogout.Click += (sender, args) => CurrentUserUtil.Logout(this, _authService);
@@ -234,18 +234,17 @@ namespace Stall_Rental_Management_System.Views
         public event EventHandler AddNewEvent;
         public event EventHandler DeleteEvent;
         public event EventHandler SaveOrUpdateEvent;
-        public event EventHandler BackToPanelEvent;
 
         // Methods
         public void SetStaffListBindingSource(BindingSource staffList)
         {
-            var columns = new List<(string DataPropertyName, string HeaderText, string Name)>
+            var columns = new List<(string DataPropertyName, string HeaderText)>
             {
-                ("StaffId", "Staff ID", "StaffIdColumn"),
-                ("FullNameKh", "Full Name KH", "FullNameKhColumn"),
-                ("FullNameEn", "Full Name EN", "FullNameEnColumn"),
-                ("Position", "Position", "PositionColumn"),
-                ("PhoneNumber", "PhoneNumber", "PhoneNumberColumn"),
+                ("StaffId", "Staff ID"),
+                ("FullNameKh", "Full Name KH"),
+                ("FullNameEn", "Full Name EN"),
+                ("Position", "Position"),
+                ("PhoneNumber", "PhoneNumber"),
             };
 
             DataGridViewHelper.SetDataGridViewColumns(dataGridViewStaff, staffList, columns);

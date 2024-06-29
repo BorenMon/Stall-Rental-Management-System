@@ -1,232 +1,146 @@
-﻿using Stall_Rental_Management_System.Models;
-using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
-using Stall_Rental_Management_System.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Models;
+using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
+using Stall_Rental_Management_System.Utils;
 
 namespace Stall_Rental_Management_System.Repositories
 {
-    internal class VendorRepository : IVendorRepository
+    public class VendorRepository : BaseRepository, IVendorRepository
     {
-        private SqlConnection sqlConnection;
-        public VendorRepository() {
-            try
+        // Constructor
+        public VendorRepository()
+        {
+            this.connectionString = DatabaseUtil.GetConnectionString();
+        }
+        
+        // Methods
+        public void InsertOrUpdate(VendorModel vendorModel, int primaryKey, bool isPasswordChanged)
+        {
+            if (isPasswordChanged)
             {
-                sqlConnection = DatabaseUtil.GetConnection();
+                vendorModel.Password = AuthHelper.HashPassword(vendorModel.Password);
             }
-            catch (Exception ex)
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("spInsertOrUpdateVendor", connection))
             {
-                MessageBox.Show(ex.Message, "SQL Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@vendor_id", SqlDbType.Int).Value = primaryKey;
+                command.Parameters.Add("@last_name_kh", SqlDbType.NVarChar).Value = vendorModel.LastNameKh;
+                command.Parameters.Add("@first_name_kh", SqlDbType.NVarChar).Value = vendorModel.FirstNameKh;
+                command.Parameters.Add("@last_name_en", SqlDbType.VarChar).Value = vendorModel.LastNameEn;
+                command.Parameters.Add("@first_name_en", SqlDbType.VarChar).Value = vendorModel.FirstNameEn;
+                command.Parameters.Add("@birth_date", SqlDbType.DateTime).Value = vendorModel.BirthDate;
+                command.Parameters.Add("@gender", SqlDbType.VarChar).Value = vendorModel.Gender.ToString();
+                command.Parameters.Add("@email", SqlDbType.VarChar).Value = vendorModel.Email;
+                command.Parameters.Add("@address", SqlDbType.VarChar).Value = vendorModel.Address;
+                command.Parameters.Add("@phone_number", SqlDbType.VarChar).Value = vendorModel.PhoneNumber;
+                command.Parameters.Add("@password", SqlDbType.VarChar).Value = vendorModel.Password;
+                command.Parameters.Add("@profile_image_url", SqlDbType.VarChar).Value = vendorModel.ProfileImageUrl;
+
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
-        private void openDatabaseConnection()
-        {
-            try
-            {
-                sqlConnection.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,
-                    "Error", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Error);
-            }
-        }
-        public void Add(VendorModel vendorModel)
-        {
-            if(vendorModel.ProfileUrl == null)
-            {
-                vendorModel.ProfileUrl = "google.com";
-            }
-            openDatabaseConnection(); 
-            string sql = @"INSERT INTO tbVendor
-                   (ProfileImageURL, LastNameEN, FirstNameEN, Gender,
-                    Email, PhoneNumber, Password, Address)
-                   VALUES (
-                   @profileUrl, @lastName, @firstName,
-                   @gender, @email, @phone,
-                   @pass, @address)";
-            using (var sqlCommand = new SqlCommand(sql, sqlConnection))
-            {
-                sqlCommand.Parameters.AddWithValue("@profileUrl", vendorModel.ProfileUrl);
-                sqlCommand.Parameters.AddWithValue("@lastName", vendorModel.LastNameEN);
-                sqlCommand.Parameters.AddWithValue("@firstName", vendorModel.FirstNameEN);
-                sqlCommand.Parameters.AddWithValue("@gender", vendorModel.Gender);
-                sqlCommand.Parameters.AddWithValue("@email", vendorModel.Email);
-                sqlCommand.Parameters.AddWithValue("@phone", vendorModel.PhoneNumber);
-                sqlCommand.Parameters.AddWithValue("@pass", vendorModel.Password);
-                sqlCommand.Parameters.AddWithValue("@address", vendorModel.Address);
 
-                try
-                {
-                    int rowAffected = sqlCommand.ExecuteNonQuery();
-
-                    if (rowAffected > 0)
-                    {
-                        MessageBox.Show("Vendor has been created successfully",
-                            "Success", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cannot create new vendor",
-                            "Error", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message,
-                        "Error", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                }
+        public void Delete(VendorModel vendorModel)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("spDeleteVendor", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@VendorID", SqlDbType.Int).Value = vendorModel.VendorId;
+        
+                connection.Open();
+                command.ExecuteNonQuery();
             }
-            sqlConnection.Close();
         }
 
         public IEnumerable<VendorModel> GetAll()
         {
             var vendorList = new List<VendorModel>();
-            using (var sqlCommand = new SqlCommand())
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
             {
-                openDatabaseConnection();
-                // get all vendors
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = @"SELECT * FROM tbVendor 
-                                           ORDER BY VendorID DESC
-                                           ";
-
-                using (var reader = sqlCommand.ExecuteReader())
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM tbVendor ORDER BY VendorID ASC";
+                using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var vendorModel = new VendorModel();
-                        vendorModel.VendorID = (int)reader[0];
-                        vendorModel.ProfileUrl = (string)reader[1];
-                        vendorModel.LastNameEN = (string)reader[2];
-                        vendorModel.FirstNameEN = (string)reader[3];
-                        vendorModel.Gender = (string)reader[7];
-                        vendorModel.Email = (string)reader[8];
-                        vendorModel.PhoneNumber = (string)reader[9];
-                        vendorModel.Password = (string)reader[10];
-                        vendorModel.Address = (string)reader[11];
-
-                        vendorList.Add(vendorModel);
-                    }
-                }
-
-            }
-            sqlConnection.Close();
-           return vendorList;
-        }
-
-        public IEnumerable<VendorModel> GetByID(int id)
-        {
-            openDatabaseConnection() ;
-            List<VendorModel> vendorList = new List<VendorModel>();
-            string sql = @"SELECT * FROM tbVendor WHERE VendorID = @id";
-            //int vendorID = int.TryParse(id, out _) ? Convert.ToInt32(id) : 0;
-            //using (var connectionSQLSever = DatabaseUtil.GetConn())
-            using (var sqlCommand = new SqlCommand())
-            {
-                //sqlConnection.Open();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = sql;
-
-                //
-                sqlCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                //
-                using (var reader = sqlCommand.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var vendorModel = new VendorModel();
-                        vendorModel.VendorID = (int)reader[0];
-                        vendorModel.ProfileUrl = (string)reader[1];
-                        vendorModel.LastNameEN = (string)reader[2];
-                        vendorModel.FirstNameEN = (string)reader[3];
-                        vendorModel.Gender = (string)reader[7];
-                        vendorModel.Email = (string)reader[8];
-                        vendorModel.PhoneNumber = (string)reader[9];
-                        vendorModel.Password = (string)reader[10];
-                        vendorModel.Address = (string)reader[11];
-                        vendorList.Add(vendorModel);
+                        var genderString = reader["Gender"].ToString();
+                        Enum.TryParse(genderString, true, out Gender gender);
+                        
+                        var vendor = new VendorModel
+                        {
+                            VendorId = (int)reader["VendorID"],
+                            ProfileImageUrl = reader["ProfileImageURL"].ToString(),
+                            LastNameKh = reader["LastNameKH"].ToString(),
+                            FirstNameKh = reader["FirstNameKH"].ToString(),
+                            LastNameEn = reader["LastNameEN"].ToString(),
+                            FirstNameEn = reader["FirstNameEN"].ToString(),
+                            BirthDate = (DateTime)reader["BirthDate"],
+                            Gender = gender,
+                            Email = reader["Email"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Address = reader["Address"].ToString()
+                        };
+                        vendorList.Add(vendor);
                     }
                 }
             }
-            sqlConnection.Close();
+                
             return vendorList;
         }
 
-        public void Update(VendorModel vendorModel)
+        public IEnumerable<VendorModel> GetByValue(string value)
         {
-            // Define your stored procedure name
-            string storedProcedureName = "UpdateVendor";
-            openDatabaseConnection();
-            using (SqlCommand cmd = new SqlCommand(storedProcedureName, sqlConnection))
+            var vendorList = new List<VendorModel>();
+            var vendorId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("spGetVendorsByValue", connection))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@id", SqlDbType.Int).Value = vendorId;
+                command.Parameters.Add("@name_en", SqlDbType.VarChar).Value = value;
+                command.Parameters.Add("@name_kh", SqlDbType.NVarChar).Value = value;
 
-                // Add parameters to the command
-                cmd.Parameters.AddWithValue("@VendorID", vendorModel.VendorID);
-                cmd.Parameters.AddWithValue("@ProfileImageUrl", vendorModel.ProfileUrl);
-                cmd.Parameters.AddWithValue("@LastNameEN", vendorModel.LastNameEN);
-                cmd.Parameters.AddWithValue("@FirstNameEN", vendorModel.FirstNameEN);
-                cmd.Parameters.AddWithValue("@Email", vendorModel.Email);
-                cmd.Parameters.AddWithValue("@Password", vendorModel.Password);
-                cmd.Parameters.AddWithValue("@Gender", vendorModel.Gender);
-                cmd.Parameters.AddWithValue("@Address", vendorModel.Address);
-                cmd.Parameters.AddWithValue("@PhoneNumber", vendorModel.PhoneNumber);
-
-                // Execute the command
-                cmd.ExecuteNonQuery();
-
-                // Inform the user
-                MessageBox.Show("Vendor updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            sqlConnection.Close() ;
-        }
-
-        public void Delete(int id)
-        {
-            openDatabaseConnection();
-            string deleteQuery = "DELETE FROM tbVendor WHERE VendorID = @RecordID";
-
-            try
-            {
-                using (SqlCommand command = new SqlCommand(deleteQuery, sqlConnection))
+                connection.Open();
+                using (var reader = command.ExecuteReader())
                 {
-                    command.Parameters.AddWithValue("@RecordID", id);
-                    // Show confirmation dialog
-                    DialogResult result = MessageBox.Show($"Are you sure you want to delete vendor with ID {id}?",
-                        "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes)
+                    while (reader.Read())
                     {
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected > 0)
+                        var genderString = reader["Gender"].ToString();
+                        Enum.TryParse(genderString, true, out Gender gender);
+
+                        var vendor = new VendorModel
                         {
-                            MessageBox.Show("Vendor deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No record found with the specified ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                            VendorId = (int)reader["StaffID"],
+                            ProfileImageUrl = reader["ProfileImageURL"].ToString(),
+                            LastNameKh = reader["LastNameKH"].ToString(),
+                            FirstNameKh = reader["FirstNameKH"].ToString(),
+                            LastNameEn = reader["LastNameEN"].ToString(),
+                            FirstNameEn = reader["FirstNameEN"].ToString(),
+                            BirthDate = (DateTime)reader["BirthDate"],
+                            Gender = gender,
+                            Email = reader["Email"].ToString(),
+                            PhoneNumber = reader["PhoneNumber"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Address = reader["Address"].ToString()
+                        };
+                        vendorList.Add(vendor);
                     }
                 }
-            }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            sqlConnection.Close();
+
+            return vendorList;
         }
     }
 }

@@ -12,7 +12,6 @@ using Stall_Rental_Management_System.Views.View_Interfaces;
 using Stall_Rental_Management_System.Views.Panel_Forms;
 using System.Configuration;
 using Stall_Rental_Management_System.Presenters;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Stall_Rental_Management_System
@@ -29,36 +28,19 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-
-            //var sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-
-            // Initialize services
-            IAuthenticationService authenticationService = new AuthenticationService();
-            //IAuthorizationService authorizationService = new AuthorizationService(authenticationService);
-
-            //// Initialize views
-            //ILoginView loginView = new FrmLogin();
-            //IMainView mainView = new FrmMain();
-
-            //// Initialize presenters
-            //LoginPresenter loginPresenter = new LoginPresenter(loginView, authenticationService);
-            //MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
-
-            // Show the main form
-            Application.Run(new FrmPayment());
+          
 
             // Init MinIO Client
             MinIoUtil.InitMinioClient();
             
             // Uncomment this line for testing purposes
-            // TestSetup.SetupTestUser();
+            TestSetup.SetupTestUser();
             
             var authService = new AuthenticationService();
-            Application.Run(new FrmLogin(authService));
-            
-            // Application.Run(new FrmStaff(new StaffRepository(), new AuthenticationService()));
+            // Application.Run(new FrmLogin(authService));
 
+            // var repo = new StallRepository();
+            Application.Run(new FrmStaffPanel(authService));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

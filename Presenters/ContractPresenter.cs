@@ -144,7 +144,7 @@ namespace Stall_Rental_Management_System.Presenters
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "Error", MessageBoxButtons.OK,
+                    @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
             };

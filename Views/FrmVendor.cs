@@ -1,312 +1,247 @@
-﻿using Stall_Rental_Management_System.Presenters;
-using Stall_Rental_Management_System.Repositories;
-using Stall_Rental_Management_System.Views.View_Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Utils;
+using Stall_Rental_Management_System.Views.View_Interfaces;
+
 
 namespace Stall_Rental_Management_System.Views
 {
     public partial class FrmVendor : Form, IVendorView
     {
-        private OpenFileDialog openFileDialog;
-        private int vendorId;
-        private string profileUrl;
-        private string firstNameEN;
-        private string lastNameEN;
-        private string gender;
-        private string email;
-        private string password;
-        private string phone;
-        private string address;
-
-        public event EventHandler SaveVendor;
-        public event EventHandler SearchVendor;
-        public event EventHandler UpdateVendor;
-        public event EventHandler DeleteVendor;
-
-        public FrmVendor()
+        private VendorPresenter _presenter;
+        private readonly AuthenticationService _authService;
+        private bool _isPasswordManuallyChanged;
+        public string CurrentProfileImageObjectName { get; set; }
+        
+        public FrmVendor(VendorRepository vendorRepository, AuthenticationService authService)
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
-            // Set the form's properties to create a fixed size form
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = true; // Set to false if you don't want the minimize button
-                                     //this.Size = new System.Drawing.Size(1000, 800); // Set your desired form size
-                                     //this.MaximumSize = new System.Drawing.Size(800, 600);
-                                     //this.MinimumSize = new System.Drawing.Size(800, 600);
-                                     //todo table
-            new VendorPresenter(this,new VendorRepository());
-            ReloadDatabase();
-            disableAllComponents();
-            genderComboBox.Items.Add("Male");
-            genderComboBox.Items.Add("Female");
-            //
-            disableAllComponents();
-            newButton.Enabled = true;
-            //
-            searchTextBox.KeyDown += (e, k) =>
+            AssociateAndRaiseViewEvents();
+
+            _authService = authService;
+            
+            // Initialize the presenter
+            _presenter = new VendorPresenter(this, vendorRepository);
+
+            Customize();
+        }
+
+        private void Customize()
+        {
+            comboBoxGender.DataSource = EnumHelper.GetEnumDisplayNames<Gender>();
+            comboBoxGender.DisplayMember = "Value";
+            comboBoxGender.ValueMember = "Key";
+
+            panelDetail.Enabled = false;
+            
+            pictureBoxProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            
+            pictureBoxProfile.LoadCompleted += (sender, e) =>
             {
-                if(k.KeyCode==Keys.Enter)
+                if (e.Error != null)
                 {
-                    VendorID = int.Parse(searchTextBox.Text);
-                    SearchVendor?.Invoke(this, EventArgs.Empty);
-                    CheckIsNotFoundVendor();
-                    searchTextBox.Text = "";
-                }else if (k.KeyCode == Keys.Back)
-                {
-                    searchTextBox.Text = "";
-                    ReloadDatabase();
+                    // Error loading the image, set a default error image
+                    pictureBoxProfile.ImageLocation = MinIoUtil.GenerateFileUrl("error_image.png", "srms");
                 }
+            };
+            
+            textBoxPhoneNumber.KeyPress += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidateKeypress(textBox, e);
+            };
+            textBoxPhoneNumber.TextChanged += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidatePaste(textBox);
             };
         }
 
-        public int VendorID {
-            get => vendorId;
-            set => vendorId = value;
-        }
-        public string FirstNameEN {
-            get => firstNameEN;
-            set => firstNameEN = value;
-        }
-        public string LastNameEN {
-            get => lastNameEN;
-            set => lastNameEN=value;
-        }
-        public string FirstNameKH { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string LastNameKH { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime BirthDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Gender { 
-            get =>gender;
-            set => gender= value;
-        }
-        public string Email {
-            get => email;
-            set => email = value;
-        }
-        public string Password {
-            get => password;
-            set => password = value;
-        }
-        public string PhoneNumber {
-            get => phone;
-            set => phone = value;
-        }
-        public string ProfileUrl {
-            get => profileUrl;
-            set => profileUrl = value;
-        }
-        public string Address {
-            get => address;
-            set => address = value;
-        }
-
-        public void setVendorBidingSource(BindingSource bindingSource)
+        private void AssociateAndRaiseViewEvents()
         {
-            vendorDataGridView.DataSource = bindingSource;
-            for (int i = 0; i < 11; i++)
+            // Search
+            buttonSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            textBoxSearch.KeyDown += (s, e) =>
             {
-                vendorDataGridView.Columns[i].Width = 150;
-
-            }
-        }
-
-        private void uploadProfileButton_Click(object sender, EventArgs e)
-        {
-            // Create an OpenFileDialog to select an image file
-            using (openFileDialog = new OpenFileDialog())
-            {
-                // Set the initial directory to the Pictures folder
-                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-
-                // If the user selects a file and clicks OK
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (e.KeyCode == Keys.Enter)
                 {
-                    try
-                    {
-                        // Get the path of the selected file
-                        ProfileUrl =  openFileDialog.FileName;
-                        
-                        
-                        // Load the image into the PictureBox
-                        profileBox.Image = new Bitmap(ProfileUrl);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred while uploading the image: " + ex.Message);
-                    }
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
-            }
-        }
-
-        private async void vendorDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(e.RowIndex >= 0) {
-                enableAllComponents();
-                saveButton.Enabled = false;
-                DataGridViewRow row = vendorDataGridView.Rows[e.RowIndex];
-                VendorID = int.Parse(row.Cells[0].Value.ToString());
-                ProfileUrl = row.Cells[1].Value.ToString();
-                profileBox.ImageLocation = await VendorPresenter.GetPreviewPictureUrlFromMinIO(ProfileUrl);
-                lastNameTextBox.Text = row.Cells[4].Value.ToString();
-                firstNameTextBox.Text = row.Cells[3].Value.ToString();
-                genderComboBox.Text = row.Cells[8].Value.ToString();
-                emailTextBox.Text = row.Cells[9].Value.ToString();
-                phoneTextBox.Text = row.Cells[11].Value.ToString();
-                passwordTextBox.Text = row.Cells[10].Value.ToString();
-                addressTextBox.Text = row.Cells[2].Value.ToString();
-            }
-        }
-        // disable all text field
-        private void disableAllComponents()
-        {
-            //textBox
-            lastNameTextBox.Enabled = false;
-            firstNameTextBox.Enabled = false;
-            genderComboBox.Enabled = false;
-            emailTextBox.Enabled = false;
-            phoneTextBox.Enabled = false;
-            passwordTextBox.Enabled = false;
-            addressTextBox.Enabled = false;
-            //button
-            uploadProfileButton.Enabled = false;
-            saveButton.Enabled = false;
-            updateButton.Enabled = false;
-            deleteButton.Enabled = false;
-        }
-        private void enableAllComponents()
-        {
-            lastNameTextBox.Enabled = true;
-            firstNameTextBox.Enabled = true;
-            genderComboBox.Enabled = true;
-            emailTextBox.Enabled = true;
-            phoneTextBox.Enabled = true;
-            passwordTextBox.Enabled = true;
-            addressTextBox.Enabled = true;
-            uploadProfileButton.Enabled = true;
-            saveButton.Enabled = true;
-            updateButton.Enabled = true;
-            deleteButton.Enabled = true;
-        }
-        private void clearAllDataFromTextbox()
-        {
-            profileBox.Image = null;
-            lastNameTextBox.Text = "";
-            firstNameTextBox.Text = "";
-            emailTextBox.Text = "";
-            passwordTextBox.Text = "";
-            genderComboBox.Text = "";
-            phoneTextBox.Text = "";
-            addressTextBox.Text = "";
-        }
-       
-        private void searchButton_Click(object sender, EventArgs e)
-        {
-            VendorID = int.Parse(searchTextBox.Text);
-            SearchVendor?.Invoke(this, EventArgs.Empty);
-            CheckIsNotFoundVendor();
-        }
-
-        private void newButton_Click(object sender, EventArgs e)
-        {
-            clearAllDataFromTextbox();
-            enableAllComponents();
-            updateButton.Enabled = false;
-            deleteButton.Enabled = false;
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            if (!CheckIsTextboxEmpty())
+            };
+            
+            // Upload Profile
+            buttonUploadProfile.Click += delegate
             {
-                LastNameEN = lastNameTextBox.Text;
-                FirstNameEN = firstNameTextBox.Text;
-                Password = passwordTextBox.Text;
-                Email = emailTextBox.Text;
-                PhoneNumber = phoneTextBox.Text;
-                Address = addressTextBox.Text;
-                Gender = genderComboBox.Text;
-                SaveVendor?.Invoke(this, EventArgs.Empty);
-                ReloadDatabase();
-                clearAllDataFromTextbox();
-            }
-            else
+                UploadProfileEvent?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // Change password
+            textBoxPassword.TextChanged += (sender, e) =>
             {
-                MessageBox.Show("You missed any input field.", "Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            ProfileUrl = null;
-        }
-        private void updateButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog != null)
+                if (!_isPasswordManuallyChanged) _isPasswordManuallyChanged = true;
+                else IsPasswordChanged = true;
+            };
+            
+            // View
+            dataGridViewVendor.CellClick += delegate
             {
-                ProfileUrl = openFileDialog.FileName;
-            }
-            LastNameEN = lastNameTextBox.Text;
-            FirstNameEN = firstNameTextBox.Text;
-            Password = passwordTextBox.Text;
-            Email = emailTextBox.Text;
-            PhoneNumber = phoneTextBox.Text;
-            Address = addressTextBox.Text;
-            Gender = genderComboBox.Text;
-            UpdateVendor?.Invoke(this, EventArgs.Empty);
-            ReloadDatabase();
-            clearAllDataFromTextbox();
-            disableAllComponents();
-            newButton.Enabled = true;
-            searchButton.Enabled = true;
-            ProfileUrl = null;
+                _isPasswordManuallyChanged = false;
+                buttonUpdateOrSave.Text = @"Update";
+                panelDetail.Enabled = true;
+                ViewEvent?.Invoke(this, EventArgs.Empty);
+            };
 
+            // Add new
+            buttonAddNew.Click += delegate
+            {
+                buttonUpdateOrSave.Text = @"Save";
+                panelDetail.Enabled = true;
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // Save
+            buttonUpdateOrSave.Click += delegate
+            {
+                SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful) panelDetail.Enabled = false;
+                MessageBox.Show(Message);
+            };
+            
+            // Delete
+            buttonDelete.Click += delegate
+            {
+                var result = MessageBox.Show(
+                    @"Are you sure you want to delete the selected vendor?",
+                    @"Warning",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result != DialogResult.Yes) return;
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
+            
+            // Back to panel
+            buttonBack.Click += (sender, args) => GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
+            
+            // Logout
+            buttonLogout.Click += (sender, args) => CurrentUserUtil.Logout(this, _authService);
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        // Properties
+        public string VendorId
         {
-            DeleteVendor?.Invoke(this, EventArgs.Empty);
-            ReloadDatabase();
-            clearAllDataFromTextbox();
-            disableAllComponents();
-            newButton.Enabled = true;
-            searchButton.Enabled = true;
-            ProfileUrl = null;
+            get => textBoxVendorId.Text;
+            set => textBoxVendorId.Text = value;
+        }
+        public string ProfileImageUrl
+        {
+            set
+            {
+                CurrentProfileImageObjectName = value;
+                var imageLocation = value != string.Empty
+                    ? MinIoUtil.GenerateFileUrl(value, "srms")
+                    : null;
+                pictureBoxProfile.ImageLocation = string.IsNullOrEmpty(imageLocation) ? MinIoUtil.GenerateFileUrl("profile/null_profile.png", "srms") : imageLocation;
+            }
+        }
 
-        }
-        private void ReloadDatabase()
+        public string LastNameEn
         {
-            vendorDataGridView.DataSource = new VendorPresenter()
-            .ReloadDatabase(new VendorRepository());
+            get => textBoxLastNameEn.Text;
+            set => textBoxLastNameEn.Text = value;
         }
-        private void CheckIsNotFoundVendor()
+        public string FirstNameEn
         {
-            BindingSource b = (BindingSource) vendorDataGridView.DataSource;
-            if (b.Count == 0)
+            get => textBoxFirstNameEn.Text;
+            set => textBoxFirstNameEn.Text = value;
+        }
+        public string LastNameKh
+        {
+            get => textBoxLastNameKh.Text;
+            set => textBoxLastNameKh.Text = value;
+        }
+        public string FirstNameKh
+        {
+            get => textBoxFirstNameKh.Text; 
+            set => textBoxFirstNameKh.Text = value;
+        }
+        public DateTime BirthDate
+        {
+            get => dateTimeBirthDate.Value;
+            set => dateTimeBirthDate.Value = value;
+        }
+        public Gender Gender
+        {
+            get => (Gender)comboBoxGender.SelectedValue;
+            set => comboBoxGender.SelectedValue = value;
+        }
+        public string Email
+        {
+            get => textBoxEmail.Text;
+            set => textBoxEmail.Text = value;
+        }
+        public string Address
+        {
+            get => richTextBoxAddress.Text;
+            set => richTextBoxAddress.Text = value;
+        }
+        public string PhoneNumber
+        {
+            get => textBoxPhoneNumber.Text;
+            set => textBoxPhoneNumber.Text = value;
+        }
+        public string Password
+        {
+            get => textBoxPassword.Text;
+            set
             {
-                MessageBox.Show("No Data was found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ReloadDatabase();
+                IsPasswordChanged = false;
+                textBoxPassword.Text = value;
             }
         }
-        private Boolean CheckIsTextboxEmpty()
+        public string SearchValue 
+        { 
+            get => textBoxSearch.Text;
+            set => textBoxSearch.Text = value;
+        }
+
+        public bool IsPasswordChanged { get; set; }
+        public bool IsEdit { get; set; }
+        public bool IsSuccessful { get; set; }
+        public string Message { get; set; }
+
+
+        // Events
+        public event EventHandler SearchEvent;
+        public event EventHandler UploadProfileEvent;
+        public event EventHandler ViewEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveOrUpdateEvent;
+
+        // Methods
+        public void SetVendorListBindingSource(BindingSource vendorList)
         {
-            if (lastNameTextBox.Text == "" ||
-               firstNameTextBox.Text == "" ||
-               emailTextBox.Text == ""||
-               passwordTextBox.Text == ""||
-               genderComboBox.Text == "")
+            var columns = new List<(string DataPropertyName, string HeaderText)>
             {
-                return true;
-            }
-            return false;
+                ("VendorId", "Vendor ID"),
+                ("FullNameKh", "Full Name KH"),
+                ("FullNameEn", "Full Name EN"),
+                ("PhoneNumber", "PhoneNumber"),
+            };
+
+            DataGridViewHelper.SetDataGridViewColumns(dataGridViewVendor, vendorList, columns);
         }
     }
 }

@@ -1,89 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
-    internal interface IVendorView
-
+    public interface IVendorView
     {
-        event EventHandler SaveVendor;
-        event EventHandler SearchVendor;
-        event EventHandler UpdateVendor;
-        event EventHandler DeleteVendor;
-        int VendorID
-        {
-            get;
-            set;
-        }
-        string ProfileUrl
-        {
-            get;
-            set;
-        }
-        string Address
-        {
-            get;
-            set;
-        }
+        // Properties - Fields
+        string VendorId { get; set; }
+        string ProfileImageUrl { set; }
+        string LastNameEn { get; set; }
+        string FirstNameEn { get; set; }
+        string LastNameKh { get; set; }
+        string FirstNameKh { get; set; }
+        DateTime BirthDate { get; set; }
+        Gender Gender { get; set; }
+        string Email { get; set; }
+        string Address { get; set; }
+        string PhoneNumber { get; set; }
+        string Password { get; set; }
+        string SearchValue { get; set; }
+        bool IsPasswordChanged { get; set; }
+        bool IsEdit { get; set; }
+        bool IsSuccessful { get; set; }
+        string Message { get; set; }
 
-        string FirstNameEN
-        {
-            get;
-            set;
-        }
+        // Events
+        event EventHandler SearchEvent;
+        event EventHandler UploadProfileEvent;
+        event EventHandler ViewEvent;
+        event EventHandler AddNewEvent;
+        event EventHandler DeleteEvent;
+        event EventHandler SaveOrUpdateEvent;
 
-        string LastNameEN
-        {
-            get;
-            set;
-        }
-
-        string FirstNameKH
-        {
-            get;
-            set;
-        }
-
-        string LastNameKH
-        {
-            get;
-            set;
-        }
-
-        DateTime BirthDate
-        {
-            get;
-            set;
-        }
-
-        string Gender
-        {
-            get;
-            set;
-        }
-
-        string Email
-        {
-            get;
-            set;
-        }
-
-        string Password
-        {
-            get;
-            set;
-        }
-
-       string PhoneNumber
-        {
-            get;
-            set;
-        }
-        void setVendorBidingSource(BindingSource bindingSource);
+        // Methods
+        void SetVendorListBindingSource(BindingSource vendorList);
     }
 }
