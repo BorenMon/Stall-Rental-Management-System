@@ -38,7 +38,6 @@ namespace Stall_Rental_Management_System.Presenters
             this.vendorView.UpdateVendor += UpdateVendorrById;
 
         }
-
         private async void UpdateVendorrById(object sender, EventArgs e)
         {
             
@@ -167,8 +166,6 @@ namespace Stall_Rental_Management_System.Presenters
                         .WithBucket(bucketName)
                         .WithObject(objectName)
                         .WithFileName(selectedFilePath));
-
-
             }
             catch (Exception ex)
             {

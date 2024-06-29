@@ -46,7 +46,7 @@ namespace Stall_Rental_Management_System
             //MainPresenter mainPresenter = new MainPresenter(mainView, sqlConnectionString, authenticationService, authorizationService);
 
             // Show the main form
-            Application.Run(new FrmVendor());
+            Application.Run(new FrmPayment());
 
             // Init MinIO Client
             MinIoUtil.InitMinioClient();

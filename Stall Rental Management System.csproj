@@ -184,6 +184,8 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\PaymentReferenceModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
+    <Compile Include="Presenters\PaymentPresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
     <Compile Include="Presenters\VendorPresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -205,6 +208,7 @@
     </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ContractRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IVendorRepository.cs" />
@@ -232,6 +236,12 @@
     </Compile>
     <Compile Include="Views\FrmContract.Designer.cs">
       <DependentUpon>FrmContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmPayment.Designer.cs">
+      <DependentUpon>FrmPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FrmStaff.cs">
       <SubType>Form</SubType>
@@ -266,6 +276,7 @@
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IManagementView.cs" />
+    <Compile Include="Views\View Interfaces\IPaymentView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
     <Compile Include="Views\View Interfaces\IVendorView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -278,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmContract.resx">
       <DependentUpon>FrmContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmPayment.resx">
+      <DependentUpon>FrmPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
@@ -339,6 +353,7 @@
     <None Include="Resources\logout.png" />
     <None Include="Resources\people1.png" />
     <None Include="Resources\graph.png" />
+    <None Include="Resources\image_placeholder.png" />
     <Content Include="Resources\search_normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

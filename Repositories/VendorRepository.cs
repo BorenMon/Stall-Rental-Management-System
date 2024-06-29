@@ -227,7 +227,6 @@ namespace Stall_Rental_Management_System.Repositories
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             sqlConnection.Close();
-
         }
     }
 }
