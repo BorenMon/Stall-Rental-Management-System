@@ -238,7 +238,7 @@ namespace Stall_Rental_Management_System.Views
                 contractUploadButton.Text == "Upload Contract File (PDF, Doc)"
                 )
             {
-                MessageBox.Show("You missed any input field.","Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(@"You missed any input field.",@"Missing Field", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             SaveContract?.Invoke(this, EventArgs.Empty);
             clearAllTextValue();
@@ -340,14 +340,14 @@ namespace Stall_Rental_Management_System.Views
                             );
                         // Open the downloaded file
                         //Process.Start(downloadFilePath);
-                        MessageBox.Show("File downloaded successfully!", "Success",
+                        MessageBox.Show(@"File downloaded successfully!", @"Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error downloading file: {ex.Message}",
-                            "Error", MessageBoxButtons.OK,
+                        MessageBox.Show($@"Error downloading file: {ex.Message}",
+                            @"Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                     }
                 }
@@ -355,7 +355,7 @@ namespace Stall_Rental_Management_System.Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-    "Error", MessageBoxButtons.OK,
+    @"Error", MessageBoxButtons.OK,
     MessageBoxIcon.Error);
             }
         }
@@ -364,7 +364,7 @@ namespace Stall_Rental_Management_System.Views
             UpdateContract?.Invoke(this, EventArgs.Empty);
 
             //staffIdComboBox.Enabled = false;
-            MessageBox.Show("Updated contract information successfully!", "Success",
+            MessageBox.Show(@"Updated contract information successfully!", @"Success",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearAllTextValue();
             disableAllWindowsFormComponent();
@@ -431,8 +431,8 @@ namespace Stall_Rental_Management_System.Views
                 //
                 else
                 {
-                    MessageBox.Show("Please select a PDF or Word file.", 
-                        "Invalid File Type", MessageBoxButtons.OK,
+                    MessageBox.Show(@"Please select a PDF or Word file.", 
+                        @"Invalid File Type", MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                 }
             }
@@ -455,7 +455,7 @@ namespace Stall_Rental_Management_System.Views
             BindingSource b = (BindingSource)contractDataGridView.DataSource;
             if (b.Count == 0)
             {
-                MessageBox.Show("No Data was found!", "Not Foound", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(@"No Data was found!", @"Not Foound", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ReloadDatabase();
             }
         }

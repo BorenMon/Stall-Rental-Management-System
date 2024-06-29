@@ -16,24 +16,21 @@ using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmStall : Form, IStallView
+    public partial class FrmStallForStaff : Form, IStallViewForStaff
     {
-        private StallPresenter _presenter;
+        private StallPresenterForStaff _presenterForManager;
         private readonly AuthenticationService _authService;
 
         public ListBox ImageListBox => listBoxImagesFileName;
         public PictureBox ImagePictureBox => pictureBoxImage;
-        public Button AddImageButton => buttonAddImage;
-        public Button RemoveImageButton => buttonRemoveImage;
-        public OpenFileDialog OpenFileDialog => openFileDialog;
 
-        public FrmStall(StallRepository stallRepository, AuthenticationService authService)
+        public FrmStallForStaff(StallRepository stallRepository, AuthenticationService authService)
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
 
             _authService = authService;
-            _presenter = new StallPresenter(this, stallRepository);
+            _presenterForManager = new StallPresenterForStaff(this, stallRepository);
 
             Customize();
         }
@@ -59,10 +56,6 @@ namespace Stall_Rental_Management_System.Views
             textBoxSize.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
             textBoxMonthlyFee.KeyPress += FloatOrDecimalValidationHelper.KeyPress;
 
-            OpenFileDialog.Filter = @"Image files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
-            OpenFileDialog.FilterIndex = 1;
-            OpenFileDialog.RestoreDirectory = true;
-
             ImagePictureBox.LoadCompleted += (sender, e) =>
             {
                 if (e.Error != null)
@@ -85,57 +78,13 @@ namespace Stall_Rental_Management_System.Views
                 }
             };
 
-            // Add new
-            buttonAddNewStall.Click += delegate
-            {
-                panelImages.Enabled = false;
-                buttonUpdateOrSave.Text = @"Save";
-                panelDetail.Enabled = true;
-                AddNewEvent?.Invoke(this, EventArgs.Empty);
-            };
-
-            // Save
-            buttonUpdateOrSave.Click += delegate
-            {
-                SaveOrUpdateEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful)
-                {
-                    panelDetail.Enabled = false;
-                    panelImages.Enabled = false;
-                    ImagePictureBox.ImageLocation = null;
-                    ImageListBox.DataSource = null;
-                }
-                MessageBox.Show(Message);
-            };
-
             // View
             dataGridViewStall.CellClick += delegate
             {
                 panelImages.Enabled = true;
-                buttonUpdateOrSave.Text = @"Update";
                 panelDetail.Enabled = true;
                 ViewEvent?.Invoke(this, EventArgs.Empty);
             };
-            
-            // Delete
-            buttonDeleteStall.Click += delegate
-            {
-                var result = MessageBox.Show(
-                    @"Are you sure you want to delete the selected stall?",
-                    @"Warning",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (result != DialogResult.Yes) return;
-                DeleteEvent?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
-            };
-
-            // Add Image
-            buttonAddImage.Click += delegate { AddImageEvent?.Invoke(this, EventArgs.Empty); };
-            buttonRemoveImage.Click += delegate { RemoveImageEvent?.Invoke(this, EventArgs.Empty); };
-            listBoxImagesFileName.SelectedIndexChanged += delegate { SelectImageEvent?.Invoke(this, EventArgs.Empty); };
 
             // Back to panel
             buttonBack.Click += (sender, args) => GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
@@ -162,19 +111,17 @@ namespace Stall_Rental_Management_System.Views
             get
             {
                 var selected = comboBoxType.SelectedItem;
-                return (string)selected.GetType().GetProperty("Value").GetValue(selected);
+                return (string)selected.GetType().GetProperty("Value")?.GetValue(selected);
             }
             set
             {
-                if (Enum.TryParse(value, out StallType stallType))
+                if (Enum.TryParse(value, out StallType _))
                 {
                     foreach (var item in comboBoxType.Items)
                     {
-                        if ((string)item.GetType().GetProperty("Value").GetValue(item) == value)
-                        {
-                            comboBoxType.SelectedItem = item;
-                            return;
-                        }
+                        if ((string)item.GetType().GetProperty("Value")?.GetValue(item) != value) continue;
+                        comboBoxType.SelectedItem = item;
+                        return;
                     }
                 }
                 else
@@ -215,12 +162,6 @@ namespace Stall_Rental_Management_System.Views
 
         public event EventHandler SearchEvent;
         public event EventHandler ViewEvent;
-        public event EventHandler AddNewEvent;
-        public event EventHandler DeleteEvent;
-        public event EventHandler SaveOrUpdateEvent;
-        public event EventHandler SelectImageEvent;
-        public event EventHandler AddImageEvent;
-        public event EventHandler RemoveImageEvent;
 
         public void SetStallListBindingSource(BindingSource stallList)
         {

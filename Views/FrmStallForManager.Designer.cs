@@ -2,7 +2,7 @@
 
 namespace Stall_Rental_Management_System.Views
 {
-    partial class FrmStall
+    partial class FrmStallForManager
     {
         /// <summary>
         /// Required designer variable.
@@ -433,7 +433,7 @@ namespace Stall_Rental_Management_System.Views
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Location = new System.Drawing.Point(15, 15);
-            this.Name = "FrmStall";
+            this.Name = "FrmStallForManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stall Rental Management System / Manager Panel / Stall Management";
             this.panelDetail.ResumeLayout(false);

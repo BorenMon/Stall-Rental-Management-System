@@ -36,10 +36,11 @@ namespace Stall_Rental_Management_System
             // Uncomment this line for testing purposes
             TestSetup.SetupTestUser();
             
-            // var authService = new AuthenticationService();
+            var authService = new AuthenticationService();
             // Application.Run(new FrmLogin(authService));
-            
-            Application.Run(new FrmProfile(new AuthenticationService()));
+
+            // var repo = new StallRepository();
+            Application.Run(new FrmStaffPanel(authService));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

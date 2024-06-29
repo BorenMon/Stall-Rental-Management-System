@@ -1,118 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using Stall_Rental_Management_System.Enums;
+
 
 namespace Stall_Rental_Management_System.Models
 {
-    internal class VendorModel
+    public class VendorModel
     {
-        // fields
-        private int vendorID;
-        private string profileUrl;
-        private string firstNameEN;
-        private string lastNameEN;
-        private string firstNameKH;
-        private string lastNameKH;
-        private DateTime birthDate;
-        private string gender;
-        private string email;
-        private string password;
-        private string phoneNumber;
-        private string address;
-        //
-        // properties
-        public int VendorID
-        {
-            get { return vendorID; }
-            set { vendorID = value; }
-        }
-        [StringLength(555)]
+        // Properties - Validations
+        public int VendorId { get; set; }
+        
+        [DisplayName("Profile Image URL")]
+        [StringLength(255, ErrorMessage = "Last Name (EN) must be at most 255 characters.")]
+        public string ProfileImageUrl { get; set; }
 
-        public string ProfileUrl
-        {
-            get { return profileUrl; }
-            set { this.profileUrl = value; }
-        }
+        [DisplayName("Last Name (EN)")]
+        [Required(ErrorMessage = "Last Name (EN) is required.")]
+        [StringLength(100, ErrorMessage = "Last Name (EN) must be at most 100 characters.")]
+        public string LastNameEn { get; set; }
 
-        public string Address
-        {
-            get { return this.address; }
-            set { this.address = value; }
-        }
-        [StringLength(100)]
+        [DisplayName("First Name (EN)")]
+        [Required(ErrorMessage = "First Name (EN) is required.")]
+        [StringLength(100, ErrorMessage = "First Name (EN) must be at most 100 characters.")]
+        public string FirstNameEn { get; set; }
 
-        public string FirstNameEN
-        {
-            get { return firstNameEN; }
-            set { firstNameEN = value; }
-        }
-        [StringLength(100)]
-        public string LastNameEN
-        {
-            get { return lastNameEN; }
-            set { lastNameEN = value; }
-        }
+        [DisplayName("Last Name (KH)")]
+        [Required(ErrorMessage = "Last Name (KH) is required.")]
+        [StringLength(100, ErrorMessage = "Last Name (KH) must be at most 100 characters.")]
+        public string LastNameKh { get; set; }
 
-        public string FirstNameKH
-        {
-            get { return firstNameKH; }
-            set { firstNameKH = value; }
-        }
+        [DisplayName("First Name (KH)")]
+        [Required(ErrorMessage = "First Name (KH) is required.")]
+        [StringLength(100, ErrorMessage = "First Name (KH) must be at most 100 characters.")]
+        public string FirstNameKh { get; set; }
 
-        public string LastNameKH
-        {
-            get { return lastNameKH; }
-            set { lastNameKH = value; }
-        }
+        [DisplayName("Birth Date")]
+        [Required(ErrorMessage = "Birth Date is required.")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
 
-        public DateTime BirthDate
-        {
-            get { return birthDate; }
-            set { birthDate = value; }
-        }
+        [DisplayName("Gender")]
+        [Required(ErrorMessage = "Gender is required.")]
+        public Gender Gender { get; set; }
 
-        public string Gender
-        {
-            get { return gender; }
-            set { gender = value; }
-        }
+        [DisplayName("Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
+        [StringLength(255, ErrorMessage = "Email must be at most 255 characters.")]
+        public string Email { get; set; }
 
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
-        [StringLength(255)]
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+        [DisplayName("Address")]
+        [StringLength(255, ErrorMessage = "Address must be at most 255 characters.")]
+        public string Address { get; set; }
 
-        public string PhoneNumber
-        {
-            get { return phoneNumber; }
-            set { phoneNumber = value; }
-        }
+        [DisplayName("Phone Number")]
+        [Required(ErrorMessage = "Phone Number is required.")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Phone Number must be between 6 and 20 characters.")]
+        [RegularExpression(@"^\+?[0-9]{6,20}$", ErrorMessage = "Invalid Phone Number format.")]
+        public string PhoneNumber { get; set; }
 
-        public VendorModel() { }
+        [DisplayName("Password")]
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(255, ErrorMessage = "Password must be at most 255 characters.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
-        public VendorModel(int vendorID, string profileUrl ,string firstNameEN, string lastNameEN, string firstNameKH, string lastNameKH, DateTime birthDate, string gender, string email, string password, string phoneNumber)
-        {
-            this.vendorID = vendorID;
-            this.profileUrl = profileUrl;
-            this.firstNameEN = firstNameEN;
-            this.lastNameEN = lastNameEN;
-            this.firstNameKH = firstNameKH;
-            this.lastNameKH = lastNameKH;
-            this.birthDate = birthDate;
-            this.gender = gender;
-            this.email = email;
-            this.password = password;
-            this.phoneNumber = phoneNumber;
-        }
+        // Computed Properties
+        public string FullNameKh => $"{LastNameKh} {FirstNameKh}";
+        public string FullNameEn => $"{LastNameEn} {FirstNameEn}";
     }
 }
