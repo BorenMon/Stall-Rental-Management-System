@@ -19,19 +19,8 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new FormLogin());
 
-            Application.Run(new FrmStaff());
             Application.Run(new FrmInvoice1());
-            //
-            var myView = new FrmContract();
-            new ContractPresenter(myView, new ContractRepository());
-            Application.Run(myView);
-
-            Application.Run(new FormLogin());
-            
-            Application.Run(new FrmStaff());
-            Application.Run(new Views.InvoiceForm.FrmInvoice1());
 
         }
 
