@@ -7,7 +7,6 @@ using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Testing;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
-//using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using Stall_Rental_Management_System.Views.Panel_Forms;
 using System.Configuration;
@@ -37,7 +36,7 @@ namespace Stall_Rental_Management_System
             TestSetup.SetupTestUser();
             
             var authService = new AuthenticationService();
-            // Application.Run(new FrmLogin(authService));
+            // Application.Run(new FrmLogin(authService)); 
 
             // var repo = new StallRepository();
             Application.Run(new FrmStaffPanel(authService));
