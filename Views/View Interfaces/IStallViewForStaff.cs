@@ -4,13 +4,13 @@ using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
-    public interface IStallView
+    public interface IStallViewForStaff
     {
         // Properties - Fields
         int StallId { get; set; }
         string Code { get; set; }
         StallStatus Status { get; set; }
-        String Type { get; set; }
+        string Type { get; set; }
         float StallSize { get; set; }
         decimal MonthlyFee { get; set; }
         string StallLocation { get; set; }
@@ -23,17 +23,11 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         // Events
         event EventHandler SearchEvent;
         event EventHandler ViewEvent;
-        event EventHandler AddNewEvent;
-        event EventHandler DeleteEvent;
-        event EventHandler SaveOrUpdateEvent;
 
         // Methods
         void SetStallListBindingSource(BindingSource stallList);
 
         ListBox ImageListBox { get; }
         PictureBox ImagePictureBox { get; }
-        Button AddImageButton { get; }
-        Button RemoveImageButton { get; }
-        OpenFileDialog OpenFileDialog { get; }
     }
 }

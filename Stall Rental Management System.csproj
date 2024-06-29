@@ -203,8 +203,9 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\ProfilePresenter.cs" />
     <Compile Include="Presenters\StaffPresenter.cs" />
+    <Compile Include="Presenters\StallPresenterForStaff.cs" />
     <Compile Include="Presenters\VendorPresenter.cs" />
-    <Compile Include="Presenters\StallPresenter.cs" />
+    <Compile Include="Presenters\StallPresenterForManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -260,11 +261,23 @@
     <Compile Include="Views\FrmStaff.Designer.cs">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FrmStall.cs">
+    <Compile Include="Views\FrmStallForManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FrmStall.Designer.cs">
-      <DependentUpon>FrmStall.cs</DependentUpon>
+    <Compile Include="Views\FrmStallForManager.Designer.cs">
+      <DependentUpon>FrmStallForManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmStallForStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmStallForStaff.Designer.cs">
+      <DependentUpon>FrmStallForStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrmVendor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmVendor.Designer.cs">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Panel Forms\FrmManagerPanel.cs">
       <SubType>Form</SubType>
@@ -284,16 +297,11 @@
     <Compile Include="Views\Panel Forms\FrmVendorPanel.Designer.cs">
       <DependentUpon>FrmVendorPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FrmVendor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FrmVendor.Designer.cs">
-      <DependentUpon>FrmVendor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
-    <Compile Include="Views\View Interfaces\IStallView.cs" />
+    <Compile Include="Views\View Interfaces\IStallViewForManager.cs" />
+    <Compile Include="Views\View Interfaces\IStallViewForStaff.cs" />
     <Compile Include="Views\View Interfaces\IVendorView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -315,17 +323,20 @@
     <EmbeddedResource Include="Views\FrmStaff.resx">
       <DependentUpon>FrmStaff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FrmStall.resx">
-      <DependentUpon>FrmStall.cs</DependentUpon>
+    <EmbeddedResource Include="Views\FrmStallForManager.resx">
+      <DependentUpon>FrmStallForManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmStallForStaff.resx">
+      <DependentUpon>FrmStallForStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmVendor.resx">
+      <DependentUpon>FrmVendor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Panel Forms\FrmManagerPanel.resx">
       <DependentUpon>FrmManagerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Panel Forms\FrmStaffPanel.resx">
       <DependentUpon>FrmStaffPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\FrmVendor.resx">
-      <DependentUpon>FrmVendor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>

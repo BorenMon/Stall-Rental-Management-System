@@ -8,19 +8,19 @@ namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
 {
     public static class StaffNavigateHelper
     {
-        public static void NavigateToStaffForm(Form currentForm, AuthenticationService authService)
+        public static void NavigateToVendorForm(Form currentForm, AuthenticationService authService)
         {
-            var staffRepository = new StaffRepository();
-            var staffForm = new FrmStaff(staffRepository, authService);
-            staffForm.Show();
+            var vendorRepository = new VendorRepository();
+            var vendorForm = new FrmVendor(vendorRepository, authService);
+            vendorForm.Show();
             currentForm.Hide();
-            staffForm.FormClosed += (s, args) => currentForm.Close();
+            vendorForm.FormClosed += (s, args) => currentForm.Close();
         }
         
         public static void NavigateToStallForm(Form currentForm, AuthenticationService authService)
         {
-            var repository = new StallRepository();
-            var form = new FrmStall(repository, authService);
+            var repo = new StallRepository();
+            var form = new FrmStallForStaff(repo, authService);
             form.Show();
             currentForm.Hide();
             form.FormClosed += (s, args) => currentForm.Close();

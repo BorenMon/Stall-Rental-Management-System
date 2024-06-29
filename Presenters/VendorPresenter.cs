@@ -1,225 +1,185 @@
-﻿using Minio.DataModel.Args;
-using Stall_Rental_Management_System.Models;
-using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
-using Stall_Rental_Management_System.Utils;
-using Stall_Rental_Management_System.Views.View_Interfaces;
-
+﻿using Stall_Rental_Management_System.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Presenters.Common;
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Utils;
+using Stall_Rental_Management_System.Views;
 
 namespace Stall_Rental_Management_System.Presenters
 {
-    internal class VendorPresenter
+    public class VendorPresenter
     {
-        private readonly IVendorView _vendorView;
-        private readonly IVendorRepository _vendorRepository;
+        // Fields
+        private readonly FrmVendor _view;
+        private readonly VendorRepository _repository;
+        private readonly BindingSource _vendorsBindingSource;
+        private IEnumerable<VendorModel> _vendorList;
 
-        public VendorPresenter(IVendorView vendorView, IVendorRepository vendorRepository)
+        // Constructor
+        public VendorPresenter(FrmVendor view, VendorRepository repository)
         {
-            var bindingSource = new BindingSource();
-            _vendorView = vendorView;
-            _vendorRepository = vendorRepository;
-            // set Data
-            bindingSource.DataSource = GetAllVendors();
-            _vendorView.SetVendorBidingSource(bindingSource);
-            // button action
-            _vendorView.SaveVendor += SaveVendor;
-            _vendorView.SearchVendor += SearchVendorById;
-            _vendorView.DeleteVendor += DeleteVendorById;
-            _vendorView.UpdateVendor += UpdateVendorById;
+            _vendorsBindingSource = new BindingSource();
+            _view = view;
+            _repository = repository;
 
+            // Subscribe event handler methods to view events
+            _view.SearchEvent += SearchVendor;
+            _view.UploadProfileEvent += UploadVendorProfile;
+            _view.AddNewEvent += AddNewVendor;
+            _view.DeleteEvent += DeleteSelectedVendor;
+            _view.SaveOrUpdateEvent += SaveOrUpdateVendor;
+            _view.ViewEvent += ViewVendor;
+
+            // Set vendors binding source
+            _view.SetVendorListBindingSource(_vendorsBindingSource);
+
+            // Load vendor list view
+            LoadAllVendorList();
         }
 
-        private async void UpdateVendorById(object sender, EventArgs e)
+        private async void UploadVendorProfile(object sender, EventArgs e)
         {
-            
-            var model = new VendorModel
+            using (var openFileDialog = new OpenFileDialog())
             {
-                VendorID = _vendorView.VendorId
+                openFileDialog.Filter = @"Image files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+                var selectedFileName = openFileDialog.FileName;
+
+                // Compress the image before uploading
+                var compressedFileStream = ImageHelper.CompressImage(selectedFileName);
+
+                var objectName = "profile/" + MinIoUtil.GenerateRandomObjectName("vendor_profile", 15);
+                var contentType = MinIoUtil.GetContentType(selectedFileName);
+                const string bucketName = "srms";
+
+                MinIoUtil.InitMinioClient();
+                await MinIoUtil.UploadFileAsync(objectName, compressedFileStream, contentType, bucketName);
+
+                _view.CurrentProfileImageObjectName = objectName;
+                _view.ProfileImageUrl = objectName;
+            }
+        }
+
+        private void ViewVendor(object sender, EventArgs e)
+        {
+            _view.IsEdit = true;
+            LoadSelectedVendor();
+        }
+
+        private void LoadAllVendorList()
+        {
+            _vendorList = _repository.GetAll();
+            _vendorsBindingSource.DataSource = _vendorList; // Set data source
+        }
+        private void SearchVendor(object sender, EventArgs e)
+        {
+            var emptyValue = string.IsNullOrWhiteSpace(this._view.SearchValue);
+            _vendorList = emptyValue==false ? _repository.GetByValue(this._view.SearchValue) : _repository.GetAll();
+            _vendorsBindingSource.DataSource = _vendorList;
+        }
+
+        private void SaveOrUpdateVendor(object sender, EventArgs e)
+        {
+            var vendor = new VendorModel
+            {
+                ProfileImageUrl = _view.CurrentProfileImageObjectName,
+                LastNameEn = _view.LastNameEn,
+                FirstNameEn = _view.FirstNameEn,
+                LastNameKh = _view.LastNameKh,
+                FirstNameKh = _view.FirstNameKh,
+                BirthDate = _view.BirthDate,
+                Gender = _view.Gender,
+                Email = _view.Email,
+                PhoneNumber = _view.PhoneNumber,
+                Password = _view.Password,
+                Address = _view.Address
             };
-            //vendorModel.VendorID = this.vendorView.VendorID;
-            if (_vendorView.ProfileUrl != null)
-            {
-                model.ProfileUrl
-                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(_vendorView.ProfileUrl);
-            }
-            else
-            {
-                model.ProfileUrl = "None";
-            }
-            model.LastNameEN = _vendorView.LastNameEn;
-            model.FirstNameEN = _vendorView.FirstNameEn;
-            model.LastNameKH = _vendorView.LastNameKh;
-            model.FirstNameKH = _vendorView.FirstNameKh;
-            model.BirthDate = _vendorView.BirthDate;
-            model.Email = _vendorView.Email;
-            model.Password = _vendorView.Password;
-            model.PhoneNumber = _vendorView.PhoneNumber;
-            model.Address = _vendorView.Address;
-            model.Gender = _vendorView.Gender;
-            _vendorRepository.Update(model);
-            if (_vendorView.ProfileUrl != null)
-            {
-                await UploadFileToMinIo(_vendorView.ProfileUrl, model.ProfileUrl);
-            }
-        }
-
-        private void DeleteVendorById(object sender, EventArgs e)
-        {
-            _vendorRepository.Delete(_vendorView.VendorId);
-            DeleteFileFromMinIo(_vendorView.ProfileUrl);
-        }
-
-        private void SearchVendorById(object sender, EventArgs e)
-        {
-            var vendor = _vendorRepository.GetByID(_vendorView.VendorId);
-            
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = vendor;
-            //MessageBox.Show(bindingSource.Count.ToString());
-            _vendorView.SetVendorBidingSource(bindingSource);
-        }
-
-        private async void SaveVendor(object sender, EventArgs e)
-        {
-
-            VendorModel vendorModel = new VendorModel();
-
-            //vendorModel.VendorID = this.vendorView.VendorID;
-            if (_vendorView.ProfileUrl != null)
-            {
-                vendorModel.ProfileUrl 
-                    = "vendor_profile_" + new Random().Next() + "_" + Path.GetFileName(_vendorView.ProfileUrl);
-            } else{
-                vendorModel.ProfileUrl = "None";
-            }
-            vendorModel.LastNameEN = _vendorView.LastNameEn;
-            vendorModel.FirstNameEN = _vendorView.FirstNameEn;
-            vendorModel.LastNameKH = _vendorView.LastNameKh;
-            vendorModel.FirstNameKH = _vendorView.FirstNameKh;
-            vendorModel.BirthDate = _vendorView.BirthDate;
-            vendorModel.Gender = _vendorView.Gender;
-            vendorModel.Email = _vendorView.Email;
-            vendorModel.PhoneNumber = _vendorView.PhoneNumber;
-            vendorModel.Password = _vendorView.Password;
-            vendorModel.Address  = _vendorView.Address;
-            _vendorRepository.Add(vendorModel);
-            if(_vendorView.ProfileUrl != null)
-            {
-                await UploadFileToMinIo(_vendorView.ProfileUrl, vendorModel.ProfileUrl);
-            }
-        }
-
-        private IEnumerable<VendorModel> GetAllVendors() {
-            //MessageBox.Show((this.vendorRepository.GetAll().Count()).ToString());
-            return this._vendorRepository.GetAll();
-        }
-        public IEnumerable<VendorModel> ReloadDatabase(IVendorRepository vendorRepository)
-        {
-            return vendorRepository.GetAll();
-        }
-        public static string GetFileNameFromMinIoUrl(string minioUrl)
-        {
             try
             {
-                // Parse the URL
-                var uri = new Uri(minioUrl);
-
-                // Get the path part of the URL
-                var path = uri.AbsolutePath;
-
-                // Decode the URL-encoded path
-                var decodedPath = Uri.UnescapeDataString(path);
-
-                // The object name is typically after the last '/' in the path
-                var segments = decodedPath.Split('/');
-
-                // The file name should be the last segment
-                var fileName = segments[segments.Length - 1];
-
-                // Remove any query parameters if present
-                var indexOfQuestionMark = fileName.IndexOf('?');
-                if (indexOfQuestionMark != -1)
+                ModelDataValidation.Validate(vendor);
+                if (!int.TryParse(_view.VendorId, out var vendorId))
                 {
-                    fileName = fileName.Substring(0, indexOfQuestionMark);
+                    vendorId = 0; // Set default value if parsing fails
                 }
+                _repository.InsertOrUpdate(vendor, vendorId, _view.IsPasswordChanged);
+                _view.Message = _view.IsEdit ? "Vendor edited successfully" : "Vendor added successfully";
 
-                return fileName;
+                _view.IsSuccessful = true;
+                LoadAllVendorList();
+                CleanViewFields();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($@"Error parsing MinIO URL: {ex.Message}");
-                return null;
+                _view.IsSuccessful = false;
+                _view.Message = ex.Message;
             }
         }
-        private async Task UploadFileToMinIo(string selectedFilePath, string fileName)
+
+        private void CleanViewFields()
         {
-            string bucketName = "srms";
-            string folderName = "profile"; // Specify the folder name here
-            string objectName = $"{folderName}/{fileName}"; // Construct the full object name including the folder
-
-            try
-            {
-                await MinIoUtil
-                    .GetMinioClient()
-                    .PutObjectAsync(new PutObjectArgs()
-                        .WithBucket(bucketName)
-                        .WithObject(objectName)
-                        .WithFileName(selectedFilePath));
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public static async Task<string> GetPreviewPictureUrlFromMinIo(string fileName)
-        {
-            const string bucketName = "srms";
-            const string folderName = "profile"; // Specify the folder name here
-            var objectName = $"{folderName}/{fileName}"; // Construct the full object name including the folder
-            try
-            {
-                // Generate a presigned URL for the uploaded file
-                var url = await MinIoUtil.GetMinioClient()
-                    .PresignedGetObjectAsync(new PresignedGetObjectArgs()
-                .WithBucket(bucketName)
-                        .WithObject(objectName)
-                        .WithExpiry(24 * 60 * 60)); // URL valid for 24 hours
-                return url;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
+            _view.VendorId = "Auto Generate";
+            _view.CurrentProfileImageObjectName = null;
+            _view.ProfileImageUrl = "";
+            _view.LastNameEn = null;
+            _view.FirstNameEn = null;
+            _view.LastNameKh = null;
+            _view.FirstNameKh = null;
+            _view.BirthDate = DateTime.Now.Date;
+            _view.Gender = Gender.FEMALE;
+            _view.Email = null;
+            _view.PhoneNumber = null;
+            _view.Password = null;
+            _view.Address = null;
         }
 
-        private static async void DeleteFileFromMinIo(string fileName)
+        private void DeleteSelectedVendor(object sender, EventArgs e)
         {
-   
-            const string bucketName = "srms";
-            const string folderName = "profile";
-
             try
             {
-                var objectName = $"{folderName}/{fileName}";
-
-                // Remove the file from MinIO
-                await MinIoUtil.GetMinioClient()
-                    .RemoveObjectAsync(new RemoveObjectArgs()
-                        .WithBucket(bucketName)
-                        .WithObject(objectName));
+                var vendor = (VendorModel)_vendorsBindingSource.Current;
+                _repository.Delete(vendor);
+                _view.IsSuccessful = true;
+                _view.Message = "Vendor deleted successfully";
+                LoadAllVendorList();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _view.IsSuccessful = false;
+                _view.Message = ex.Message;
             }
+        }
+
+        private void LoadSelectedVendor()
+        {
+            var vendor = (VendorModel)_vendorsBindingSource.Current;
+        
+            _view.VendorId = vendor.VendorId.ToString();
+            _view.ProfileImageUrl = vendor.ProfileImageUrl;
+            _view.LastNameKh = vendor.LastNameKh;
+            _view.FirstNameKh = vendor.FirstNameKh;
+            _view.LastNameEn = vendor.LastNameEn;
+            _view.FirstNameEn = vendor.FirstNameEn;
+            _view.BirthDate = vendor.BirthDate;
+            _view.Gender = vendor.Gender;
+            _view.Email = vendor.Email;
+            _view.PhoneNumber = vendor.PhoneNumber;
+            _view.Password = vendor.Password;
+            _view.Address = vendor.Address;
+
+            _view.IsPasswordChanged = false; // reset the flag after loading the staff details
+        }
+
+        private void AddNewVendor(object sender, EventArgs e)
+        {
+            _view.IsEdit = false;
+            CleanViewFields();
         }
     }
 }

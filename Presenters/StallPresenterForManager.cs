@@ -7,23 +7,22 @@ using Stall_Rental_Management_System.Presenters.Common;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Views;
 using Stall_Rental_Management_System.Models;
-using System.IO;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Utils;
 
 
 namespace Stall_Rental_Management_System.Presenters
 {
-    public class StallPresenter
+    public class StallPresenterForManager
     {
         // Fields
-        private readonly FrmStall _view;
+        private readonly FrmStallForManager _view;
         private readonly StallRepository _repository;
         private readonly BindingSource _stallsBindingSource;
         private IEnumerable<StallModel> _stallList;
 
         // Constructor
-        public StallPresenter(FrmStall view, StallRepository repository)
+        public StallPresenterForManager(FrmStallForManager view, StallRepository repository)
         {
             _stallsBindingSource = new BindingSource();
             _view = view;
