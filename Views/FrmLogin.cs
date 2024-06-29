@@ -1,54 +1,53 @@
-﻿using Minio.DataModel.Args;
-using Minio;
-using Stall_Rental_Management_System.Utils;
-using System;
-using System.Data.SqlClient;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Helpers;
+using Stall_Rental_Management_System.Helpers.DesignHelpers;
+using Stall_Rental_Management_System.Presenters;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Services.Service_Interfaces;
+using Stall_Rental_Management_System.Views.View_Interfaces;
 
-namespace Stall_Rental_Management_System
+namespace Stall_Rental_Management_System.Views
 {
-    public partial class FrmLogin : Form
+    public partial class FrmLogin : Form, ILoginView
     {
-        private readonly MinioClient minio;
-        private readonly SqlConnection dbConn;
+        private readonly LoginPresenter _presenter;
 
-        public FrmLogin()
+        public FrmLogin(AuthenticationService authService)
         {
             InitializeComponent();
-            minio = MinIOUtil.GetMinioClient();
-            dbConn = DatabaseUtil.GetConn();
-            TestMinio();
-            TestDatabase();
-        }
+            _presenter = new LoginPresenter(this, authService);
 
-        private void TestMinio()
-        {
-            var bucketName = "srms";
+            comboBoxUserType.DataSource = EnumHelper.GetEnumDisplayNames<UserType>();
+            comboBoxUserType.DisplayMember = "Value";
+            comboBoxUserType.ValueMember = "Key";
 
-            ListObjectsArgs args = new ListObjectsArgs()
-                .WithBucket(bucketName);
-
-            var observable = minio.ListObjectsAsync(args);
-
-            var subscription = observable.Subscribe(
-                item => Console.WriteLine($"Object: {item.Key}"),
-                ex => Console.WriteLine($"OnError: {ex}"),
-                () => Console.WriteLine($"Listed all objects in bucket {bucketName}\n")
-            );
-        }
-
-        private void TestDatabase()
-        {
-            dbConn.Open();
-            // Perform database operations
-            SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'", dbConn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            textBoxPhoneNumber.KeyPress += (sender, e) =>
             {
-                string tableName = reader["TABLE_NAME"].ToString();
-                Console.WriteLine(tableName);
-            }
-            dbConn.Close();
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidateKeypress(textBox, e);
+            };
+            textBoxPhoneNumber.TextChanged += (sender, e) =>
+            {
+                var textBox = (TextBox)sender;
+                PhoneNumberValidationHelper.ValidatePaste(textBox);
+            };
+        }
+
+        public string PhoneNumber => textBoxPhoneNumber.Text;
+        public string Password => textBoxPassword.Text;
+        public UserType SelectedUserType => (UserType)comboBoxUserType.SelectedValue;
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            _presenter.Login();
         }
     }
 }

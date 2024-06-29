@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
-using Stall_Rental_Management_System.Repository;
-using Stall_Rental_Management_System.Views.Supermarket_Contract_Forms;
-using Stall_Rental_Management_System.Views.Supermarket_Staff_Forms;
-using Stall_Rental_Management_System.Views.InvoiceForm;
+
+using Stall_Rental_Management_System.Repositories;
+using Stall_Rental_Management_System.Services;
+using Stall_Rental_Management_System.Services.Service_Interfaces;
+using Stall_Rental_Management_System.Testing;
+using Stall_Rental_Management_System.Utils;
+using Stall_Rental_Management_System.Views;
+using Stall_Rental_Management_System.Views.View_Interfaces;
+using Stall_Rental_Management_System.Views.Panel_Forms;
+using System.Configuration;
+using Stall_Rental_Management_System.Presenters;
+
 
 namespace Stall_Rental_Management_System
 {
@@ -13,15 +21,25 @@ namespace Stall_Rental_Management_System
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+          
 
-            Application.Run(new FrmInvoice1());
+            // Init MinIO Client
+            MinIoUtil.InitMinioClient();
+            
+            // Uncomment this line for testing purposes
+            TestSetup.SetupTestUser();
+            
+            var authService = new AuthenticationService();
+            // Application.Run(new FrmLogin(authService)); 
 
+            // var repo = new StallRepository();
+            Application.Run(new FrmStaffPanel(authService));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

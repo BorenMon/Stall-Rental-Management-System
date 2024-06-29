@@ -1,126 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Models
 {
     internal class ContractModel
     {
-        // field
-        private int contractID;
-        private string fileUrl;
-        private string code;
-        private string status;
-        private DateTime startDate;
-        private DateTime endDate;
-        //
-        // Relationship fields
-        private int stallId;
-        private int staffId;
-        private int vendorId;
-
-        // Relationships
-        //private StallModel stall;
-        //private StaffModel staff;
-        //private VendorModel vendor;
-
         // Properties
         [DisplayName("Contract ID")]
-        [Required(ErrorMessage ="Contract ID is required")]
-        public int Id
-        {
-            get { return contractID; }
-            set { contractID = value; }
-        }
+        public int ContractId { get; set; }
 
-        [StringLength(255)]
-        public string FileUrl
-        {
-            get { return fileUrl; }
-            set { fileUrl = value; }
-        }
-        [StringLength(8)]
-        public string Code
-        {
-            get { return code; }
-            set { code = value; }
-        }
+        [DisplayName("File URL")]
+        [Required(ErrorMessage = "File URL is required.")]
+        [StringLength(500, ErrorMessage = "File URL must be at most 500 characters.")]
+        public string FileUrl { get; set; }
 
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
+        [DisplayName("Code")]
+        [Required(ErrorMessage = "Code is required.")]
+        [StringLength(8, ErrorMessage = "Last Name (EN) must be at most 8 characters.")]
+        public string Code { get; set; }
 
-        public DateTime StartDate
-        {
-            get { return startDate; }
-            set { startDate = value; }
-        }
+        [DisplayName("Status")]
+        [Required(ErrorMessage = "Status is required.")]
+        public ContractStatus Status { get; set; }
 
-        public DateTime EndDate
-        {
-            get { return endDate; }
-            set { endDate = value; }
-        }
+        [DisplayName("Start Date")]
+        [Required(ErrorMessage = "Start Date is required.")]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
+        [DisplayName("End Date")]
+        [Required(ErrorMessage = "End Date is required.")]
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
+        [DisplayName("Stall ID")]
         [Required(ErrorMessage ="Stall ID is required.")]
-        public int StallId
-        {
-            get { return stallId; }
-            set { stallId = value; }
-        }
+        public int StallId { get; set; }
+
+        [DisplayName("Staff ID")]
         [Required(ErrorMessage = "Staff ID is required.")]
+        public int StaffId { get; set; }
 
-        public int StaffId
-        {
-            get { return staffId; }
-            set { staffId = value; }
-        }
+        [DisplayName("Vendor ID")]
         [Required(ErrorMessage = "Vendor ID is required.")]
-        public int VendorId
-        {
-            get { return vendorId; }
-            set { vendorId = value; }
-        }
-
-        //public StallModel Stall
-        //{
-        //    get { return stall; }
-        //    set { stall = value; }
-        //}
-
-        //public StaffModel Staff
-        //{
-        //    get { return staff; }
-        //    set { staff = value; }
-        //}
-
-        //public VendorModel Vendor
-        //{
-        //    get { return vendor; }
-        //    set { vendor = value; }
-        //}
-
-        // Constructor
-        public ContractModel() { }
-        public ContractModel(int contractID, string fileUrl,
-            string code, string status, DateTime startDate,
-            DateTime endDate, int stallId, int staffId, int vendorId)
-        {
-            this.contractID = contractID;
-            this.fileUrl = fileUrl;
-            this.code = code;
-            this.status = status;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.stallId = stallId;
-            this.staffId = staffId;
-            this.vendorId = vendorId;
-        }
-
+        public int VendorId { get; set; }
     }
 }
