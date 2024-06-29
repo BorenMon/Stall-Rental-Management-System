@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Utils;
@@ -11,64 +12,57 @@ namespace Stall_Rental_Management_System.Repositories
 {
     internal class ContractRepository : IContractRepository
     {
-        private SqlConnection sqlConnection;
-        //consructor
+        private readonly SqlConnection _sqlConnection;
+        //constructor
         public ContractRepository() {
             try
             {
-                sqlConnection = DatabaseUtil.GetConnection();
-            }catch (Exception ex) {
+                _sqlConnection = DatabaseUtil.GetConnection();
+            }
+            catch (Exception ex) 
+            {
                 MessageBox.Show(ex.Message, @"SQL Connection", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
         public void Add(ContractModel contractModel)
         {
-            openDatabaseConnection();
-            string sql = @"INSERT INTO tbContract
-                         (FileUrl,Code, Status, StartDate, EndDate, StallID, VendorID, StaffID)
+            OpenDatabaseConnection();
+            const string sql = @"INSERT INTO tbContract
+                         (FileURL, Code, Status, StartDate, EndDate, StallID, VendorID, StaffID)
                           VALUES(
                           @fileUrl, @contractCode, @status,
                           @startDate, @endDate, @stallID,
                           @vendorID, @staffID)";
-            using (var sqlCommand = new SqlCommand(sql, sqlConnection))
+            
+            using (var sqlCommand = new SqlCommand(sql, _sqlConnection))
             {
-                //MessageBox.Show(contractModel.FileUrl);
-                sqlCommand.Parameters.AddWithValue("@fileUrl", contractModel.FileUrl);
-                sqlCommand.Parameters.AddWithValue("@contractCode", contractModel.Code);
-                sqlCommand.Parameters.AddWithValue("@status", contractModel.Status);
-                sqlCommand.Parameters.AddWithValue("@startDate", contractModel.StartDate.Date);
-                sqlCommand.Parameters.AddWithValue("@endDate", contractModel.EndDate.Date);
-                sqlCommand.Parameters.AddWithValue("@stallID", contractModel.StallId);
-                sqlCommand.Parameters.AddWithValue("@vendorID", contractModel.VendorId);
-                sqlCommand.Parameters.AddWithValue("@staffID", contractModel.StaffId);
-                //
+                sqlCommand.Parameters.Add("@fileUrl", SqlDbType.NVarChar).Value = contractModel.FileUrl;
+                sqlCommand.Parameters.Add("@contractCode", SqlDbType.VarChar).Value = contractModel.Code;
+                sqlCommand.Parameters.Add("@status", SqlDbType.VarChar).Value = contractModel.Status.ToString();
+                sqlCommand.Parameters.Add("@startDate", SqlDbType.DateTime).Value = contractModel.StartDate;
+                sqlCommand.Parameters.Add("@endDate", SqlDbType.DateTime).Value = contractModel.EndDate;
+                sqlCommand.Parameters.Add("@stallID", SqlDbType.Int).Value = contractModel.StallId;
+                sqlCommand.Parameters.Add("@vendorID", SqlDbType.Int).Value = contractModel.VendorId;
+                sqlCommand.Parameters.Add("@staffID", SqlDbType.Int).Value = contractModel.StaffId;
+
                 try
                 {
-                    int rowAffected = sqlCommand.ExecuteNonQuery();
-
-                    if (rowAffected > 0)
-                    {
-                        MessageBox.Show(@"Contract has been created successfully",
-                            @"Success",MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show(@"Cannot create new contract",
-                            @"Error", MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Error);
-                    }
+                    sqlCommand.ExecuteNonQuery();
+                    
+                    MessageBox.Show(@"Contract has been created successfully",
+                        @"Success",MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message,
-                        @"Error", MessageBoxButtons.YesNo,
+                        @"Error", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
 
             }
-            sqlConnection.Close();
+            _sqlConnection.Close();
         }
 
         public IEnumerable<ContractModel> GetAll()
@@ -76,125 +70,122 @@ namespace Stall_Rental_Management_System.Repositories
             var contractList = new List<ContractModel>();
             using (var sqlCommand = new SqlCommand())
             {
-                openDatabaseConnection();
+                OpenDatabaseConnection();
 
                 // 
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = @"SELECT * FROM tbContract 
-                                           WHERE Status = 'available'
-                                           ORDER BY ContractID DESC ";
+                sqlCommand.Connection = _sqlConnection;
+                sqlCommand.CommandText = @"SELECT * FROM tbContract ORDER BY ContractID DESC";
                 //
                 using(var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var contractModel = new ContractModel();
-                        contractModel.Id = (int) reader[0];
-                        contractModel.FileUrl = (string)reader[1];
-                        contractModel.Code = (string)reader[2];
-                        contractModel.Status = (string)reader[3];
-                        contractModel.StartDate = (DateTime)reader[4];
-                        contractModel.EndDate = (DateTime)reader[5];
-                        contractModel.StallId = (int)reader[6];
-                        contractModel.VendorId = (int)reader[7];
-                        contractModel.StaffId = (int)reader[8];
+                        var contractString = reader["Status"].ToString();
+                        Enum.TryParse(contractString, true, out ContractStatus status);
+                        
+                        var contractModel = new ContractModel
+                        {
+                            ContractId = (int) reader[0],
+                            FileUrl = (string)reader[1],
+                            Code = (string)reader[2],
+                            Status = status,
+                            StartDate = (DateTime)reader[4],
+                            EndDate = (DateTime)reader[5],
+                            StallId = (int)reader[6],
+                            VendorId = (int)reader[7],
+                            StaffId = (int)reader[8]
+                        };
                         contractList.Add(contractModel);
                     }
                 }
             }
-            sqlConnection.Close();
+            _sqlConnection.Close();
             return contractList;
         }
 
         public IEnumerable<int> GetAllStallID()
         {
             var allStallIDs = new List<int>();
-            using (var sqlCommand = new SqlCommand())
+            using (var sqlConnection = new SqlConnection(DatabaseUtil.GetConnectionString()))
+            using (var sqlCommand = new SqlCommand("SELECT StallID FROM tbStall WHERE Status = 'AVAILABLE'", sqlConnection))
             {
-                openDatabaseConnection();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "SELECT StallID FROM tbStall";
-                //
+                sqlConnection.Open();
                 using (var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        allStallIDs.Add((int)reader[0]);
+                        allStallIDs.Add(reader.GetInt32(0)); // Use GetInt32 method to get the int value
                     }
                 }
             }
-            //MessageBox.Show(allStallIDs.Count().ToString());
-            sqlConnection.Close ();
             return allStallIDs;
         }
+
         public IEnumerable<int> GetAllVendorID()
         {
-            openDatabaseConnection ();
             var allVendorIDs = new List<int>();
-            using (var sqlCommand = new SqlCommand())
+            using (var sqlConnection = new SqlConnection(DatabaseUtil.GetConnectionString()))
+            using (var sqlCommand = new SqlCommand("SELECT VendorID FROM tbVendor", sqlConnection))
             {
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "SELECT VendorID FROM tbVendor";
-                //
+                sqlConnection.Open();
                 using (var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        allVendorIDs.Add((int)reader[0]);
+                        allVendorIDs.Add(reader.GetInt32(0));
                     }
                 }
             }
-            sqlConnection.Close ();
-            //MessageBox.Show(allStallIDs.Count().ToString());
             return allVendorIDs;
-
         }
 
         public IEnumerable<ContractModel> GetByID(string id)
         {
-            //MessageBox.Show("Empty: " + string.IsNullOrWhiteSpace(id).ToString());
-            //MessageBox.Show( "ID : " + id);
             var contractList = new List<ContractModel>();
-            int contractID = int.TryParse(id, out _) ? Convert.ToInt32(id):0;
-            //using (var connectionSQLSever = DatabaseUtil.GetConn())
+            var contractId = int.TryParse(id, out _) ? Convert.ToInt32(id):0;
             using (var sqlCommand = new SqlCommand())
             {
-                sqlConnection.Open();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id
-                                           AND Status = 'available'";
+                _sqlConnection.Open();
+                sqlCommand.Connection = _sqlConnection;
+                sqlCommand.CommandText = @"SELECT * FROM tbContract WHERE ContractID=@id";
                 
                 //
-                sqlCommand.Parameters.Add("@id",SqlDbType.Int).Value = contractID;
+                sqlCommand.Parameters.Add("@id",SqlDbType.Int).Value = contractId;
                 //
                 using (var reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var contractModel = new ContractModel();
-                        contractModel.Id = (int)reader[0];
-                        contractModel.FileUrl = (string)reader[1];
-                        contractModel.Code = (string)reader[2];
-                        contractModel.Status = (string)reader[3];
-                        contractModel.StartDate = (DateTime)reader[4];
-                        contractModel.EndDate = (DateTime)reader[5];
-                        contractModel.StallId = (int)reader[6];
-                        contractModel.VendorId = (int)reader[7];
-                        contractModel.StaffId = (int)reader[8];
+                        var contractString = reader["Status"].ToString();
+                        Enum.TryParse(contractString, true, out ContractStatus status);
+                        
+                        var contractModel = new ContractModel
+                        {
+                            ContractId = (int)reader[0],
+                            FileUrl = (string)reader[1],
+                            Code = (string)reader[2],
+                            Status = status,
+                            StartDate = (DateTime)reader[4],
+                            EndDate = (DateTime)reader[5],
+                            StallId = (int)reader[6],
+                            VendorId = (int)reader[7],
+                            StaffId = (int)reader[8]
+                        };
                         contractList.Add(contractModel);
                     }
                 }
             }
-            sqlConnection.Close();
+            _sqlConnection.Close();
             return contractList;
         }
 
         public void Update(ContractModel contractModel)
         {
-            openDatabaseConnection();
+            Console.Write(contractModel.Status);
+            OpenDatabaseConnection();
             //
             // Create a command object
-            using (SqlCommand cmd = new SqlCommand("UpdateContract", sqlConnection))
+            using (SqlCommand cmd = new SqlCommand("UpdateContract", _sqlConnection))
             {
                 // Specify that the command is a stored procedure
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -202,25 +193,25 @@ namespace Stall_Rental_Management_System.Repositories
                 // Add the parameters
                 cmd.Parameters.Add(new SqlParameter("@FileURL", contractModel.FileUrl));
                 cmd.Parameters.Add(new SqlParameter("@Code", contractModel.Code));
-                cmd.Parameters.Add(new SqlParameter("@Status", contractModel.Status));
+                cmd.Parameters.Add(new SqlParameter("@Status", contractModel.Status.ToString()));
                 cmd.Parameters.Add(new SqlParameter("@StartDate", contractModel.StartDate));
                 cmd.Parameters.Add(new SqlParameter("@EndDate", contractModel.EndDate));
                 cmd.Parameters.Add(new SqlParameter("@StallID", contractModel.StallId));
                 cmd.Parameters.Add(new SqlParameter("@VendorID", contractModel.VendorId));
                 cmd.Parameters.Add(new SqlParameter("@StaffID", contractModel.StaffId));
-                cmd.Parameters.Add(new SqlParameter("@ContractID", contractModel.Id));
+                cmd.Parameters.Add(new SqlParameter("@ContractID", contractModel.ContractId));
 
                 // Execute the command
                 cmd.ExecuteNonQuery();
             }
-            sqlConnection.Close();
+            _sqlConnection.Close();
         }
         //
-        private void openDatabaseConnection()
+        private void OpenDatabaseConnection()
         {
             try
             {
-                sqlConnection.Open();
+                _sqlConnection.Open();
             }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,

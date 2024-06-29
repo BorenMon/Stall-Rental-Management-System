@@ -82,6 +82,7 @@
             this.buttonContracts.Text = "Contracts";
             this.buttonContracts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonContracts.UseVisualStyleBackColor = false;
+            this.buttonContracts.Click += new System.EventHandler(this.buttonContracts_Click);
             // 
             // buttonStalls
             // 

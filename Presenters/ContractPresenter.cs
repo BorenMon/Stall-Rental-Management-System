@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Minio.DataModel.Args;
 using Stall_Rental_Management_System.Models;
+using Stall_Rental_Management_System.Presenters.Common;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Utils;
@@ -14,78 +15,137 @@ namespace Stall_Rental_Management_System.Presenters
     internal class ContractPresenter
     {
         // Fields
-        private IContractView view;
-        private IContractRepository contractRepository;
-        private BindingSource contractBindingSource;
-        private IEnumerable<ContractModel> contractList;
+        private readonly IContractView _view;
+        private readonly IContractRepository _contractRepository;
+        private BindingSource _contractBindingSource;
+        private IEnumerable<ContractModel> _contractList;
 
         public ContractPresenter(IContractView view, IContractRepository contractRepository)
         {
-            contractBindingSource = new BindingSource();   
-            this.view = view;
-            this.contractRepository = contractRepository;
+            _contractBindingSource = new BindingSource();   
+            _view = view;
+            _contractRepository = contractRepository;
             //
 
-            this.view.SearchContract += SearchContractByID;
-            this.view.AddNewContract += AddNewContract;
-            this.view.SaveContract += SaveContract;
-            this.view.UpdateContract += UpadateContract;
-            // load all contract data;
-            contractBindingSource.DataSource = LoadAllContractData();
-            //            //get all contracts
-            this.view.SetContractBindingSource(contractBindingSource);
+            _view.SearchContract += SearchContractById;
+            _view.AddNewContract += AddNewContract;
+            _view.SaveContract += SaveContract;
+            _view.UpdateContract += UpdateContract;
+            _view.ViewEvent += ViewContract;
+
+            //get all contracts
+            _view.SetContractBindingSource(_contractBindingSource);
+            
             // get all stall ids
-            this.view.SetStallIdOnComboBox(GetAllStallIDs());
+            _view.SetStallIdOnComboBox(GetAllStallIDs());
             // get all vendor ids
-            this.view.SetVendorIdOnComboBox(GetAllVendorIDs());
+            _view.SetVendorIdOnComboBox(GetAllVendorIDs());
+            
+            LoadAllContractData();
         }
+
+        private void ViewContract(object sender, EventArgs e)
+        {
+            LoadSelectedContract();
+        }
+
+        private void LoadSelectedContract()
+        {
+            var contract = (ContractModel)_contractBindingSource.Current;
+
+            _view.ContractId = contract.ContractId.ToString();
+            _view.FileUrl = contract.FileUrl;
+            _view.Code = contract.Code;
+            _view.Status = contract.Status;
+            _view.StartDate = contract.StartDate;
+            _view.EndDate = contract.EndDate;
+            _view.StaffId = contract.StaffId;
+            _view.VendorId = contract.VendorId;
+            _view.StallId = contract.StallId;
+
+            // ContractId = contract.ContractId.ToString();
+            // FileUrl = contract.FileUrl;
+            // contractCodeText.Text = contract.Code;
+            // contractStatusComboBox.SelectedValue = contract.Status;
+            // startDateContract.Value = contract.StartDate;
+            // endDateConstract.Value = contract.EndDate;
+            // contractStallIDComboBox.Text = contract.StallId.ToString();
+            // contractVendorIDComboBox.Text = contract.VendorId.ToString();
+            // textBoxStaffId.Text = contract.StaffId.ToString();
+        }
+
         public ContractPresenter(ContractRepository contractRepository) {
-            this.contractRepository = contractRepository;
+            _contractRepository = contractRepository;
         }
         private IEnumerable<int> GetAllVendorIDs()
         {
-            return contractRepository.GetAllVendorID();
+            return _contractRepository.GetAllVendorID();
         }
 
         private IEnumerable<int> GetAllStallIDs()
         {
-            return contractRepository.GetAllStallID();
-
+            return _contractRepository.GetAllStallID();
         }
 
         private async void SaveContract(object sender, EventArgs e)
         {
-            var contract = setContractModelValue();
-            if (this.view.SeletedFilePath != null)
+            var contract = SetContractModelValue();
+            if (_view.SelectedFilePath != null)
             {
-                UploadFileToMinIO(this.view.SeletedFilePath, this.view.FileName);
-                contract.FileUrl = await GetGenerateURLFromMinIO(this.view.FileName);
+                UploadFileToMinIo(this._view.SelectedFilePath, _view.FileName);
+                contract.FileUrl = await GetGenerateUrlFromMinIo(_view.FileName);
             }
-            contractRepository.Add(contract);
+            
+            try
+            {
+                ModelDataValidation.Validate(contract);
+                _contractRepository.Add(contract);
+                
+                LoadAllContractData();
+                
+                _view.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                _view.IsSuccessful = false;
+                MessageBox.Show(ex.Message);
+            }
         }
+        
         // methods
-
-        public IEnumerable<ContractModel>  LoadAllContractData()
+        private void LoadAllContractData()
         {
-            return contractRepository.GetAll();
-            //contractBindingSource.DataSource = contractList;
+            _contractList = _contractRepository.GetAll();
+            _contractBindingSource.DataSource = _contractList;
         }
 
-        private async void UpadateContract(object sender, EventArgs e)
+        private async void UpdateContract(object sender, EventArgs e)
         {
-            var contract = setContractModelValue();
+            var contract = SetContractModelValue();
+            
+            try
+            {
+                ModelDataValidation.Validate(contract);
 
-            contract.Id = int.Parse(this.view.ContractId.ToString());
-            if (this.view.SeletedFilePath != null)
-            {
-                UploadFileToMinIO(this.view.SeletedFilePath, this.view.FileName);
-                contract.FileUrl = await GetGenerateURLFromMinIO(this.view.FileName);
+                contract.ContractId = int.Parse(_view.ContractId);
+                if (_view.SelectedFilePath != null)
+                {
+                    UploadFileToMinIo(_view.SelectedFilePath, _view.FileName);
+                    contract.FileUrl = await GetGenerateUrlFromMinIo(_view.FileName);
+                }
+                else
+                {
+                    contract.FileUrl = _view.FileUrl;
+                }
+                _contractRepository.Update(contract);
+                LoadAllContractData();
+                _view.IsSuccessful = true;
             }
-            else
+            catch (Exception ex)
             {
-                contract.FileUrl = this.view.FileUrl;
+                _view.IsSuccessful = false;
+                MessageBox.Show(ex.Message);
             }
-            contractRepository.Update(contract);
         }
 
         private void AddNewContract(object sender, EventArgs e)
@@ -93,44 +153,36 @@ namespace Stall_Rental_Management_System.Presenters
  
         }
 
-        private void SearchContractByID(object sender, EventArgs e)
+        private void SearchContractById(object sender, EventArgs e)
         {
-
-            contractList = contractRepository.GetByID(this.view.ContractId);
-            this.contractBindingSource = new BindingSource();
-            this.contractBindingSource.DataSource = contractList;
-            this.view.SetContractBindingSource(contractBindingSource);
+            _contractList = _contractRepository.GetByID(this._view.ContractId);
+            _contractBindingSource = new BindingSource();
+            _contractBindingSource.DataSource = _contractList;
+            _view.SetContractBindingSource(_contractBindingSource);
             //MessageBox.Show("Number of Search Found: " + contractList.Count().ToString());
         }
-        // conotructor
-        private ContractModel setContractModelValue()
+        // constructor
+        private ContractModel SetContractModelValue()
         {
-            ContractModel contract = new ContractModel();
-            if (this.view.SeletedFilePath == null)
+            var contract = new ContractModel();
+            if (_view.SelectedFilePath == null)
             {
-                if (this.view.FileUrl == null)
-                {
-                    contract.FileUrl = "google.com";
-                }
-                else
-                {
-                    contract.FileUrl = this.view.FileUrl;
-                }
+                contract.FileUrl = _view.FileUrl ?? "";
             }
-            //
-            contract.Code = this.view.Code;
-            contract.Status = this.view.Status;
-            contract.StartDate = this.view.StartDate;
-            contract.EndDate = this.view.EndDate;
-            contract.VendorId = this.view.VendorId;
-            contract.StallId = this.view.StallId;
-            contract.StaffId = this.view.StaffId;
+
+            contract.Code = _view.Code;
+            contract.Status = _view.Status;
+            contract.StartDate = _view.StartDate;
+            contract.EndDate = _view.EndDate;
+            contract.VendorId = _view.VendorId;
+            contract.StallId = _view.StallId;
+            contract.StaffId = _view.StaffId;
             return contract;
         }
-        private async void UploadFileToMinIO(string selectedFilePath,string fileName)
+        private static async void UploadFileToMinIo(string selectedFilePath,string fileName)
         {
 
-            string bucketName = "srms";
+            const string bucketName = "srms";
             try
             {
                 await MinIoUtil
@@ -147,15 +199,15 @@ namespace Stall_Rental_Management_System.Presenters
                     @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                     );
-            };
+            }
         }
-        private async Task<string> GetGenerateURLFromMinIO(string fileName)
+        private static async Task<string> GetGenerateUrlFromMinIo(string fileName)
         {
 
-            string bucketName = "srms";
+            const string bucketName = "srms";
             // get Url file from minio
             // Generate the presigned URL with the maximum allowed expiration time (7 days)
-            string url = await MinIoUtil.GetMinioClient()
+            var url = await MinIoUtil.GetMinioClient()
                 .PresignedGetObjectAsync(new PresignedGetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(fileName)
@@ -163,5 +215,4 @@ namespace Stall_Rental_Management_System.Presenters
             return url;
         }
     }
-
 }
