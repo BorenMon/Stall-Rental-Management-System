@@ -195,6 +195,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -210,6 +211,8 @@
     <Compile Include="Presenters\StallPresenterForStaff.cs" />
     <Compile Include="Presenters\VendorPresenter.cs" />
     <Compile Include="Presenters\StallPresenterForManager.cs" />
+    <Compile Include="Presenter\IInvoiceView.cs" />
+    <Compile Include="Presenter\InvoicePresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -243,6 +246,9 @@
     <Compile Include="Views\FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repository\IInvoiceRepository.cs" />
+    <Compile Include="Repository\InvoiceRepository.cs" />
+    <Compile Include="Utils\MinIOObjectNameUtil.cs" />
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -408,5 +414,6 @@
     <None Include="Resources\image_placeholder.png" />
     <Content Include="Resources\search_normal.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
