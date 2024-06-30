@@ -25,6 +25,15 @@ namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
             form.FormClosed += (s, args) => currentForm.Close();
         }
         
+        public static void NavigateToInvoiceForm(Form currentForm, AuthenticationService authService)
+        {
+            var repo = new InvoiceRepository();
+            var form = new FrmInvoice(repo, authService);
+            form.Show();
+            currentForm.Hide();
+            form.FormClosed += (s, args) => currentForm.Close();
+        }
+        
         public static void NavigateToStallForm(Form currentForm, AuthenticationService authService)
         {
             var repo = new StallRepository();

@@ -41,13 +41,11 @@ namespace Stall_Rental_Management_System.Views
         private void Customize()
         {
             panelDetail.Enabled = false;
-
-            // Assuming comboBoxType is your ComboBox control
+            
             comboBoxType.DisplayMember = "DisplayName";
             comboBoxType.ValueMember = "Value";
             comboBoxType.Items.Add(new { DisplayName = "Select", Value = string.Empty });
-
-            // Add other items
+            
             foreach (StallType stallType in Enum.GetValues(typeof(StallType)))
             {
                 comboBoxType.Items.Add(new { DisplayName = EnumHelper.GetDisplayName(stallType), Value = stallType.ToString() });

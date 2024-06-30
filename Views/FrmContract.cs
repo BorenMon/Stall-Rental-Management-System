@@ -87,7 +87,7 @@ namespace Stall_Rental_Management_System.Views
         public ContractStatus Status
         {
             get => (ContractStatus)contractStatusComboBox.SelectedValue;
-            set => contractStatusComboBox.SelectedValue = value;
+            set => contractStatusComboBox.SelectedValue = (int)value;
         }
         public DateTime StartDate
         {
@@ -126,7 +126,6 @@ namespace Stall_Rental_Management_System.Views
         public event EventHandler SaveContract;
         public event EventHandler SearchContract;
         public event EventHandler UpdateContract;
-        public event EventHandler AddNewContract;
         public event EventHandler ViewEvent;
 
         public void SetContractBindingSource(BindingSource contractList)

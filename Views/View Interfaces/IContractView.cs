@@ -30,9 +30,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
 
         // Event to handle contract update button click
         event EventHandler UpdateContract;
-
-        // Event to handle add new contract button click
-        event EventHandler AddNewContract;
+        
         event EventHandler ViewEvent;
 
         //methods

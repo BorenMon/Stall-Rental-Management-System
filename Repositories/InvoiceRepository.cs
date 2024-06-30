@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Stall_Rental_Management_System.Enums;
-using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Repositories.Repository_Interfaces;
 using Stall_Rental_Management_System.Utils;
@@ -19,39 +18,23 @@ namespace Stall_Rental_Management_System.Repositories
         }
         
         // Methods
-        public void InsertOrUpdate(InvoiceModel model, int primaryKey)
-        {
-            // using (var connection = new SqlConnection(connectionString))
-            // using (var command = new SqlCommand("spInsertOrUpdateStaff", connection))
-            // {
-            //     command.CommandType = CommandType.StoredProcedure;
-            //     command.Parameters.Add("@staff_id", SqlDbType.Int).Value = primaryKey;
-            //     command.Parameters.Add("@last_name_kh", SqlDbType.NVarChar).Value = model.LastNameKh;
-            //     command.Parameters.Add("@first_name_kh", SqlDbType.NVarChar).Value = model.FirstNameKh;
-            //     command.Parameters.Add("@last_name_en", SqlDbType.VarChar).Value = model.LastNameEn;
-            //     command.Parameters.Add("@first_name_en", SqlDbType.VarChar).Value = model.FirstNameEn;
-            //     command.Parameters.Add("@birth_date", SqlDbType.DateTime).Value = model.BirthDate;
-            //     command.Parameters.Add("@gender", SqlDbType.VarChar).Value = model.Gender.ToString();
-            //     command.Parameters.Add("@email", SqlDbType.VarChar).Value = model.Email;
-            //     command.Parameters.Add("@position", SqlDbType.VarChar).Value = model.Position.ToString();
-            //     command.Parameters.Add("@address", SqlDbType.VarChar).Value = model.Address;
-            //     command.Parameters.Add("@phone_number", SqlDbType.VarChar).Value = model.PhoneNumber;
-            //     command.Parameters.Add("@password", SqlDbType.VarChar).Value = model.Password;
-            //     command.Parameters.Add("@profile_image_url", SqlDbType.VarChar).Value = model.ProfileImageUrl;
-            //
-            //     connection.Open();
-            //     command.ExecuteNonQuery();
-            // }
-        }
-
-        public void Delete(InvoiceModel model)
+        public void InsertOrUpdate(InvoiceModel model)
         {
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("spDeleteStaff", connection))
+            using (var command = new SqlCommand("spInsertOrUpdateInvoice", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@StaffID", SqlDbType.Int).Value = model.StaffId;
-        
+                command.Parameters.AddWithValue("@InvoiceID", model.InvoiceId);
+                command.Parameters.AddWithValue("@InvoiceNo", model.InvoiceNo);
+                command.Parameters.AddWithValue("@IssuedDate", model.IssuedDate);
+                command.Parameters.AddWithValue("@RentFee", model.RentFee);
+                command.Parameters.AddWithValue("@ElectricityCost", model.ElectricityCost);
+                command.Parameters.AddWithValue("@WaterCost", model.WaterCost);
+                command.Parameters.AddWithValue("@TotalAmount", model.TotalAmount);
+                command.Parameters.AddWithValue("@Status", model.Status);
+                command.Parameters.AddWithValue("@ContractID", model.ContractId);
+                command.Parameters.AddWithValue("@StaffID", model.StaffId);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -65,31 +48,26 @@ namespace Stall_Rental_Management_System.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM vStaffs ORDER BY StaffID ASC";
+                command.CommandText = "SELECT * FROM tbInvoice ORDER BY InvoiceID ASC";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var genderString = reader["Gender"].ToString();
-                        Enum.TryParse(genderString, true, out Gender gender);
-                        var positionString = reader["Position"].ToString();
-                        Enum.TryParse(positionString, true, out StaffPosition position);
+                        var statusString = reader["Status"].ToString();
+                        Enum.TryParse(statusString, true, out InvoiceStatus status);
                         
                         var invoice = new InvoiceModel
                         {
-                            // StaffId = (int)reader["StaffID"],
-                            // ProfileImageUrl = reader["ProfileImageURL"].ToString(),
-                            // LastNameKh = reader["LastNameKH"].ToString(),
-                            // FirstNameKh = reader["FirstNameKH"].ToString(),
-                            // LastNameEn = reader["LastNameEN"].ToString(),
-                            // FirstNameEn = reader["FirstNameEN"].ToString(),
-                            // BirthDate = (DateTime)reader["BirthDate"],
-                            // Gender = gender,
-                            // Email = reader["Email"].ToString(),
-                            // Position = position,
-                            // PhoneNumber = reader["PhoneNumber"].ToString(),
-                            // Password = reader["Password"].ToString(),
-                            // Address = reader["Address"].ToString()
+                            InvoiceId = (int)reader["InvoiceID"],
+                            InvoiceNo = reader["InvoiceNo"].ToString(),
+                            IssuedDate = (DateTime)reader["IssuedDate"],
+                            RentFee = (decimal)reader["RentFee"],
+                            ElectricityCost = (decimal)reader["ElectricityCost"],
+                            WaterCost = (decimal)reader["WaterCost"],
+                            TotalAmount = (decimal)reader["TotalAmount"],
+                            Status = status,
+                            ContractId = (int)reader["ContractId"],
+                            StaffId = (int)reader["StaffId"]
                         };
                         list.Add(invoice);
                     }
@@ -102,40 +80,32 @@ namespace Stall_Rental_Management_System.Repositories
         public IEnumerable<InvoiceModel> GetByValue(string value)
         {
             var list = new List<InvoiceModel>();
-            var staffId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("spGetStaffsByValue", connection))
+            using (var command = new SqlCommand("spGetInvoicesByValue", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = staffId;
-                command.Parameters.Add("@name_en", SqlDbType.VarChar).Value = value;
-                command.Parameters.Add("@name_kh", SqlDbType.NVarChar).Value = value;
+                command.Parameters.Add("@InvoiceNo", SqlDbType.VarChar).Value = value;
 
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var genderString = reader["Gender"].ToString();
-                        Enum.TryParse(genderString, true, out Gender gender);
-                        var positionString = reader["Position"].ToString();
-                        Enum.TryParse(positionString, true, out StaffPosition position);
-
+                        var statusString = reader["Status"].ToString();
+                        Enum.TryParse(statusString, true, out InvoiceStatus status);
+                        
                         var invoice = new InvoiceModel
                         {
-                            // StaffId = (int)reader["StaffID"],
-                            // ProfileImageUrl = reader["ProfileImageURL"].ToString(),
-                            // LastNameKh = reader["LastNameKH"].ToString(),
-                            // FirstNameKh = reader["FirstNameKH"].ToString(),
-                            // LastNameEn = reader["LastNameEN"].ToString(),
-                            // FirstNameEn = reader["FirstNameEN"].ToString(),
-                            // BirthDate = (DateTime)reader["BirthDate"],
-                            // Gender = gender,
-                            // Email = reader["Email"].ToString(),
-                            // Position = position,
-                            // PhoneNumber = reader["PhoneNumber"].ToString(),
-                            // Password = reader["Password"].ToString(),
-                            // Address = reader["Address"].ToString()
+                            InvoiceId = (int)reader["InvoiceID"],
+                            InvoiceNo = reader["InvoiceNo"].ToString(),
+                            IssuedDate = (DateTime)reader["IssuedDate"],
+                            RentFee = (decimal)reader["RentFee"],
+                            ElectricityCost = (decimal)reader["ElectricityCost"],
+                            WaterCost = (decimal)reader["WaterCost"],
+                            TotalAmount = (decimal)reader["TotalAmount"],
+                            Status = status,
+                            ContractId = (int)reader["ContractId"],
+                            StaffId = (int)reader["StaffId"]
                         };
                         list.Add(invoice);
                     }
@@ -143,6 +113,35 @@ namespace Stall_Rental_Management_System.Repositories
             }
 
             return list;
+        }
+        
+        public static IEnumerable<Contract> GetAllContracts()
+        {
+            var contracts = new List<Contract>();
+            using (var sqlConnection = new SqlConnection(DatabaseUtil.GetConnectionString()))
+            using (var sqlCommand = new SqlCommand("SELECT c.ContractID, c.Code, c.Status, s.MonthlyFee AS RentFee " +
+                                                   "FROM tbContract c " +
+                                                   "INNER JOIN tbStall s ON c.StallID = s.StallID", sqlConnection))
+            {
+                sqlConnection.Open();
+                using (var reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var statusString = reader["Status"].ToString();
+                        Enum.TryParse(statusString, true, out ContractStatus status);
+                        
+                        contracts.Add(new Contract
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("ContractID")),
+                            Code = reader.GetString(reader.GetOrdinal("Code")),
+                            RentFee = reader.GetDecimal(reader.GetOrdinal("RentFee")),
+                            Status = status
+                        });
+                    }
+                }
+            }
+            return contracts;
         }
     }
 }

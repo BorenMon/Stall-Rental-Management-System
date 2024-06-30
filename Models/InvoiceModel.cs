@@ -45,11 +45,11 @@ namespace Stall_Rental_Management_System.Models
         
         [DisplayName("Contract ID")]
         [Required(ErrorMessage = "Contract ID is required.")]
-        public string ContractId { get; set; }
+        public int ContractId { get; set; }
         
         [DisplayName("Contract ID")]
         [Required(ErrorMessage = "Contract ID is required.")]
-        public string StaffId { get; set; }
+        public int StaffId { get; set; }
     }
 }
 

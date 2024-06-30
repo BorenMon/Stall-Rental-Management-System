@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
+using Stall_Rental_Management_System.Models;
 
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
@@ -22,9 +24,9 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         
         InvoiceStatus Status { get; set; }
 
-        string ContractId { get; set; }
+        int ContractId { get; set; }
 
-        string StaffId { get; set; }
+        int StaffId { get; set; }
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
@@ -37,6 +39,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         event EventHandler SaveOrUpdateEvent;
 
         // Methods
-        void SetInvoiceListBindingSource(BindingSource list);
+        void SetListBindingSource(BindingSource list);
+        void SetContractIdOnComboBox(IEnumerable<Contract> contracts);
     }
 }

@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
-using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Models;
 using Stall_Rental_Management_System.Presenters.Common;
 using Stall_Rental_Management_System.Repositories;
 using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views;
-
 
 namespace Stall_Rental_Management_System.Presenters
 {
@@ -29,17 +27,22 @@ namespace Stall_Rental_Management_System.Presenters
 
             // Subscribe event handler methods to view events
             _view.SearchEvent += SearchInvoice;
-            _view.UploadProfileEvent += UploadStaffProfile;
             _view.AddNewEvent += AddNewInvoice;
-            _view.DeleteEvent += DeleteSelectedInvoice;
             _view.SaveOrUpdateEvent += SaveOrUpdateInvoice;
             _view.ViewEvent += ViewInvoice;
 
             // Set binding source
-            _view.SetInvoiceListBindingSource(_bindingSource);
+            _view.SetListBindingSource(_bindingSource);
+            
+            _view.SetContractIdOnComboBox(GetAllContracts());
 
             // Load list view
             LoadAllInvoiceList();
+        }
+
+        private static IEnumerable<Contract> GetAllContracts()
+        {
+            return InvoiceRepository.GetAllContracts();
         }
 
         private void ViewInvoice(object sender, EventArgs e)
@@ -64,27 +67,22 @@ namespace Stall_Rental_Management_System.Presenters
         {
             var invoice = new InvoiceModel
             {
-                // ProfileImageUrl = _view.CurrentProfileImageObjectName,
-                // LastNameEn = _view.LastNameEn,
-                // FirstNameEn = _view.FirstNameEn,
-                // LastNameKh = _view.LastNameKh,
-                // FirstNameKh = _view.FirstNameKh,
-                // BirthDate = _view.BirthDate,
-                // Gender = _view.Gender,
-                // Email = _view.Email,
-                // Position = _view.Position,
-                // PhoneNumber = _view.PhoneNumber,
-                // Password = _view.Password,
-                // Address = _view.Address
+                InvoiceId = _view.InvoiceId,
+                InvoiceNo = _view.InvoiceNo,
+                IssuedDate = _view.IssuedDate,
+                RentFee = _view.RentFee,
+                ElectricityCost = _view.ElectricityCost,
+                WaterCost = _view.WaterCost,
+                TotalAmount = _view.TotalAmount,
+                Status = _view.Status,
+                ContractId = _view.ContractId,
+                StaffId = _view.StaffId
             };
+            
             try
             {
                 ModelDataValidation.Validate(invoice);
-                if (!int.TryParse(_view.StaffId, out var invoiceId))
-                {
-                    invoiceId = 0; // Set default value if parsing fails
-                }
-                _repository.InsertOrUpdate(invoice, invoiceId);
+                _repository.InsertOrUpdate(invoice);
                 _view.Message = _view.IsEdit ? "Invoice edited successfully" : "Invoice added successfully";
 
                 _view.IsSuccessful = true;
@@ -100,56 +98,33 @@ namespace Stall_Rental_Management_System.Presenters
 
         private void CleanViewFields()
         {
-            _view.StaffId = "Auto Generate";
-            _view.CurrentProfileImageObjectName = null;
-            _view.ProfileImageUrl = "";
-            _view.LastNameEn = null;
-            _view.FirstNameEn = null;
-            _view.LastNameKh = null;
-            _view.FirstNameKh = null;
-            _view.BirthDate = DateTime.Now.Date;
-            _view.Gender = Gender.FEMALE;
-            _view.Email = null;
-            _view.Position = StaffPosition.STAFF;
-            _view.PhoneNumber = null;
-            _view.Password = null;
-            _view.Address = null;
-        }
-
-        private void DeleteSelectedInvoice(object sender, EventArgs e)
-        {
-            try
-            {
-                var invoice = (InvoiceModel)_bindingSource.Current;
-                _repository.Delete(invoice);
-                _view.IsSuccessful = true;
-                _view.Message = "Invoice deleted successfully";
-                LoadAllInvoiceList();
-            }
-            catch (Exception ex)
-            {
-                _view.IsSuccessful = false;
-                _view.Message = ex.Message;
-            }
+            _view.InvoiceId = 0;
+            _view.InvoiceNo = CodeGeneratorUtil.GenerateRandomCode(8);
+            _view.IssuedDate = DateTime.Now.Date;
+            _view.RentFee = 0;
+            _view.ElectricityCost = 0;
+            _view.WaterCost = 0;
+            _view.TotalAmount = 0;
+            _view.Status = InvoiceStatus.UNPAID;
+            _view.ContractId = 0;
+            _view.StaffId = CurrentUserUtil.User.UserId;
         }
 
         private void LoadSelectedInvoice()
         {
             var invoice = (InvoiceModel)_bindingSource.Current;
+            _view.Invoice = invoice;
         
-            _view.StaffId = invoice.StaffId.ToString();
-            _view.ProfileImageUrl = invoice.ProfileImageUrl;
-            _view.LastNameKh = invoice.LastNameKh;
-            _view.FirstNameKh = invoice.FirstNameKh;
-            _view.LastNameEn = invoice.LastNameEn;
-            _view.FirstNameEn = invoice.FirstNameEn;
-            _view.BirthDate = invoice.BirthDate;
-            _view.Gender = invoice.Gender;
-            _view.Email = invoice.Email;
-            _view.Position = invoice.Position;
-            _view.PhoneNumber = invoice.PhoneNumber;
-            _view.Password = invoice.Password;
-            _view.Address = invoice.Address;
+            _view.InvoiceId = invoice.InvoiceId;
+            _view.InvoiceNo = invoice.InvoiceNo;
+            _view.IssuedDate = invoice.IssuedDate;
+            _view.RentFee = invoice.RentFee;
+            _view.ElectricityCost = invoice.ElectricityCost;
+            _view.WaterCost = invoice.WaterCost;
+            _view.TotalAmount = invoice.TotalAmount;
+            _view.Status = invoice.Status;
+            _view.ContractId = invoice.ContractId;
+            _view.StaffId = invoice.StaffId;
         }
 
         private void AddNewInvoice(object sender, EventArgs e)

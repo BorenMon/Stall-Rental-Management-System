@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using Stall_Rental_Management_System.Utils;
-
 
 namespace Stall_Rental_Management_System.Helpers
 {
@@ -20,14 +18,14 @@ namespace Stall_Rental_Management_System.Helpers
             return displayName ?? enumValue.ToString();
         }
 
-        public static List<KeyValuePair<Enum, string>> GetEnumDisplayNames<T>() where T : Enum
+        public static List<KeyValuePair<int, string>> GetEnumDisplayNames<T>() where T : Enum
         {
             return Enum.GetValues(typeof(T))
                        .Cast<Enum>()
-                       .Select(e => new KeyValuePair<Enum, string>(e, GetDisplayName(e)))
+                       .Select(e => new KeyValuePair<int, string>(Convert.ToInt32(e), GetDisplayName(e)))
                        .ToList();
         }
-        
+
         public static bool TryGetEnumValueFromDisplayName<T>(string displayName, out T enumValue) where T : Enum
         {
             foreach (var value in Enum.GetValues(typeof(T)).Cast<T>())
@@ -39,7 +37,7 @@ namespace Stall_Rental_Management_System.Helpers
             enumValue = default;
             return false;
         }
-        
+
         public static string ConvertToReadableFormat(string constantFormat)
         {
             if (string.IsNullOrEmpty(constantFormat))

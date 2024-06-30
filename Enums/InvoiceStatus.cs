@@ -9,5 +9,8 @@ namespace Stall_Rental_Management_System.Enums
         
         [DisplayName("Paid")]
         PAID,
+                
+        [DisplayName("Closed")]
+        CLOSED,
     }
 }

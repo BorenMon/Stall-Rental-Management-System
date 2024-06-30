@@ -189,6 +189,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
+    <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentReferenceModel.cs" />
     <Compile Include="Helpers\NavigateHelpers\StaffNavigateHelper.cs" />
