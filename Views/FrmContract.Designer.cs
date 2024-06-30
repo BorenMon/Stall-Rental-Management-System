@@ -53,7 +53,6 @@
             this.sokphengTestContractBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dbSRMSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dbSRMSDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet1 = new Stall_Rental_Management_System.DataSet1();
             this.dataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.previousButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,7 +66,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -329,17 +327,6 @@
             // 
             this.sokphengTestContractBindingSource.DataMember = "SokphengTestContract";
             // 
-            // dataSet1
-            // 
-            this.dataSet1.DataSetName = "DataSet1";
-            this.dataSet1.Namespace = "http://tempuri.org/DataSet1.xsd";
-            this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // dataSet1BindingSource
-            // 
-            this.dataSet1BindingSource.DataSource = this.dataSet1;
-            this.dataSet1BindingSource.Position = 0;
-            // 
             // previousButton
             // 
             this.previousButton.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -468,7 +455,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.sokphengTestContractBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbSRMSDataSetBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -504,7 +490,6 @@
         private System.Windows.Forms.BindingSource sokphengTestContractBindingSource;
 
         private System.Windows.Forms.BindingSource dataSet1BindingSource;
-        private DataSet1 dataSet1;
    
         private System.Windows.Forms.BindingSource tbContractBindingSource;
  

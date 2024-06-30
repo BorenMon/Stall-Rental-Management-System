@@ -35,12 +35,9 @@ namespace Stall_Rental_Management_System
             // Uncomment this line for testing purposes
             TestSetup.SetupTestUser();
             
-            var authService = new AuthenticationService();
             // Application.Run(new FrmLogin(authService)); 
-
-            var repo = new InvoiceRepository();
-            // Application.Run(new FrmStaffPanel(authService));
-            Application.Run(new FrmInvoice(repo, authService));
+            
+            Application.Run(new FrmPayment());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

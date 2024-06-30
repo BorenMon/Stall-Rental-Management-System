@@ -198,11 +198,6 @@
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
     <Compile Include="Presenters\ContractPresenter.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
-    <Compile Include="DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
@@ -371,17 +366,6 @@
     <EmbeddedResource Include="Views\Panel Forms\FrmStaffPanel.resx">
       <DependentUpon>FrmStaffPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DataSet1.xsc">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet1.xss">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Fonts\Poppins-Black.ttf" />
     <EmbeddedResource Include="Fonts\Poppins-BlackItalic.ttf" />
@@ -410,7 +394,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="pushToSokpheng.sh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
