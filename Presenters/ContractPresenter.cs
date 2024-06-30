@@ -28,7 +28,6 @@ namespace Stall_Rental_Management_System.Presenters
             //
 
             _view.SearchContract += SearchContractById;
-            _view.AddNewContract += AddNewContract;
             _view.SaveContract += SaveContract;
             _view.UpdateContract += UpdateContract;
             _view.ViewEvent += ViewContract;
@@ -62,16 +61,6 @@ namespace Stall_Rental_Management_System.Presenters
             _view.StaffId = contract.StaffId;
             _view.VendorId = contract.VendorId;
             _view.StallId = contract.StallId;
-
-            // ContractId = contract.ContractId.ToString();
-            // FileUrl = contract.FileUrl;
-            // contractCodeText.Text = contract.Code;
-            // contractStatusComboBox.SelectedValue = contract.Status;
-            // startDateContract.Value = contract.StartDate;
-            // endDateConstract.Value = contract.EndDate;
-            // contractStallIDComboBox.Text = contract.StallId.ToString();
-            // contractVendorIDComboBox.Text = contract.VendorId.ToString();
-            // textBoxStaffId.Text = contract.StaffId.ToString();
         }
 
         public ContractPresenter(ContractRepository contractRepository) {
@@ -146,11 +135,6 @@ namespace Stall_Rental_Management_System.Presenters
                 _view.IsSuccessful = false;
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void AddNewContract(object sender, EventArgs e)
-        {
- 
         }
 
         private void SearchContractById(object sender, EventArgs e)

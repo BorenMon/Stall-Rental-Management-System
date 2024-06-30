@@ -176,6 +176,7 @@
   <ItemGroup>
     <Compile Include="Enums\ContractStatus.cs" />
     <Compile Include="Enums\Gender.cs" />
+    <Compile Include="Enums\InvoiceStatus.cs" />
     <Compile Include="Enums\StaffPosition.cs" />
     <Compile Include="Enums\StallStatus.cs" />
     <Compile Include="Enums\StallType.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\GeneralNavigateHelper.cs" />
     <Compile Include="Helpers\NavigateHelpers\ManagerNavigateHelper.cs" />
+    <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentReferenceModel.cs" />
     <Compile Include="Helpers\NavigateHelpers\StaffNavigateHelper.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\StallModel.cs" />
     <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Presenters\InvoicePresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\PaymentPresenter.cs" />
     <Compile Include="Presenters\ProfilePresenter.cs" />
@@ -211,8 +214,6 @@
     <Compile Include="Presenters\StallPresenterForStaff.cs" />
     <Compile Include="Presenters\VendorPresenter.cs" />
     <Compile Include="Presenters\StallPresenterForManager.cs" />
-    <Compile Include="Presenter\IInvoiceView.cs" />
-    <Compile Include="Presenter\InvoicePresenter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -220,8 +221,10 @@
     </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ContractRepository.cs" />
+    <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IContractRepository.cs" />
+    <Compile Include="Repositories\Repository Interfaces\IInvoiceRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStaffRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IStallRepository.cs" />
     <Compile Include="Repositories\Repository Interfaces\IVendorRepository.cs" />
@@ -246,9 +249,13 @@
     <Compile Include="Views\FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repository\IInvoiceRepository.cs" />
-    <Compile Include="Repository\InvoiceRepository.cs" />
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
+    <Compile Include="Views\FrmInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmInvoice.Designer.cs">
+      <DependentUpon>FrmInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +323,7 @@
       <DependentUpon>FrmVendorPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\View Interfaces\IContractView.cs" />
+    <Compile Include="Views\View Interfaces\IInvoiceView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IPaymentView.cs" />
     <Compile Include="Views\View Interfaces\IStaffView.cs" />
@@ -329,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmChangePassword.resx">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmInvoice.resx">
+      <DependentUpon>FrmInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -414,6 +425,5 @@
     <None Include="Resources\image_placeholder.png" />
     <Content Include="Resources\search_normal.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

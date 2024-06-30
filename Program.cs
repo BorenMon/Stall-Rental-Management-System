@@ -38,8 +38,9 @@ namespace Stall_Rental_Management_System
             var authService = new AuthenticationService();
             // Application.Run(new FrmLogin(authService)); 
 
-            // var repo = new StallRepository();
-            Application.Run(new FrmStaffPanel(authService));
+            var repo = new InvoiceRepository();
+            // Application.Run(new FrmStaffPanel(authService));
+            Application.Run(new FrmInvoice(repo, authService));
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

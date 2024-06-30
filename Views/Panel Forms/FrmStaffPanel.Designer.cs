@@ -55,6 +55,7 @@
             this.buttonInvoices.Text = "Invoices";
             this.buttonInvoices.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonInvoices.UseVisualStyleBackColor = false;
+            this.buttonInvoices.Click += new System.EventHandler(this.buttonInvoices_Click);
             // 
             // buttonVendors
             // 
