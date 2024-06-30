@@ -539,6 +539,7 @@
             this.Name = "FrmStaff";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Stall Rental Management System / Manager Panel / Staff Management";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStaff)).EndInit();
