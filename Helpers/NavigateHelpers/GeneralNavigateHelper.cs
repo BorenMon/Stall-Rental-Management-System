@@ -33,7 +33,6 @@ namespace Stall_Rental_Management_System.Helpers.NavigateHelpers
                 if (currentUser.Position == StaffPosition.MANAGER) ManagerNavigateHelper.NavigateToManagerPanel(view, authService);
                 else StaffNavigateHelper.NavigateToStaffPanel(view, authService);
             }
-            else VendorNavigateHelper.NavigateToVendorPanel(view, authService);
         }
     }
 }

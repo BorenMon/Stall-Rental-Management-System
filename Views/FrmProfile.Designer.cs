@@ -354,6 +354,7 @@
             this.Controls.Add(this.panelDetail);
             this.Controls.Add(this.panel1);
             this.Name = "FrmProfile";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stall Rental Management System / User Profile";
             this.panel1.ResumeLayout(false);

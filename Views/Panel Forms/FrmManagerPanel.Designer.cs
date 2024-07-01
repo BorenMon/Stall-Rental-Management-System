@@ -33,7 +33,6 @@
             this.buttonProfile = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonReport = new System.Windows.Forms.Button();
             this.buttonStaffs = new System.Windows.Forms.Button();
             this.buttonContracts = new System.Windows.Forms.Button();
             this.buttonStalls = new System.Windows.Forms.Button();
@@ -97,7 +96,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.buttonReport);
             this.panel2.Controls.Add(this.buttonStaffs);
             this.panel2.Controls.Add(this.buttonContracts);
             this.panel2.Controls.Add(this.buttonStalls);
@@ -106,20 +104,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(892, 442);
             this.panel2.TabIndex = 5;
-            // 
-            // buttonReport
-            // 
-            this.buttonReport.BackColor = System.Drawing.Color.White;
-            this.buttonReport.Font = new System.Drawing.Font("Poppins Medium", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReport.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonReport.Location = new System.Drawing.Point(19, 157);
-            this.buttonReport.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonReport.Name = "buttonReport";
-            this.buttonReport.Size = new System.Drawing.Size(255, 100);
-            this.buttonReport.TabIndex = 8;
-            this.buttonReport.Text = "Report";
-            this.buttonReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonReport.UseVisualStyleBackColor = false;
             // 
             // buttonStaffs
             // 
@@ -148,6 +132,7 @@
             this.buttonContracts.Text = "Contracts";
             this.buttonContracts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonContracts.UseVisualStyleBackColor = false;
+            this.buttonContracts.Click += new System.EventHandler(this.buttonContracts_Click);
             // 
             // buttonStalls
             // 
@@ -181,10 +166,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
-
-        private System.Windows.Forms.Button buttonReport;
         private System.Windows.Forms.Button buttonStaffs;
         private System.Windows.Forms.Button buttonContracts;
         private System.Windows.Forms.Button buttonStalls;

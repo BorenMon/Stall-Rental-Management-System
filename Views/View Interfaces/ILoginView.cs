@@ -7,7 +7,7 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
     {
         string PhoneNumber { get; }
         string Password { get; }
-        UserType SelectedUserType { get; }
+        //UserType SelectedUserType { get; }
         void ShowMessage(string message);
         void Close();
     }

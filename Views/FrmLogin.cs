@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Stall_Rental_Management_System.Enums;
 using Stall_Rental_Management_System.Helpers;
 using Stall_Rental_Management_System.Helpers.DesignHelpers;
 using Stall_Rental_Management_System.Presenters;
 using Stall_Rental_Management_System.Services;
-using Stall_Rental_Management_System.Services.Service_Interfaces;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Views
@@ -20,9 +18,9 @@ namespace Stall_Rental_Management_System.Views
             InitializeComponent();
             _presenter = new LoginPresenter(this, authService);
 
-            comboBoxUserType.DataSource = EnumHelper.GetEnumDisplayNames<UserType>();
-            comboBoxUserType.DisplayMember = "Value";
-            comboBoxUserType.ValueMember = "Key";
+            //comboBoxUserType.DataSource = EnumHelper.GetEnumDisplayNames<UserType>();
+            //comboBoxUserType.DisplayMember = "Value";
+            //comboBoxUserType.ValueMember = "Key";
 
             textBoxPhoneNumber.KeyPress += (sender, e) =>
             {
@@ -38,7 +36,7 @@ namespace Stall_Rental_Management_System.Views
 
         public string PhoneNumber => textBoxPhoneNumber.Text;
         public string Password => textBoxPassword.Text;
-        public UserType SelectedUserType => (UserType)comboBoxUserType.SelectedValue;
+        //public UserType SelectedUserType => (UserType)comboBoxUserType.SelectedValue;
 
         public void ShowMessage(string message)
         {

@@ -45,5 +45,10 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         {
             StaffNavigateHelper.NavigateToInvoiceForm(this, _authService);
         }
+
+        private void buttonPayments_Click(object sender, EventArgs e)
+        {
+            StaffNavigateHelper.NavigateToPaymentForm(this, _authService);
+        }
     }
 }

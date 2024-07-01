@@ -6,15 +6,13 @@ using Stall_Rental_Management_System.Utils;
 using Stall_Rental_Management_System.Views.View_Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Stall_Rental_Management_System.Helpers.NavigateHelpers;
+using Stall_Rental_Management_System.Services;
 
 namespace Stall_Rental_Management_System.Views
 {
@@ -35,10 +33,12 @@ namespace Stall_Rental_Management_System.Views
         //
         public string paymentReferenceImage;
         public string paymentReferenceFileName;
+        private readonly AuthenticationService _authService;
 
-        public FrmPayment()
+        public FrmPayment(AuthenticationService authService)
         {
             InitializeComponent();
+            _authService = authService;
             this.StartPosition = FormStartPosition.CenterScreen;
             // Set the form's properties to create a fixed size form
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -422,6 +422,16 @@ namespace Stall_Rental_Management_System.Views
             UpdatePayment?.Invoke(this,EventArgs.Empty);
             ReloadDatabase() ;
     
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            GeneralNavigateHelper.NavigateToPanelForm(this, _authService);
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            CurrentUserUtil.Logout(this, _authService);
         }
     }
 }

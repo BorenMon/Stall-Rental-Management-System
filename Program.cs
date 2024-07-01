@@ -27,17 +27,14 @@ namespace Stall_Rental_Management_System
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-          
-
+            
             // Init MinIO Client
             MinIoUtil.InitMinioClient();
             
             // Uncomment this line for testing purposes
-            TestSetup.SetupTestUser();
+            // TestSetup.SetupTestUser();
             
-            // Application.Run(new FrmLogin(authService)); 
-            
-            Application.Run(new FrmPayment());
+            Application.Run(new FrmLogin(new AuthenticationService())); 
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
