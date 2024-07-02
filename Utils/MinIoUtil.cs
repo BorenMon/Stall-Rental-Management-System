@@ -14,10 +14,10 @@ namespace Stall_Rental_Management_System.Utils
         
         public static MinioClient GetMinioClient()
         {
-            var endpoint = ConfigurationManager.AppSettings["MinioEndpoint"];
-            var accessKey = ConfigurationManager.AppSettings["MinioAccessKey"];
-            var secretKey = ConfigurationManager.AppSettings["MinioSecretKey"];
-            
+            var endpoint = Environment.GetEnvironmentVariable("MinioEndpoint") ?? ConfigurationManager.AppSettings["MinioEndpoint"];
+            var accessKey = Environment.GetEnvironmentVariable("MinioAccessKey") ?? ConfigurationManager.AppSettings["MinioAccessKey"];
+            var secretKey = Environment.GetEnvironmentVariable("MinioSecretKey") ?? ConfigurationManager.AppSettings["MinioSecretKey"];
+
             return (MinioClient) new MinioClient()
                 .WithEndpoint(endpoint)
                 .WithCredentials(accessKey, secretKey)
@@ -26,10 +26,10 @@ namespace Stall_Rental_Management_System.Utils
 
         public static void InitMinioClient()
         {
-            var endpoint = ConfigurationManager.AppSettings["MinioEndpoint"];
-            var accessKey = ConfigurationManager.AppSettings["MinioAccessKey"];
-            var secretKey = ConfigurationManager.AppSettings["MinioSecretKey"];
-            
+            var endpoint = Environment.GetEnvironmentVariable("MinioEndpoint") ?? ConfigurationManager.AppSettings["MinioEndpoint"];
+            var accessKey = Environment.GetEnvironmentVariable("MinioAccessKey") ?? ConfigurationManager.AppSettings["MinioAccessKey"];
+            var secretKey = Environment.GetEnvironmentVariable("MinioSecretKey") ?? ConfigurationManager.AppSettings["MinioSecretKey"];
+
             MinioClient = (MinioClient) new MinioClient()
                 .WithEndpoint(endpoint)
                 .WithCredentials(accessKey, secretKey)
@@ -84,7 +84,9 @@ namespace Stall_Rental_Management_System.Utils
 
         public static string GenerateFileUrl(string objectName, string bucketName)
         {
-            return $"http://{ConfigurationManager.AppSettings["MinioEndpoint"]}/{bucketName}/{objectName}";
+            var endpoint = Environment.GetEnvironmentVariable("MinioEndpoint") ?? ConfigurationManager.AppSettings["MinioEndpoint"];
+
+            return $"http://{endpoint}/{bucketName}/{objectName}";
         }
     }
 }
