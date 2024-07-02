@@ -12,38 +12,38 @@ using Stall_Rental_Management_System.Views.View_Interfaces;
 
 namespace Stall_Rental_Management_System.Presenters
 {
-    internal class ContractPresenter
+    internal class ContractPresenterForStaff
     {
         // Fields
-        private readonly IContractView _view;
+        private readonly IContractViewForStaff _viewForStaff;
         private readonly IContractRepository _contractRepository;
         private BindingSource _contractBindingSource;
         private IEnumerable<ContractModel> _contractList;
 
-        public ContractPresenter(IContractView view, IContractRepository contractRepository)
+        public ContractPresenterForStaff(IContractViewForStaff viewForStaff, IContractRepository contractRepository)
         {
             _contractBindingSource = new BindingSource();   
-            _view = view;
+            _viewForStaff = viewForStaff;
             _contractRepository = contractRepository;
             //
 
-            _view.SearchContract += SearchContractById;
-            _view.SaveContract += SaveContract;
-            _view.UpdateContract += UpdateContract;
-            _view.ViewEvent += ViewContract;
+            _viewForStaff.SearchContract += SearchContractById;
+            _viewForStaff.SaveContract += SaveContract;
+            _viewForStaff.UpdateContract += UpdateContract;
+            _viewForStaff.ViewEvent += ViewForStaffContract;
 
             //get all contracts
-            _view.SetContractBindingSource(_contractBindingSource);
+            _viewForStaff.SetContractBindingSource(_contractBindingSource);
             
             // get all stall ids
-            _view.SetStallIdOnComboBox(GetAllStallIDs());
+            _viewForStaff.SetStallIdOnComboBox(GetAllStallIDs());
             // get all vendor ids
-            _view.SetVendorIdOnComboBox(GetAllVendorIDs());
+            _viewForStaff.SetVendorIdOnComboBox(GetAllVendorIDs());
             
             LoadAllContractData();
         }
 
-        private void ViewContract(object sender, EventArgs e)
+        private void ViewForStaffContract(object sender, EventArgs e)
         {
             LoadSelectedContract();
         }
@@ -52,18 +52,18 @@ namespace Stall_Rental_Management_System.Presenters
         {
             var contract = (ContractModel)_contractBindingSource.Current;
 
-            _view.ContractId = contract.ContractId.ToString();
-            _view.FileUrl = contract.FileUrl;
-            _view.Code = contract.Code;
-            _view.Status = contract.Status;
-            _view.StartDate = contract.StartDate;
-            _view.EndDate = contract.EndDate;
-            _view.StaffId = contract.StaffId;
-            _view.VendorId = contract.VendorId;
-            _view.StallId = contract.StallId;
+            _viewForStaff.ContractId = contract.ContractId.ToString();
+            _viewForStaff.FileUrl = contract.FileUrl;
+            _viewForStaff.Code = contract.Code;
+            _viewForStaff.Status = contract.Status;
+            _viewForStaff.StartDate = contract.StartDate;
+            _viewForStaff.EndDate = contract.EndDate;
+            _viewForStaff.StaffId = contract.StaffId;
+            _viewForStaff.VendorId = contract.VendorId;
+            _viewForStaff.StallId = contract.StallId;
         }
 
-        public ContractPresenter(ContractRepository contractRepository) {
+        public ContractPresenterForStaff(ContractRepository contractRepository) {
             _contractRepository = contractRepository;
         }
         private IEnumerable<int> GetAllVendorIDs()
@@ -79,10 +79,10 @@ namespace Stall_Rental_Management_System.Presenters
         private async void SaveContract(object sender, EventArgs e)
         {
             var contract = SetContractModelValue();
-            if (_view.SelectedFilePath != null)
+            if (_viewForStaff.SelectedFilePath != null)
             {
-                UploadFileToMinIo(this._view.SelectedFilePath, _view.FileName);
-                contract.FileUrl = await GetGenerateUrlFromMinIo(_view.FileName);
+                UploadFileToMinIo(this._viewForStaff.SelectedFilePath, _viewForStaff.FileName);
+                contract.FileUrl = await GetGenerateUrlFromMinIo(_viewForStaff.FileName);
             }
             
             try
@@ -92,11 +92,11 @@ namespace Stall_Rental_Management_System.Presenters
                 
                 LoadAllContractData();
                 
-                _view.IsSuccessful = true;
+                _viewForStaff.IsSuccessful = true;
             }
             catch (Exception ex)
             {
-                _view.IsSuccessful = false;
+                _viewForStaff.IsSuccessful = false;
                 MessageBox.Show(ex.Message);
             }
         }
@@ -116,51 +116,51 @@ namespace Stall_Rental_Management_System.Presenters
             {
                 ModelDataValidation.Validate(contract);
 
-                contract.ContractId = int.Parse(_view.ContractId);
-                if (_view.SelectedFilePath != null)
+                contract.ContractId = int.Parse(_viewForStaff.ContractId);
+                if (_viewForStaff.SelectedFilePath != null)
                 {
-                    UploadFileToMinIo(_view.SelectedFilePath, _view.FileName);
-                    contract.FileUrl = await GetGenerateUrlFromMinIo(_view.FileName);
+                    UploadFileToMinIo(_viewForStaff.SelectedFilePath, _viewForStaff.FileName);
+                    contract.FileUrl = await GetGenerateUrlFromMinIo(_viewForStaff.FileName);
                 }
                 else
                 {
-                    contract.FileUrl = _view.FileUrl;
+                    contract.FileUrl = _viewForStaff.FileUrl;
                 }
                 _contractRepository.Update(contract);
                 LoadAllContractData();
-                _view.IsSuccessful = true;
+                _viewForStaff.IsSuccessful = true;
             }
             catch (Exception ex)
             {
-                _view.IsSuccessful = false;
+                _viewForStaff.IsSuccessful = false;
                 MessageBox.Show(ex.Message);
             }
         }
 
         private void SearchContractById(object sender, EventArgs e)
         {
-            _contractList = _contractRepository.GetByID(this._view.ContractId);
+            _contractList = _contractRepository.GetByID(this._viewForStaff.ContractId);
             _contractBindingSource = new BindingSource();
             _contractBindingSource.DataSource = _contractList;
-            _view.SetContractBindingSource(_contractBindingSource);
+            _viewForStaff.SetContractBindingSource(_contractBindingSource);
             //MessageBox.Show("Number of Search Found: " + contractList.Count().ToString());
         }
         // constructor
         private ContractModel SetContractModelValue()
         {
             var contract = new ContractModel();
-            if (_view.SelectedFilePath == null)
+            if (_viewForStaff.SelectedFilePath == null)
             {
-                contract.FileUrl = _view.FileUrl ?? "";
+                contract.FileUrl = _viewForStaff.FileUrl ?? "";
             }
 
-            contract.Code = _view.Code;
-            contract.Status = _view.Status;
-            contract.StartDate = _view.StartDate;
-            contract.EndDate = _view.EndDate;
-            contract.VendorId = _view.VendorId;
-            contract.StallId = _view.StallId;
-            contract.StaffId = _view.StaffId;
+            contract.Code = _viewForStaff.Code;
+            contract.Status = _viewForStaff.Status;
+            contract.StartDate = _viewForStaff.StartDate;
+            contract.EndDate = _viewForStaff.EndDate;
+            contract.VendorId = _viewForStaff.VendorId;
+            contract.StallId = _viewForStaff.StallId;
+            contract.StaffId = _viewForStaff.StaffId;
             return contract;
         }
         private static async void UploadFileToMinIo(string selectedFilePath,string fileName)

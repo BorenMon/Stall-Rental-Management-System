@@ -13,7 +13,7 @@ namespace Stall_Rental_Management_System.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        public bool Login(string phoneNumber, string password, UserType userType)
+        public bool Login(string phoneNumber, string password, UserType userType = UserType.SUPERMARKET_STAFF)
         {
             const string query = "spLoginUser";
 

@@ -193,10 +193,10 @@
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentReferenceModel.cs" />
     <Compile Include="Helpers\NavigateHelpers\StaffNavigateHelper.cs" />
-    <Compile Include="Helpers\NavigateHelpers\VendorNavigateHelper.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\Common\ModelDataValidation.cs" />
-    <Compile Include="Presenters\ContractPresenter.cs" />
+    <Compile Include="Presenters\ContractPresenterForManager.cs" />
+    <Compile Include="Presenters\ContractPresenterForStaff.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\StallModel.cs" />
@@ -245,6 +245,12 @@
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\MinIOObjectNameUtil.cs" />
+    <Compile Include="Views\FrmContractForManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FrmContractForManager.Designer.cs">
+      <DependentUpon>FrmContractForManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,11 +263,11 @@
     <Compile Include="Views\FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FrmContract.cs">
+    <Compile Include="Views\FrmContractForStaff.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FrmContract.Designer.cs">
-      <DependentUpon>FrmContract.cs</DependentUpon>
+    <Compile Include="Views\FrmContractForStaff.Designer.cs">
+      <DependentUpon>FrmContractForStaff.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FrmPayment.cs">
       <SubType>Form</SubType>
@@ -311,13 +317,8 @@
     <Compile Include="Views\Panel Forms\FrmStaffPanel.Designer.cs">
       <DependentUpon>FrmStaffPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Panel Forms\FrmVendorPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Panel Forms\FrmVendorPanel.Designer.cs">
-      <DependentUpon>FrmVendorPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\View Interfaces\IContractView.cs" />
+    <Compile Include="Views\View Interfaces\IContractViewForManager.cs" />
+    <Compile Include="Views\View Interfaces\IContractViewForStaff.cs" />
     <Compile Include="Views\View Interfaces\IInvoiceView.cs" />
     <Compile Include="Views\View Interfaces\ILoginView.cs" />
     <Compile Include="Views\View Interfaces\IPaymentView.cs" />
@@ -333,14 +334,17 @@
     <EmbeddedResource Include="Views\FrmChangePassword.resx">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrmContractForManager.resx">
+      <DependentUpon>FrmContractForManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmInvoice.resx">
       <DependentUpon>FrmInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\FrmContract.resx">
-      <DependentUpon>FrmContract.cs</DependentUpon>
+    <EmbeddedResource Include="Views\FrmContractForStaff.resx">
+      <DependentUpon>FrmContractForStaff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmPayment.resx">
       <DependentUpon>FrmPayment.cs</DependentUpon>

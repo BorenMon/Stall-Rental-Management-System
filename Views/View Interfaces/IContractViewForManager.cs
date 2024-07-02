@@ -5,7 +5,7 @@ using Stall_Rental_Management_System.Enums;
 
 namespace Stall_Rental_Management_System.Views.View_Interfaces
 {
-    internal interface IContractView
+    internal interface IContractViewForManager
     {
         // Properties for contract details
         string ContractId { get; set; }
@@ -21,15 +21,9 @@ namespace Stall_Rental_Management_System.Views.View_Interfaces
         string SelectedFilePath { get; set; }
         
         bool IsSuccessful { get; set; }
-        //
-        // Event to handle contract save button click
-        event EventHandler SaveContract;
 
         // Event to handle contract search button click
         event EventHandler SearchContract;
-
-        // Event to handle contract update button click
-        event EventHandler UpdateContract;
         
         event EventHandler ViewEvent;
 

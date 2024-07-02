@@ -23,9 +23,9 @@ namespace Stall_Rental_Management_System.Presenters
         {
             var phoneNumber = _view.PhoneNumber;
             var password = _view.Password;
-            var userType = _view.SelectedUserType;
+            //var userType = _view.SelectedUserType;
 
-            if (_authService.Login(phoneNumber, password, userType))
+            if (_authService.Login(phoneNumber, password))
             {
                 _view.ShowMessage("Login successful!");
 
@@ -33,11 +33,11 @@ namespace Stall_Rental_Management_System.Presenters
 
                 // Navigate to the next form based on user type
                 Form nextForm = null;
-                if (userType == UserType.SUPERMARKET_STAFF)
-                {
+                //if (userType == UserType.SUPERMARKET_STAFF)
+                //{
                     if (currentUser.Position == StaffPosition.MANAGER) nextForm = new FrmManagerPanel(_authService);
                     else nextForm = new FrmStaffPanel(_authService);
-                }
+                //}
 
                 if (nextForm == null) return;
                 nextForm.Show();

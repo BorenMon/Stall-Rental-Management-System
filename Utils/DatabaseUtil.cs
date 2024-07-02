@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Configuration;
+using System;
 
 namespace Stall_Rental_Management_System.Utils
 {
@@ -7,7 +8,7 @@ namespace Stall_Rental_Management_System.Utils
     {
         public static string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["SRMSConnectionString"].ConnectionString;
+            return Environment.GetEnvironmentVariable("SRMSConnectionString") ?? ConfigurationManager.ConnectionStrings["SRMSConnectionString"].ConnectionString;
         }
 
         public static SqlConnection GetConnection()

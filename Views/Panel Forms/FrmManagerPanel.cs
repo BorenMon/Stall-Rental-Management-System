@@ -37,5 +37,10 @@ namespace Stall_Rental_Management_System.Views.Panel_Forms
         {
             CurrentUserUtil.Profile(this, _authService);
         }
+
+        private void buttonContracts_Click(object sender, EventArgs e)
+        {
+            ManagerNavigateHelper.NavigateToContractForm(this, _authService);
+        }
     }
 }
