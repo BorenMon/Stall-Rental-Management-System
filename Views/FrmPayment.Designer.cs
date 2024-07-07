@@ -400,7 +400,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1092, 844);
+            this.ClientSize = new System.Drawing.Size(1092, 962);
             this.Controls.Add(this.paymentDataGridView);
             this.Controls.Add(this.deletePaymentButton);
             this.Controls.Add(this.updateButton);
@@ -435,6 +435,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.paymentDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

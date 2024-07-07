@@ -75,10 +75,9 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Poppins Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(63, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(46, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(338, 50);
+            this.label1.Size = new System.Drawing.Size(241, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "Invoice Management";
             // 
@@ -90,9 +89,8 @@ namespace Stall_Rental_Management_System.Views
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1390, 96);
+            this.panel1.Size = new System.Drawing.Size(1011, 64);
             this.panel1.TabIndex = 100;
             // 
             // buttonBack
@@ -100,20 +98,18 @@ namespace Stall_Rental_Management_System.Views
             this.buttonBack.BackColor = System.Drawing.Color.Transparent;
             this.buttonBack.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBack.Image = global::Stall_Rental_Management_System.Properties.Resources.arrow_left;
-            this.buttonBack.Location = new System.Drawing.Point(19, 21);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonBack.Location = new System.Drawing.Point(14, 14);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(37, 48);
+            this.buttonBack.Size = new System.Drawing.Size(27, 32);
             this.buttonBack.TabIndex = 2;
             this.buttonBack.UseVisualStyleBackColor = false;
             // 
             // buttonLogout
             // 
             this.buttonLogout.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogout.Location = new System.Drawing.Point(1221, 26);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLogout.Location = new System.Drawing.Point(888, 17);
             this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(147, 48);
+            this.buttonLogout.Size = new System.Drawing.Size(107, 32);
             this.buttonLogout.TabIndex = 1;
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.UseVisualStyleBackColor = true;
@@ -129,18 +125,18 @@ namespace Stall_Rental_Management_System.Views
             this.panel2.Controls.Add(this.dataGridViewInvoice);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(0, 514);
+            this.panel2.Location = new System.Drawing.Point(0, 344);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1390, 647);
+            this.panel2.Size = new System.Drawing.Size(1011, 431);
             this.panel2.TabIndex = 101;
             // 
             // buttonPrint
             // 
             this.buttonPrint.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPrint.Location = new System.Drawing.Point(1054, 21);
-            this.buttonPrint.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonPrint.Location = new System.Drawing.Point(767, 14);
             this.buttonPrint.Name = "buttonPrint";
-            this.buttonPrint.Size = new System.Drawing.Size(147, 46);
+            this.buttonPrint.Size = new System.Drawing.Size(107, 31);
             this.buttonPrint.TabIndex = 70;
             this.buttonPrint.Text = "Print";
             this.buttonPrint.UseVisualStyleBackColor = true;
@@ -148,30 +144,28 @@ namespace Stall_Rental_Management_System.Views
             // textBoxSearch
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearch.Location = new System.Drawing.Point(177, 18);
+            this.textBoxSearch.Location = new System.Drawing.Point(129, 12);
             this.textBoxSearch.Margin = new System.Windows.Forms.Padding(0);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(393, 42);
+            this.textBoxSearch.Size = new System.Drawing.Size(287, 32);
             this.textBoxSearch.TabIndex = 66;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 42);
+            this.label2.Size = new System.Drawing.Size(112, 30);
             this.label2.TabIndex = 63;
             this.label2.Text = "Search Stall";
             // 
             // buttonAddNewStall
             // 
             this.buttonAddNewStall.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddNewStall.Location = new System.Drawing.Point(1221, 21);
-            this.buttonAddNewStall.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAddNewStall.Location = new System.Drawing.Point(888, 14);
             this.buttonAddNewStall.Name = "buttonAddNewStall";
-            this.buttonAddNewStall.Size = new System.Drawing.Size(147, 46);
+            this.buttonAddNewStall.Size = new System.Drawing.Size(107, 31);
             this.buttonAddNewStall.TabIndex = 64;
             this.buttonAddNewStall.Text = "Add New";
             this.buttonAddNewStall.UseVisualStyleBackColor = true;
@@ -181,10 +175,9 @@ namespace Stall_Rental_Management_System.Views
             this.buttonSearch.BackColor = System.Drawing.Color.Transparent;
             this.buttonSearch.Font = new System.Drawing.Font("Poppins", 8.142858F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSearch.Image = global::Stall_Rental_Management_System.Properties.Resources.search_normal;
-            this.buttonSearch.Location = new System.Drawing.Point(588, 15);
-            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSearch.Location = new System.Drawing.Point(428, 10);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(56, 48);
+            this.buttonSearch.Size = new System.Drawing.Size(41, 32);
             this.buttonSearch.TabIndex = 65;
             this.buttonSearch.UseVisualStyleBackColor = false;
             // 
@@ -195,14 +188,15 @@ namespace Stall_Rental_Management_System.Views
             this.dataGridViewInvoice.AllowUserToResizeColumns = false;
             this.dataGridViewInvoice.AllowUserToResizeRows = false;
             this.dataGridViewInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInvoice.Location = new System.Drawing.Point(19, 96);
+            this.dataGridViewInvoice.Location = new System.Drawing.Point(14, 64);
+            this.dataGridViewInvoice.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridViewInvoice.MultiSelect = false;
             this.dataGridViewInvoice.Name = "dataGridViewInvoice";
             this.dataGridViewInvoice.ReadOnly = true;
             this.dataGridViewInvoice.RowHeadersWidth = 72;
             this.dataGridViewInvoice.RowTemplate.Height = 31;
             this.dataGridViewInvoice.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewInvoice.Size = new System.Drawing.Size(1349, 527);
+            this.dataGridViewInvoice.Size = new System.Drawing.Size(981, 351);
             this.dataGridViewInvoice.TabIndex = 69;
             // 
             // panelDetail
@@ -227,10 +221,9 @@ namespace Stall_Rental_Management_System.Views
             this.panelDetail.Controls.Add(this.textBoxInvoiceNo);
             this.panelDetail.Controls.Add(this.label3);
             this.panelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDetail.Location = new System.Drawing.Point(0, 96);
-            this.panelDetail.Margin = new System.Windows.Forms.Padding(4);
+            this.panelDetail.Location = new System.Drawing.Point(0, 64);
             this.panelDetail.Name = "panelDetail";
-            this.panelDetail.Size = new System.Drawing.Size(1390, 418);
+            this.panelDetail.Size = new System.Drawing.Size(1011, 280);
             this.panelDetail.TabIndex = 102;
             // 
             // comboBoxStatus
@@ -238,91 +231,84 @@ namespace Stall_Rental_Management_System.Views
             this.comboBoxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStatus.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStatus.FormattingEnabled = true;
-            this.comboBoxStatus.Location = new System.Drawing.Point(888, 180);
-            this.comboBoxStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxStatus.Location = new System.Drawing.Point(646, 120);
             this.comboBoxStatus.Name = "comboBoxStatus";
-            this.comboBoxStatus.Size = new System.Drawing.Size(479, 48);
+            this.comboBoxStatus.Size = new System.Drawing.Size(349, 36);
             this.comboBoxStatus.TabIndex = 144;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(690, 343);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(502, 229);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(178, 42);
+            this.label7.Size = new System.Drawing.Size(127, 30);
             this.label7.TabIndex = 143;
             this.label7.Text = "Total Amount";
             // 
             // textBoxTotalAmount
             // 
             this.textBoxTotalAmount.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTotalAmount.Location = new System.Drawing.Point(888, 337);
-            this.textBoxTotalAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTotalAmount.Location = new System.Drawing.Point(646, 225);
             this.textBoxTotalAmount.Name = "textBoxTotalAmount";
             this.textBoxTotalAmount.ReadOnly = true;
-            this.textBoxTotalAmount.Size = new System.Drawing.Size(480, 42);
+            this.textBoxTotalAmount.Size = new System.Drawing.Size(350, 32);
             this.textBoxTotalAmount.TabIndex = 142;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(19, 343);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(14, 229);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 42);
+            this.label8.Size = new System.Drawing.Size(87, 30);
             this.label8.TabIndex = 141;
             this.label8.Text = "Rent Fee";
             // 
             // textBoxRentFee
             // 
             this.textBoxRentFee.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRentFee.Location = new System.Drawing.Point(214, 337);
-            this.textBoxRentFee.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxRentFee.Location = new System.Drawing.Point(156, 225);
             this.textBoxRentFee.Name = "textBoxRentFee";
             this.textBoxRentFee.ReadOnly = true;
-            this.textBoxRentFee.Size = new System.Drawing.Size(416, 42);
+            this.textBoxRentFee.Size = new System.Drawing.Size(304, 32);
             this.textBoxRentFee.TabIndex = 140;
             // 
             // dateTimeIssuedDate
             // 
             this.dateTimeIssuedDate.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimeIssuedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeIssuedDate.Location = new System.Drawing.Point(213, 180);
+            this.dateTimeIssuedDate.Location = new System.Drawing.Point(155, 120);
+            this.dateTimeIssuedDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateTimeIssuedDate.Name = "dateTimeIssuedDate";
-            this.dateTimeIssuedDate.Size = new System.Drawing.Size(416, 42);
+            this.dateTimeIssuedDate.Size = new System.Drawing.Size(304, 32);
             this.dateTimeIssuedDate.TabIndex = 139;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(689, 264);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(501, 176);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(152, 42);
+            this.label6.Size = new System.Drawing.Size(108, 30);
             this.label6.TabIndex = 138;
             this.label6.Text = "Water Cost";
             // 
             // textBoxWaterCost
             // 
             this.textBoxWaterCost.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxWaterCost.Location = new System.Drawing.Point(887, 258);
-            this.textBoxWaterCost.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxWaterCost.Location = new System.Drawing.Point(645, 172);
             this.textBoxWaterCost.Name = "textBoxWaterCost";
-            this.textBoxWaterCost.Size = new System.Drawing.Size(480, 42);
+            this.textBoxWaterCost.Size = new System.Drawing.Size(350, 32);
             this.textBoxWaterCost.TabIndex = 137;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(18, 264);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(13, 176);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(167, 42);
+            this.label14.Size = new System.Drawing.Size(117, 30);
             this.label14.TabIndex = 136;
             this.label14.Text = "Electric Cost";
             // 
@@ -330,40 +316,36 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(689, 182);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(501, 121);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(94, 42);
+            this.label12.Size = new System.Drawing.Size(66, 30);
             this.label12.TabIndex = 134;
             this.label12.Text = "Status";
             // 
             // textBoxElectricCost
             // 
             this.textBoxElectricCost.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxElectricCost.Location = new System.Drawing.Point(213, 258);
-            this.textBoxElectricCost.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxElectricCost.Location = new System.Drawing.Point(155, 172);
             this.textBoxElectricCost.Name = "textBoxElectricCost";
-            this.textBoxElectricCost.Size = new System.Drawing.Size(416, 42);
+            this.textBoxElectricCost.Size = new System.Drawing.Size(304, 32);
             this.textBoxElectricCost.TabIndex = 133;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(16, 183);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(12, 122);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(159, 42);
+            this.label13.Size = new System.Drawing.Size(113, 30);
             this.label13.TabIndex = 132;
             this.label13.Text = "Issued Date";
             // 
             // buttonUpdateOrSave
             // 
             this.buttonUpdateOrSave.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUpdateOrSave.Location = new System.Drawing.Point(1221, 20);
-            this.buttonUpdateOrSave.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonUpdateOrSave.Location = new System.Drawing.Point(888, 13);
             this.buttonUpdateOrSave.Name = "buttonUpdateOrSave";
-            this.buttonUpdateOrSave.Size = new System.Drawing.Size(147, 48);
+            this.buttonUpdateOrSave.Size = new System.Drawing.Size(107, 32);
             this.buttonUpdateOrSave.TabIndex = 124;
             this.buttonUpdateOrSave.UseVisualStyleBackColor = true;
             // 
@@ -371,62 +353,56 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.comboBoxContractCode.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxContractCode.FormattingEnabled = true;
-            this.comboBoxContractCode.Location = new System.Drawing.Point(887, 99);
-            this.comboBoxContractCode.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxContractCode.Location = new System.Drawing.Point(645, 66);
             this.comboBoxContractCode.Name = "comboBoxContractCode";
-            this.comboBoxContractCode.Size = new System.Drawing.Size(480, 48);
+            this.comboBoxContractCode.Size = new System.Drawing.Size(350, 36);
             this.comboBoxContractCode.TabIndex = 131;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(689, 102);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(501, 68);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(196, 42);
+            this.label5.Size = new System.Drawing.Size(138, 30);
             this.label5.TabIndex = 129;
             this.label5.Text = "Contract Code";
             // 
             // textBoxStaffID
             // 
             this.textBoxStaffID.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStaffID.Location = new System.Drawing.Point(213, 96);
-            this.textBoxStaffID.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxStaffID.Location = new System.Drawing.Point(155, 64);
             this.textBoxStaffID.Name = "textBoxStaffID";
             this.textBoxStaffID.ReadOnly = true;
-            this.textBoxStaffID.Size = new System.Drawing.Size(416, 42);
+            this.textBoxStaffID.Size = new System.Drawing.Size(304, 32);
             this.textBoxStaffID.TabIndex = 128;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(16, 99);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(12, 66);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 42);
+            this.label4.Size = new System.Drawing.Size(73, 30);
             this.label4.TabIndex = 127;
             this.label4.Text = "Staff ID";
             // 
             // textBoxInvoiceNo
             // 
             this.textBoxInvoiceNo.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxInvoiceNo.Location = new System.Drawing.Point(213, 19);
-            this.textBoxInvoiceNo.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxInvoiceNo.Location = new System.Drawing.Point(155, 13);
             this.textBoxInvoiceNo.Name = "textBoxInvoiceNo";
             this.textBoxInvoiceNo.ReadOnly = true;
-            this.textBoxInvoiceNo.Size = new System.Drawing.Size(416, 42);
+            this.textBoxInvoiceNo.Size = new System.Drawing.Size(304, 32);
             this.textBoxInvoiceNo.TabIndex = 126;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 22);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(141, 42);
+            this.label3.Size = new System.Drawing.Size(102, 30);
             this.label3.TabIndex = 125;
             this.label3.Text = "Invoice No";
             // 
@@ -446,16 +422,15 @@ namespace Stall_Rental_Management_System.Views
             // 
             // FrmInvoice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1390, 1161);
+            this.ClientSize = new System.Drawing.Size(1011, 775);
             this.Controls.Add(this.panelDetail);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Location = new System.Drawing.Point(15, 15);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmInvoice";
             this.ShowIcon = false;
@@ -469,6 +444,7 @@ namespace Stall_Rental_Management_System.Views
             this.panelDetail.ResumeLayout(false);
             this.panelDetail.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button buttonPrint;

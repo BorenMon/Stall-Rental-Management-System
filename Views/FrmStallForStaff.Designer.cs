@@ -74,9 +74,9 @@ namespace Stall_Rental_Management_System.Views
             this.panelDetail.Controls.Add(this.panel3);
             this.panelDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDetail.Location = new System.Drawing.Point(0, 64);
-            this.panelDetail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelDetail.Margin = new System.Windows.Forms.Padding(2);
             this.panelDetail.Name = "panelDetail";
-            this.panelDetail.Size = new System.Drawing.Size(1011, 332);
+            this.panelDetail.Size = new System.Drawing.Size(1011, 592);
             this.panelDetail.TabIndex = 102;
             // 
             // panelImages
@@ -89,7 +89,7 @@ namespace Stall_Rental_Management_System.Views
             this.panelImages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelImages.Location = new System.Drawing.Point(0, 227);
             this.panelImages.Name = "panelImages";
-            this.panelImages.Size = new System.Drawing.Size(1011, 105);
+            this.panelImages.Size = new System.Drawing.Size(1011, 365);
             this.panelImages.TabIndex = 1;
             // 
             // listBoxImagesFileName
@@ -311,8 +311,8 @@ namespace Stall_Rental_Management_System.Views
             this.panel2.Controls.Add(this.dataGridViewStall);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(0, 396);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Location = new System.Drawing.Point(0, 656);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1011, 307);
             this.panel2.TabIndex = 101;
@@ -355,7 +355,7 @@ namespace Stall_Rental_Management_System.Views
             this.dataGridViewStall.AllowUserToResizeRows = false;
             this.dataGridViewStall.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStall.Location = new System.Drawing.Point(14, 61);
-            this.dataGridViewStall.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewStall.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewStall.MultiSelect = false;
             this.dataGridViewStall.Name = "dataGridViewStall";
             this.dataGridViewStall.ReadOnly = true;
@@ -374,7 +374,7 @@ namespace Stall_Rental_Management_System.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1011, 703);
+            this.ClientSize = new System.Drawing.Size(1011, 963);
             this.Controls.Add(this.panelDetail);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -394,6 +394,7 @@ namespace Stall_Rental_Management_System.Views
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStall)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion

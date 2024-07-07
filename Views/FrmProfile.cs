@@ -174,7 +174,7 @@ namespace Stall_Rental_Management_System.Views
         public Gender Gender
         {
             get => (Gender)comboBoxGender.SelectedValue;
-            private set => comboBoxGender.SelectedValue = value;
+            private set => comboBoxGender.SelectedValue = (int)value;
         }
         public string Email
         {

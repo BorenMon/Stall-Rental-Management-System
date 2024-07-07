@@ -62,7 +62,7 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.buttonLogin.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonLogin.Font = new System.Drawing.Font("Poppins", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogin.Location = new System.Drawing.Point(373, 423);
+            this.buttonLogin.Location = new System.Drawing.Point(375, 321);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(109, 33);
             this.buttonLogin.TabIndex = 3;
@@ -105,7 +105,7 @@ namespace Stall_Rental_Management_System.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 530);
+            this.ClientSize = new System.Drawing.Size(892, 420);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
